@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: oxatrade-service
+  profiles:
+    active: dev
+  config:
+    import: 
+      - db.yml
+      - oxa.yml
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  servlet:
+    multipart:
+     #For file upload:
+     max-file-size: 100MB
+     max-request-size: 100MB
+
+server:
+  port: 8083
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+server:
+  port: 8083

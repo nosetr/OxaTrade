@@ -1,9 +1,4 @@
 spring:
-  profiles:
-    active: dev
-
----
-spring:
   config:
     activate:
       on-profile: dev
@@ -18,9 +13,6 @@ spring:
     baseline-on-migrate: true
     user: ${spring.r2dbc.username}
     password: ${spring.r2dbc.password}
-
-server:
-  port: 8083
 
 ---
 spring:
@@ -38,6 +30,3 @@ spring:
     user: ${spring.r2dbc.username}
     password: ${spring.r2dbc.password}
     schemas: PUBLIC # H2 default schema for test databases
-
-server:
-  port: 8083
