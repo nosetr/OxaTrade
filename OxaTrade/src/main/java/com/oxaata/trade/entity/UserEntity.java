@@ -36,13 +36,6 @@ public class UserEntity {
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 
-	/**
-	 * Hide password by output
-	 * 
-	 * @autor  Nikolay Osetrov
-	 * @since  0.1.0
-	 * @return
-	 */
 	@ToString.Include(name = "password")
 	private String maskPassword() {
 		return "********";
