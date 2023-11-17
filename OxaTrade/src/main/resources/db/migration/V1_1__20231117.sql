@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS oxatrade.users (
     id         SERIAL PRIMARY KEY,
     email      VARCHAR(64)   NOT NULL UNIQUE,
     password   VARCHAR(2048) NOT NULL,
-    user_role  VARCHAR(32)   NOT NULL,
+    user_role  VARCHAR(32)   NOT NULL DEFAULT "USER",
     first_name VARCHAR(64)   NOT NULL,
     last_name  VARCHAR(64)   NOT NULL,
     enabled    BOOLEAN       NOT NULL DEFAULT FALSE,
