@@ -1,11 +1,14 @@
 package com.oxaata.trade.service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.oxaata.trade.entity.UserEntity;
+import com.oxaata.trade.enums.UserRole;
 import com.oxaata.trade.repository.UserRepository;
+import com.oxaata.trade.security.PBFDK2Encoder;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,27 +16,45 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * Service for users
+ * Service for users actions.
  * 
  * @autor Nikolay Osetrov
  * @since 0.1.0
+ * @see   PBFDK2Encoder
  */
-//@Slf4j
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
 	private final UserRepository userRepository;
+	private final PBFDK2Encoder passwordEncoder;
 
 	/**
-	 * Get all users
+	 * Create new user with UserRepository.
 	 * 
-	 * @autor  Nikolay Osetrov
-	 * @since  0.1.0
-	 * @return Flux<UserEntity>
+	 * @autor       Nikolay Osetrov
+	 * @since       0.1.0
+	 * @param  user UserEntity
+	 * @return      Mono<UserEntity>
+	 * @see         PBFDK2Encoder
 	 */
-	public Flux<UserEntity> findAll() {
-		return userRepository.findAll();
+	public Mono<UserEntity> registerUser(UserEntity user) {
+		return userRepository.save(
+				// Build special fields of user with default values.
+				user.toBuilder()
+						// Password encode
+						.password(passwordEncoder.encode(user.getPassword()))
+						.userRole(UserRole.USER)
+						.enabled(true) // TODO make false because of email verification.
+						.createdAt(LocalDateTime.now())
+						.updatedAt(LocalDateTime.now())
+						.build()
+		)
+				.doOnSuccess(u -> {
+					// Make log about new users registration.
+					log.info("IN registerUser - user: {} created", u);
+				});
 	}
 
 	/**
@@ -44,7 +65,7 @@ public class UserService {
 	 * @param  id Long
 	 * @return    Mono<UserEntity>
 	 */
-	public Mono<UserEntity> findById(Long id) {
+	public Mono<UserEntity> getUserById(Long id) {
 		return userRepository.findById(id);
 	}
 
@@ -56,9 +77,19 @@ public class UserService {
 	 * @param  email String
 	 * @return       Mono<UserEntity>
 	 */
-	public Mono<UserEntity> findByEmail(String email) {
+	public Mono<UserEntity> getUserByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
+
+	/**
+	 * ++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * Get all users
+	 * 
+	 * @autor  Nikolay Osetrov
+	 * @since  0.1.0
+	 * @return Flux<UserEntity>
+	 */
+	public Flux<UserEntity> getAll() { return userRepository.findAll(); }
 
 	/**
 	 * Update user by ID

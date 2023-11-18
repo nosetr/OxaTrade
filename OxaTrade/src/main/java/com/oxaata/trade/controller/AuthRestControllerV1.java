@@ -1,36 +1,90 @@
 package com.oxaata.trade.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.oxaata.trade.dto.AuthRequestDto;
+import com.oxaata.trade.dto.AuthResponseDto;
+import com.oxaata.trade.dto.UserDto;
 import com.oxaata.trade.entity.UserEntity;
+import com.oxaata.trade.mapper.UserMapper;
+import com.oxaata.trade.security.CustomPrincipal;
+import com.oxaata.trade.security.SecurityService;
 import com.oxaata.trade.service.UserService;
 
+import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
+/**
+ * Controller for actions with users authentication.
+ * 
+ * @autor Nikolay Osetrov
+ * @since 0.1.0
+ */
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
 public class AuthRestControllerV1 {
 
-	@Autowired
-	UserService userService;
+	private final SecurityService securityService;
+	private final UserService userService;
+	private final UserMapper userMapper;
 
 	/**
-	 * Get users info by ID
+	 * Users registration action with requested body.
 	 * 
-	 * @autor     Nikolay Osetrov
-	 * @since     0.1.0
-	 * @param  id Long
-	 * @return    Mono<UserEntity>
+	 * @autor          Nikolay Osetrov
+	 * @since          0.1.0
+	 * @param  userDto UserDto
+	 * @return         Mono<UserDto>
+	 * @see            UserDto
 	 */
-	@GetMapping("/info/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public Mono<UserEntity> getUserInfo(@PathVariable("id") Long id) {
-		return userService.findById(id);
+	@PostMapping("/register")
+	public Mono<UserDto> register(@RequestBody UserDto userDto) {
+		// Map UserDto with UserEntity
+		UserEntity entity = userMapper.map(userDto);
+		// Call registrations service
+		return userService.registerUser(entity)
+				.map(userMapper::map);
+	}
+
+	/**
+	 * Users login action.
+	 * <p> Begin of authentication with email and password.
+	 * 
+	 * @autor                 Nikolay Osetrov
+	 * @since                 0.1.0
+	 * @param  authRequestDto AuthRequestDto
+	 * @return                Mono<AuthResponseDto>
+	 * @see                   AuthRequestDto
+	 */
+	@PostMapping("/login")
+	public Mono<AuthResponseDto> login(@RequestBody AuthRequestDto authRequestDto) {
+		// Call authentications service
+		return securityService.authenticate(authRequestDto.getEmail(), authRequestDto.getPassword())
+				.flatMap(
+						tokenDetails -> Mono.just(
+								// Create response with token and additional info.
+								AuthResponseDto.builder()
+										.userId(tokenDetails.getUserId())
+										.token(tokenDetails.getToken())
+										.issuedAt(tokenDetails.getIssuedAt())
+										.expiresAt(tokenDetails.getExpiresAt())
+										.build()
+						)
+				);
+	}
+
+//	@PreAuthorize("hasAnyRole('USER')")
+	@GetMapping("/info")
+	public Mono<UserDto> getUserInfo(Authentication authentication) {
+		CustomPrincipal customPrincipal = (CustomPrincipal) authentication.getPrincipal();
+
+		return userService.getUserById(customPrincipal.getId())
+				.map(userMapper::map);
 	}
 }
