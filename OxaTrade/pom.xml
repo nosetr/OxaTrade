@@ -137,7 +137,35 @@
 			<artifactId>jsr305</artifactId>
 			<version>3.0.2</version>
 		</dependency>
-
+		
+		
+		<!--
+		https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<!--
+		https://mvnrepository.com/artifact/org.passay/passay
+		Library for checking that a password complies with a custom set of
+		rules
+		https://www.baeldung.com/java-passay
+		-->
+		<dependency>
+			<groupId>org.passay</groupId>
+			<artifactId>passay</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+		<!--
+		https://mvnrepository.com/artifact/commons-validator/commons-validator
+		https://commons.apache.org/components.html
+		For email-send, fileupload, crypto and so on...
+		-->
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+			<version>1.7</version>
+		</dependency>
 
 	</dependencies>
 

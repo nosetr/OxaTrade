@@ -16,6 +16,7 @@ import com.oxaata.trade.security.CustomPrincipal;
 import com.oxaata.trade.security.SecurityService;
 import com.oxaata.trade.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
@@ -44,7 +45,7 @@ public class AuthRestControllerV1 {
 	 * @see            UserDto
 	 */
 	@PostMapping("/register")
-	public Mono<UserDto> register(@RequestBody UserDto userDto) {
+	public Mono<UserDto> register(@Valid @RequestBody UserDto userDto) {
 		// Map UserDto with UserEntity
 		UserEntity entity = userMapper.map(userDto);
 		// Call registrations service

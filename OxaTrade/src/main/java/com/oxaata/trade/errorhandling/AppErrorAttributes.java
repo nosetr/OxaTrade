@@ -21,6 +21,7 @@ import io.jsonwebtoken.security.SignatureException;
 
 @Component
 public class AppErrorAttributes extends DefaultErrorAttributes {
+	
 	private HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 
 	public AppErrorAttributes() {
@@ -29,6 +30,7 @@ public class AppErrorAttributes extends DefaultErrorAttributes {
 
 	@Override
 	public Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
+		
 		var errorAttributes = super.getErrorAttributes(request, ErrorAttributeOptions.defaults());
 		var error = getError(request);
 
@@ -39,18 +41,23 @@ public class AppErrorAttributes extends DefaultErrorAttributes {
 					|| error instanceof ExpiredJwtException || error instanceof SignatureException
 					|| error instanceof MalformedJwtException
 		) {
+
 			status = HttpStatus.UNAUTHORIZED;
 			var errorMap = new LinkedHashMap<String, Object>();
 			errorMap.put("code", ((ApiException) error).getErrorCode());
 			errorMap.put("message", error.getMessage());
 			errorList.add(errorMap);
+
 		} else if (error instanceof ApiException) {
+
 			status = HttpStatus.BAD_REQUEST;
 			var errorMap = new LinkedHashMap<String, Object>();
 			errorMap.put("code", ((ApiException) error).getErrorCode());
 			errorMap.put("message", error.getMessage());
 			errorList.add(errorMap);
+
 		} else {
+
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 			var message = error.getMessage();
 			if (message == null)
@@ -61,10 +68,13 @@ public class AppErrorAttributes extends DefaultErrorAttributes {
 			errorMap.put("code", "INTERNAL_ERROR");
 			errorMap.put("message", message);
 			errorList.add(errorMap);
+
 		}
 
 		var errors = new HashMap<String, Object>();
+		
 		errors.put("errors", errorList);
+		
 		errorAttributes.put("status", status.value());
 		errorAttributes.put("errors", errors);
 

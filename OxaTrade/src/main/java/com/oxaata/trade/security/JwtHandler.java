@@ -38,7 +38,7 @@ public class JwtHandler {
 	 * @autor              Nikolay Osetrov
 	 * @since              0.1.0
 	 * @param  accessToken BearerToken extracted from HttpHeaders.AUTHORIZATION
-	 * @return Mono<VerificationResult> or UnauthorizedException
+	 * @return             Mono<VerificationResult> or UnauthorizedException
 	 */
 	public Mono<VerificationResult> check(String accessToken) {
 		return Mono.just(verify(accessToken))
@@ -83,15 +83,10 @@ public class JwtHandler {
 				.build()
 				.parseSignedClaims(token)
 				.getPayload();
-
-//				Jwts.parser()
-//						.setSigningKey(Base64.getEncoder().encodeToString(secret.getBytes()))
-//						.parseClaimsJws(token)
-//						.getBody();
 	}
 
 	/**
-	 * Class in class
+	 * Make result of verification.
 	 * 
 	 * @autor Nikolay Osetrov
 	 * @since 0.1.0
@@ -100,6 +95,14 @@ public class JwtHandler {
 		public Claims claims;
 		public String token;
 
+		/**
+		 * Constructor for initiation.
+		 * 
+		 * @autor        Nikolay Osetrov
+		 * @since        0.1.0
+		 * @param claims
+		 * @param token
+		 */
 		public VerificationResult(Claims claims, String token) {
 			this.claims = claims;
 			this.token = token;
