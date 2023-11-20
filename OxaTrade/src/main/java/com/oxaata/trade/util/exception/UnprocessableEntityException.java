@@ -24,12 +24,8 @@ package com.oxaata.trade.util.exception;
  * @see   https://www.baeldung.com/problem-spring-web
  * @see   ExceptionsHandler#handleUnprocessableEntityException(UnprocessableEntityException)
  */
-public class UnprocessableEntityException extends RuntimeException {
+public class UnprocessableEntityException extends ApiException {
 	private static final long serialVersionUID = -486815773497437174L;
-
-	//	public class UnprocessableEntityException extends AbstractThrowableProblem {
-
-	//	private static final URI TYPE = URI.create("https://example.org/not-found");
 
 	/**
 	 * Controller
@@ -38,8 +34,7 @@ public class UnprocessableEntityException extends RuntimeException {
 	 * @since         0.1.0
 	 * @param message as string on super
 	 */
-	public UnprocessableEntityException(String message) {
-		super(message);
-		//		super(TYPE, "Not found", Status.NOT_FOUND, message);
+	public UnprocessableEntityException(String message, String errorCode) {
+		super(message, errorCode);
 	}
 }

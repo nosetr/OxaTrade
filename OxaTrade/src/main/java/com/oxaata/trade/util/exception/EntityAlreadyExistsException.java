@@ -14,7 +14,7 @@ package com.oxaata.trade.util.exception;
  * @see   java.lang.RuntimeException
  * @see   ExceptionsHandler#handleEntityAlreadyExistsException(EntityAlreadyExistsException)
  */
-public class EntityAlreadyExistsException extends RuntimeException {
+public class EntityAlreadyExistsException extends ApiException {
 
 	private static final long serialVersionUID = -593945508436610247L;
 
@@ -25,7 +25,7 @@ public class EntityAlreadyExistsException extends RuntimeException {
 	 * @since         0.1.0
 	 * @param message as string on super
 	 */
-	public EntityAlreadyExistsException(String message) {
-		super(message);
+	public EntityAlreadyExistsException(String message, String errorCode) {
+		super(message, errorCode);
 	}
 }

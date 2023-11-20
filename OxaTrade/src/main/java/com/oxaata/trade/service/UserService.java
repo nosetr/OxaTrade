@@ -9,6 +9,7 @@ import com.oxaata.trade.entity.UserEntity;
 import com.oxaata.trade.enums.UserRole;
 import com.oxaata.trade.repository.UserRepository;
 import com.oxaata.trade.security.PBFDK2Encoder;
+import com.oxaata.trade.util.exception.EntityAlreadyExistsException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,34 +28,54 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class UserService {
 
+	private static final String USER_NOT_FOUND = "User with id %d not found";
+	private static final String USER_WITH_EMAIL_ALREADY_EXISTS = "User with email address %s is already exist";
+	private static final String EMAIL_IS_NOT_VALID = "The email address %s is invalid";
+
 	private final UserRepository userRepository;
 	private final PBFDK2Encoder passwordEncoder;
 
 	/**
 	 * Create new user with UserRepository.
 	 * 
-	 * @autor       Nikolay Osetrov
-	 * @since       0.1.0
-	 * @param  user UserEntity
-	 * @return      Mono<UserEntity>
-	 * @see         PBFDK2Encoder
+	 * @autor             Nikolay Osetrov
+	 * @since             0.1.0
+	 * @param  userEntity UserEntity
+	 * @return            Mono<UserEntity>
+	 * @see               PBFDK2Encoder
 	 */
-	public Mono<UserEntity> registerUser(UserEntity user) {
-		return userRepository.save(
-				// Build special fields of user with default values.
-				user.toBuilder()
-						// Password encode
-						.password(passwordEncoder.encode(user.getPassword()))
-						.userRole(UserRole.USER)
-						.enabled(true) // TODO make false because of email verification.
-						.createdAt(LocalDateTime.now())
-						.updatedAt(LocalDateTime.now())
-						.build()
-		)
-				.doOnSuccess(u -> {
-					// Make log about new users registration.
-					log.info("IN registerUser - user: {} created", u);
-				});
+	public Mono<UserEntity> registerUser(UserEntity userEntity) {
+		String email = userEntity.getEmail();
+		// Check if email is already in use:
+		return userRepository.findByEmail(email)
+			.map(Optional::of)
+			.defaultIfEmpty(Optional.empty())
+			.flatMap(optionalUser -> {
+				// Exception if user with email founded:
+				if(optionalUser.isPresent()) {
+					return Mono.error(
+							new EntityAlreadyExistsException(
+									String.format(USER_WITH_EMAIL_ALREADY_EXISTS, email), "EMAIL_ALREADY_IN_USE"
+							)
+					);
+				}
+				// Create new user:
+				return userRepository.save(
+						// Build special fields of user with default values.
+						userEntity.toBuilder()
+								// Password encode
+								.password(passwordEncoder.encode(userEntity.getPassword()))
+								.userRole(UserRole.USER)
+								.enabled(true) // TODO make false because of email verification.
+								.createdAt(LocalDateTime.now())
+								.updatedAt(LocalDateTime.now())
+								.build()
+				)
+						.doOnSuccess(u -> {
+							// Make log about new users registration.
+							log.info("IN registerUser - user: {} created", u);
+						});
+			});
 	}
 
 	/**

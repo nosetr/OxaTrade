@@ -11,7 +11,6 @@ import com.oxaata.trade.util.annotation.PasswordValueMatch;
 import com.oxaata.trade.util.annotation.ValidPassword;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
@@ -25,7 +24,7 @@ import lombok.Data;
 @PasswordValueMatch.List(
 	{
 			@PasswordValueMatch(
-					field = "password", fieldMatch = "confirmPassword", message = "Passwords do not match!"
+					field = "password", fieldMatch = "confirmPassword", message = "{validation.password.confirm}"
 			)
 	}
 )
@@ -36,29 +35,30 @@ public class UserDto {
 	private Long id;
 
 //	@NonNull
-	@NotBlank(message = "email is mandatory")
-	@Email(message = "email is invalid")
+//	@NotBlank(message = "email is mandatory")
+	@Email(message = "{validation.email}") // TODO custom email validation must be created.
 	private String email;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // not for output
 	@ValidPassword
 //	@NonNull
-	@NotBlank(message = "New password is mandatory")
+//	@NotBlank(message = "New password is mandatory")
 	private String password;
 
-	@ValidPassword
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // not for output
+//	@ValidPassword
 //	@NonNull
-	@NotBlank(message = "Confirm Password is mandatory")
+//	@NotBlank(message = "Confirm Password is mandatory")
 	private String confirmPassword;
 
 	private UserRole userRole;
 
 //	@NonNull
-	@NotBlank(message = "first name is mandatory")
+//	@NotBlank(message = "first name is mandatory")
 	private String firstName;
 
 //	@NonNull
-	@NotBlank(message = "last name is mandatory")
+//	@NotBlank(message = "last name is mandatory")
 	private String lastName;
 
 	private boolean enabled;

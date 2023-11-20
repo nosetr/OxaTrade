@@ -14,7 +14,7 @@ package com.oxaata.trade.util.exception;
  * @see   java.lang.RuntimeException
  * @see   ExceptionsHandler#handleEntityNotFoundException(EntityNotFoundException)
  */
-public class EntityNotFoundException extends RuntimeException {
+public class EntityNotFoundException extends ApiException {
 
 	private static final long serialVersionUID = -3615634931582495487L;
 
@@ -25,8 +25,8 @@ public class EntityNotFoundException extends RuntimeException {
 	 * @since         0.1.0
 	 * @param message as string on super
 	 */
-	public EntityNotFoundException(String message) {
-		super(message);
+	public EntityNotFoundException(String message, String errorCode) {
+		super(message, errorCode);
 	}
 
 }

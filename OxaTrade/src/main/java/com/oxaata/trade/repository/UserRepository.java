@@ -20,5 +20,5 @@ public interface UserRepository extends R2dbcRepository<UserEntity, Long> {
 	//	@Query("SELECT * FROM customer WHERE last_name = :lastname")
 	//  Flux<Customer> findByLastName(String lastName);
 
-	Mono<UserEntity> findByEmail(String username);
+	Mono<UserEntity> findByEmail(String email);
 }

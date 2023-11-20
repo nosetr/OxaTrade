@@ -12,7 +12,6 @@ import org.passay.RuleResult;
 import org.passay.WhitespaceRule;
 
 import com.oxaata.trade.util.annotation.ValidPassword;
-import com.oxaata.trade.util.exception.UnprocessableEntityException;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -30,6 +29,7 @@ import jakarta.validation.ConstraintValidatorContext;
  * @since 0.1.0
  * @see   ValidPassword
  * @see   https://www.baeldung.com/java-passay
+ * @see   https://dzone.com/articles/spring-boot-custom-password-validator-using-passay
  */
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
 
@@ -55,12 +55,24 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
 		// validating password with rule set
 		RuleResult result = validator.validate(new PasswordData(password));
 		if (result.isValid()) { return true; }
-		
+
 		// if not valid, set messages
 		List<String> messages = validator.getMessages(result);
 		String messageTemplate = String.join(",", messages);
 
-		throw new UnprocessableEntityException(messageTemplate);
+		context.buildConstraintViolationWithTemplate(messageTemplate)
+				.addConstraintViolation()
+				.disableDefaultConstraintViolation();
+
+		return false;
+
+		//		return false;
+		//		throw new UnprocessableEntityException(messageTemplate, "INVALID_PASSWORD");
+		//		return this.callExceptionForMono(messageTemplate) != null;
 	}
+
+	//	Mono<Void> callExceptionForMono(String messageTemplate) {
+	//		throw new UnprocessableEntityException(messageTemplate, "INVALID_PASSWORD");
+	//	}
 
 }

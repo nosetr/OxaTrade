@@ -1,10 +1,12 @@
-package com.oxaata.trade.errorhandling;
+package com.oxaata.trade.util.exception.errorhandling;
 
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.stereotype.Component;
@@ -14,8 +16,19 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+/**
+ * Method to response for all exceptions.
+ * <p><b>The important thing to note here is that you must set the
+ * {@code @Order} value otherwise this implementation is skipped over and never
+ * called!
+ * 
+ * @autor Nikolay Osetrov
+ * @since 0.1.0
+ */
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @Component
 public class AppErrorWebExceptionHandler extends AbstractErrorWebExceptionHandler {
+
 	public AppErrorWebExceptionHandler(
 			AppErrorAttributes g, ApplicationContext applicationContext, ServerCodecConfigurer serverCodecConfigurer
 	) {

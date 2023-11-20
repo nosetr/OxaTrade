@@ -5,8 +5,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import com.oxaata.trade.entity.UserEntity;
-import com.oxaata.trade.exception.UnauthorizedException;
 import com.oxaata.trade.service.UserService;
+import com.oxaata.trade.util.exception.UnauthorizedException;
 
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;

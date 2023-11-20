@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.oxaata.trade.entity.UserEntity;
-import com.oxaata.trade.exception.AuthException;
 import com.oxaata.trade.service.UserService;
+import com.oxaata.trade.util.exception.AuthException;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -60,11 +60,11 @@ public class SecurityService {
 					// Exception if users account is not active:
 					if (!user.isEnabled()) {
 						// TODO change exceptions handler and error-code
-						return Mono.error(new AuthException("Account disabled", "OXAATA_USER_ACCOUNT_DISABLED"));
+						return Mono.error(new AuthException("Account disabled", "USER_ACCOUNT_DISABLED"));
 					}
 					// Exception if password is invalid:
 					if (!passwordEncoder.matches(password, user.getPassword())) {
-						return Mono.error(new AuthException("Invalid password", "OXAATA_INVALID_PASSWORD"));
+						return Mono.error(new AuthException("Invalid password", "INVALID_PASSWORD"));
 					}
 					// Token generation:
 					return Mono.just(
@@ -74,7 +74,7 @@ public class SecurityService {
 					);
 				})
 				// If no user founded:
-				.switchIfEmpty(Mono.error(new AuthException("Invalid email", "OXAATA_INVALID_EMAIL")));
+				.switchIfEmpty(Mono.error(new AuthException("Invalid email", "INVALID_EMAIL")));
 	}
 
 	/**

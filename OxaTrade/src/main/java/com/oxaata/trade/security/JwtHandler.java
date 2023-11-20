@@ -3,7 +3,7 @@ package com.oxaata.trade.security;
 import java.util.Base64;
 import java.util.Date;
 
-import com.oxaata.trade.exception.UnauthorizedException;
+import com.oxaata.trade.util.exception.UnauthorizedException;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
