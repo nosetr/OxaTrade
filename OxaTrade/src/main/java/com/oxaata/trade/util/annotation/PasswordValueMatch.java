@@ -24,7 +24,7 @@ import jakarta.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PasswordValueMatch {
 
-	String message() default "Fields values don't match!";
+	String message() default "{validation.password.confirm}";
 
 	Class<?>[] groups() default {};
 

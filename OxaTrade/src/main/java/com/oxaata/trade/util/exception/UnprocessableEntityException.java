@@ -1,5 +1,7 @@
 package com.oxaata.trade.util.exception;
 
+import com.oxaata.trade.enums.ErrorEnum;
+
 /**
  * {@code UnprocessableEntityException} is exception for form field validation
  * failures.
@@ -36,5 +38,19 @@ public class UnprocessableEntityException extends ApiException {
 	 */
 	public UnprocessableEntityException(String message, String errorCode) {
 		super(message, errorCode);
+	}
+
+	/**
+	 * TODO set all exceptions in code to ErrorEnum
+	 * Controller with {@link ErrorEnum}
+	 * 
+	 * @autor           Nikolay Osetrov
+	 * @since           0.1.0
+	 * @param errorEnum
+	 * @param Object... args
+	 * @see             ErrorEnum
+	 */
+	public UnprocessableEntityException(ErrorEnum errorEnum, Object... args) {
+		super(String.format(errorEnum.getMessage(), args), errorEnum.getCode());
 	}
 }

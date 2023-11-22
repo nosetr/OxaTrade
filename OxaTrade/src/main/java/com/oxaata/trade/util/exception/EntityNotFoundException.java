@@ -1,5 +1,7 @@
 package com.oxaata.trade.util.exception;
 
+import com.oxaata.trade.enums.ErrorEnum;
+
 /**
  * {@code EntityNotFoundException} is exception if no entities was found.
  * 
@@ -27,6 +29,19 @@ public class EntityNotFoundException extends ApiException {
 	 */
 	public EntityNotFoundException(String message, String errorCode) {
 		super(message, errorCode);
+	}
+
+	/**
+	 * Controller with {@link ErrorEnum}
+	 * 
+	 * @autor           Nikolay Osetrov
+	 * @since           0.1.0
+	 * @param errorEnum
+	 * @param Object... args
+	 * @see ErrorEnum
+	 */
+	public EntityNotFoundException(ErrorEnum errorEnum, Object... args) {
+		super(String.format(errorEnum.getMessage(), args), errorEnum.getCode());
 	}
 
 }

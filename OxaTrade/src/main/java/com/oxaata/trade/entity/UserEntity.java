@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import com.oxaata.trade.enums.UserRole;
+import com.oxaata.trade.enums.UserRoleEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +29,8 @@ public class UserEntity {
 	private Long id;
 	private String email;
 	private String password;
-	private UserRole userRole;
+	private UserRoleEnum userRole;
+	private String title;
 	private String firstName;
 	private String lastName;
 	private boolean enabled;

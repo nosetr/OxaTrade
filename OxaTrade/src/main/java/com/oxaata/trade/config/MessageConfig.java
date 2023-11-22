@@ -1,5 +1,7 @@
 package com.oxaata.trade.config;
 
+import java.util.Locale;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +24,8 @@ public class MessageConfig {
 	@Bean
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setBasenames("classpath:messages");
+		messageSource.setBasenames("classpath:msg/messages");
+		messageSource.setDefaultLocale(Locale.ROOT);
 		messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
 	}

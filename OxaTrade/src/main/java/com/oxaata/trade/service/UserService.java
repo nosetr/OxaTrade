@@ -6,7 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.oxaata.trade.entity.UserEntity;
-import com.oxaata.trade.enums.UserRole;
+import com.oxaata.trade.enums.ErrorEnum;
+import com.oxaata.trade.enums.UserRoleEnum;
 import com.oxaata.trade.repository.UserRepository;
 import com.oxaata.trade.security.PBFDK2Encoder;
 import com.oxaata.trade.util.exception.EntityAlreadyExistsException;
@@ -27,10 +28,6 @@ import reactor.core.publisher.Mono;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
-	private static final String USER_NOT_FOUND = "User with id %d not found";
-	private static final String USER_WITH_EMAIL_ALREADY_EXISTS = "User with email address %s is already exist";
-	private static final String EMAIL_IS_NOT_VALID = "The email address %s is invalid";
 
 	private final UserRepository userRepository;
 	private final PBFDK2Encoder passwordEncoder;
@@ -54,9 +51,7 @@ public class UserService {
 				// Exception if user with email founded:
 				if(optionalUser.isPresent()) {
 					return Mono.error(
-							new EntityAlreadyExistsException(
-									String.format(USER_WITH_EMAIL_ALREADY_EXISTS, email), "EMAIL_ALREADY_IN_USE"
-							)
+							new EntityAlreadyExistsException(ErrorEnum.USER_WITH_EMAIL_ALREADY_EXISTS, email)
 					);
 				}
 				// Create new user:
@@ -65,8 +60,8 @@ public class UserService {
 						userEntity.toBuilder()
 								// Password encode
 								.password(passwordEncoder.encode(userEntity.getPassword()))
-								.userRole(UserRole.USER)
-								.enabled(true) // TODO make false because of email verification.
+								.userRole(UserRoleEnum.USER)
+								.enabled(true) // TODO make false when email verifications system worked.
 								.createdAt(LocalDateTime.now())
 								.updatedAt(LocalDateTime.now())
 								.build()

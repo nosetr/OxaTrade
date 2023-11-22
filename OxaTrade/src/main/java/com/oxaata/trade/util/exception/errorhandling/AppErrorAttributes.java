@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -94,16 +92,23 @@ public class AppErrorAttributes extends DefaultErrorAttributes {
 		// UNPROCESSABLE_ENTITY "VALIDATION_FAILED" of fields
 		else if (error instanceof WebExchangeBindException) {
 
-			var errors = ((WebExchangeBindException) error).getBindingResult()
-					.getAllErrors()
-					.stream()
-					.map(DefaultMessageSourceResolvable::getDefaultMessage)
-					.collect(Collectors.toList());
-
-			System.out.println(errors.toString());
+			Map<String, String> errors = new HashMap<>();
+			((WebExchangeBindException) error).getBindingResult()
+					.getFieldErrors()
+					.forEach(
+							err -> {
+								if (errors.containsKey(err.getField())) {
+									errors.put(
+											err.getField(), String.format("%s,%s", errors.get(err.getField()), err.getDefaultMessage())
+									);
+								} else {
+									errors.put(err.getField(), err.getDefaultMessage());
+								}
+							}
+					);
 
 			status = HttpStatus.UNPROCESSABLE_ENTITY;
-			errorMap.put("code", "VALIDATION_FAILED"); // TODO must have fieldNames too: ((FieldError) e).getField()
+			errorMap.put("code", "VALIDATION_FAILED");
 			errorMap.put("message", errors);
 			errorList.add(errorMap);
 		}

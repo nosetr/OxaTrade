@@ -1,15 +1,21 @@
 package com.oxaata.trade.util.validation;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
 import org.passay.LengthRule;
+import org.passay.MessageResolver;
 import org.passay.PasswordData;
 import org.passay.PasswordValidator;
+import org.passay.PropertiesMessageResolver;
 import org.passay.RuleResult;
 import org.passay.WhitespaceRule;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 
 import com.oxaata.trade.util.annotation.ValidPassword;
 
@@ -28,16 +34,31 @@ import jakarta.validation.ConstraintValidatorContext;
  * @autor Nikolay Osetrov
  * @since 0.1.0
  * @see   ValidPassword
+ * @see   https://www.passay.org/reference/
  * @see   https://www.baeldung.com/java-passay
  * @see   https://dzone.com/articles/spring-boot-custom-password-validator-using-passay
+ * @see   https://www.baeldung.com/spring-classpath-file-access#2-using-value
  */
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
 
+	@Value("classpath:msg/passay.properties")
+	Resource messagesFile;
+
 	@Override
 	public boolean isValid(String password, ConstraintValidatorContext context) {
-		// Constraint rule set
+
+		// Load message file:
+		Properties props = new Properties();
+		try {
+			props.load(messagesFile.getInputStream());
+		} catch (IOException e) {
+			System.out.printf("{validation.password.FileNotFind}", messagesFile.getFilename());
+		}
+		MessageResolver resolver = new PropertiesMessageResolver(props);
+
+		// Constraint rule set:
 		PasswordValidator validator = new PasswordValidator(
-				Arrays.asList(
+				resolver, Arrays.asList(
 						// needs at least 8 characters and at most 100 chars
 						new LengthRule(8, 100),
 						// at least one upper-case character
@@ -65,14 +86,5 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
 				.disableDefaultConstraintViolation();
 
 		return false;
-
-		//		return false;
-		//		throw new UnprocessableEntityException(messageTemplate, "INVALID_PASSWORD");
-		//		return this.callExceptionForMono(messageTemplate) != null;
 	}
-
-	//	Mono<Void> callExceptionForMono(String messageTemplate) {
-	//		throw new UnprocessableEntityException(messageTemplate, "INVALID_PASSWORD");
-	//	}
-
 }

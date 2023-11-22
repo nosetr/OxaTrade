@@ -1,6 +1,6 @@
 package com.oxaata.trade.enums;
 
-public enum UserRole {
+public enum UserRoleEnum {
 	USER,
 	ADMIN
 }

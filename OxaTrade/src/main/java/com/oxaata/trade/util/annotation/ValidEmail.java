@@ -8,25 +8,25 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import com.oxaata.trade.util.validation.PasswordConstraintValidator;
+import com.oxaata.trade.util.validation.EmailConstraintValidator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 /**
- * Annotation to check passwords validation.
+ * Annotation to check email validation.
  * 
  * @autor Nikolay Osetrov
  * @since 0.1.0
- * @see PasswordConstraintValidator
+ * @see EmailConstraintValidator
  */
 @Documented
-@Constraint(validatedBy = PasswordConstraintValidator.class)
+@Constraint(validatedBy = EmailConstraintValidator.class)
 @Target({ FIELD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
-public @interface ValidPassword {
+public @interface ValidEmail {
 
-	String message() default "{validation.password.ValidPassword}";
+	String message() default "{validation.email.ValidEmail}";
 
 	Class<?>[] groups() default {};
 
