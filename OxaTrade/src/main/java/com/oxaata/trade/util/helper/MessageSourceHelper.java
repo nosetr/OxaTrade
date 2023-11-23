@@ -47,7 +47,6 @@ public class MessageSourceHelper {
 
 	/**
 	 * Method with {@code Locale.ENGLISH} as standard and without arguments.
-	 * TODO set local automatic from users request.
 	 * 
 	 * @autor            Nikolay Osetrov
 	 * @since            0.1.0
@@ -56,12 +55,18 @@ public class MessageSourceHelper {
 	 * @return
 	 */
 	public static String getMessage(String message) {
-		
+
 		Locale locale = LocaleContextHolder.getLocale();
 
 		return messageSource.getMessage(message, null, locale);
 	}
 
+	/**
+	 * Method needs to be executed after dependency injection.
+	 * 
+	 * @autor Nikolay Osetrov
+	 * @since 0.1.0
+	 */
 	@PostConstruct
 	public void postConstruct() {
 		messageSource = injectedMessageSource;

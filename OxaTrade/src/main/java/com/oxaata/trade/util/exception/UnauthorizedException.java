@@ -1,6 +1,7 @@
 package com.oxaata.trade.util.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.oxaata.trade.enums.ErrorEnum;
@@ -16,19 +17,9 @@ public class UnauthorizedException extends ApiException {
 	private static final long serialVersionUID = -6571994714217148411L;
 
 	/**
-	 * Controller.
-	 * 
-	 * @autor         Nikolay Osetrov
-	 * @since         0.1.0
-	 * @param message
-	 */
-	public UnauthorizedException(String message) {
-		super(message, "UNAUTHORIZED");
-	}
-
-	/**
-	 * TODO set all exceptions in code to ErrorEnum
 	 * Controller with {@link ErrorEnum}
+	 * <p>Keep attention on {@code NullPointerException} if args is null and message
+	 * have any placeholder (%s, %d, etc.)
 	 * 
 	 * @autor           Nikolay Osetrov
 	 * @since           0.1.0
@@ -36,7 +27,7 @@ public class UnauthorizedException extends ApiException {
 	 * @param Object... args
 	 * @see             ErrorEnum
 	 */
-	public UnauthorizedException(ErrorEnum errorEnum, Object... args) {
+	public UnauthorizedException(ErrorEnum errorEnum, @Nullable Object... args) {
 		super(String.format(errorEnum.getMessage(), args), errorEnum.getCode());
 	}
 }

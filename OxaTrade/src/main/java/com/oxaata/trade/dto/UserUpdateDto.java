@@ -9,13 +9,13 @@ import com.oxaata.trade.util.annotation.PasswordValueMatch;
 import com.oxaata.trade.util.annotation.ValidEmail;
 import com.oxaata.trade.util.annotation.ValidPassword;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**
- * DTO for users registration.
+ * DTO for users updating.
  * <p> All field, but not confirmPassword are equals to {@link UserEntity}
+ * <p>No required fields.
  * 
  * @autor Nikolay Osetrov
  * @since 0.1.0
@@ -29,34 +29,28 @@ import lombok.Data;
 	}
 )
 @Data
-//@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class) // not needed because of applications config
-public class UserDto {
+public class UserUpdateDto {
 
 	private Long id;
 
-	@NotBlank(message = "{validation.field.NotBlank}")
 	@ValidEmail
 	private String email;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // not for output
 	@ValidPassword
-	@NotBlank(message = "{validation.field.NotBlank}")
 	private String password;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // not for output
-	@NotBlank(message = "{validation.field.NotBlank}")
 	private String confirmPassword;
 
 	private UserRoleEnum userRole;
 	
 	private String title;
 
-	@NotBlank(message = "{validation.field.NotBlank}")
   @Size(message = "{validation.firstname.size}", min = 2, max = 64)
 	@JsonProperty("first_name")
 	private String firstName;
 
-	@NotBlank(message = "{validation.field.NotBlank}")
   @Size(message = "{validation.lastname.size}", min = 2, max = 64)
 	private String lastName;
 

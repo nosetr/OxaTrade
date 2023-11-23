@@ -18,11 +18,23 @@ import lombok.Getter;
  */
 public enum ErrorEnum {
 
-	USER_NOT_FOUND(
-			"USER_NOT_FOUND", "exception.notFound.user"
-	),
 	USER_WITH_EMAIL_ALREADY_EXISTS(
-			"EMAIL_ALREADY_IN_USE", "exception.alreadyExists.email"
+			"EMAIL_ALREADY_IN_USE", "exception.email.alreadyExists"
+	),
+	INVALID_EMAIL_IS_REQUESTED(
+			"INVALID_EMAIL", "exception.email.invalid"
+	),
+	INVALID_PASSWORD_IS_REQUESTED(
+			"INVALID_PASSWORD", "exception.password.invalid"
+	),
+	USER_NOT_FOUND(
+			"USER_NOT_FOUND", "exception.user.notFound"
+	),
+	USER_ACCOUNT_IS_DISABLED(
+			"USER_ACCOUNT_DISABLED", "exception.user.disabled"
+	),
+	TOKEN_IS_EXPIRED(
+			"TOKEN_EXPIRED", "exception.access.tokenExpired"
 	);
 
 	@Getter
@@ -30,6 +42,14 @@ public enum ErrorEnum {
 
 	private final String message;
 
+	/**
+	 * Constructor
+	 * 
+	 * @autor         Nikolay Osetrov
+	 * @since         0.1.0
+	 * @param code
+	 * @param message Translated with {@link MessageSourceHelper}
+	 */
 	private ErrorEnum(String code, String message) {
 		this.code = code;
 		this.message = message;
@@ -41,6 +61,7 @@ public enum ErrorEnum {
 	 * @autor  Nikolay Osetrov
 	 * @since  0.1.0
 	 * @return String
+	 * @see    MessageSourceHelper
 	 */
 	public String getMessage() { return MessageSourceHelper.getMessage(message); }
 }

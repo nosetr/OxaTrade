@@ -3,6 +3,7 @@ package com.oxaata.trade.security;
 import java.util.Base64;
 import java.util.Date;
 
+import com.oxaata.trade.enums.ErrorEnum;
 import com.oxaata.trade.util.exception.UnauthorizedException;
 
 import io.jsonwebtoken.Claims;
@@ -41,15 +42,20 @@ public class JwtHandler {
 	 * @return             Mono<VerificationResult> or UnauthorizedException
 	 */
 	public Mono<VerificationResult> check(String accessToken) {
-		return Mono.just(verify(accessToken))
-				.onErrorResume(e -> Mono.error(new UnauthorizedException(e.getMessage())));
+		
+		// Do not change it!!! Mono.error don't work heir.
+		try {
+			return Mono.just(verify(accessToken));
+		} catch (RuntimeException e) {
+			throw new UnauthorizedException(ErrorEnum.TOKEN_IS_EXPIRED);
+		}
 	}
 
 	/**
-	 * Verification of token if expirationDate is over
+	 * Verification of token if expirationDate is over.
 	 * 
-	 * @autor        Nikolay Osetrov
-	 * @since        0.1.0
+	 * @autor                        Nikolay Osetrov
+	 * @since                        0.1.0
 	 * @param  token
 	 * @return
 	 */
@@ -58,7 +64,7 @@ public class JwtHandler {
 		final Date expirationDate = claims.getExpiration();
 
 		// if expirationDate is over, then throw exception
-		if (expirationDate.before(new Date())) { throw new RuntimeException("Token expired"); }
+		if (expirationDate.before(new Date())) { throw new RuntimeException(ErrorEnum.TOKEN_IS_EXPIRED.getMessage()); }
 
 		return new VerificationResult(claims, token);
 	}

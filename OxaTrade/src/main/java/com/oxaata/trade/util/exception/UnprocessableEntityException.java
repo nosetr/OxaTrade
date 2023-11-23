@@ -1,5 +1,7 @@
 package com.oxaata.trade.util.exception;
 
+import org.springframework.lang.Nullable;
+
 import com.oxaata.trade.enums.ErrorEnum;
 
 /**
@@ -30,19 +32,9 @@ public class UnprocessableEntityException extends ApiException {
 	private static final long serialVersionUID = -486815773497437174L;
 
 	/**
-	 * Controller
-	 * 
-	 * @autor         Nikolay Osetrov
-	 * @since         0.1.0
-	 * @param message as string on super
-	 */
-	public UnprocessableEntityException(String message, String errorCode) {
-		super(message, errorCode);
-	}
-
-	/**
-	 * TODO set all exceptions in code to ErrorEnum
 	 * Controller with {@link ErrorEnum}
+	 * <p>Keep attention on {@code NullPointerException} if args is null and message
+	 * have any placeholder (%s, %d, etc.)
 	 * 
 	 * @autor           Nikolay Osetrov
 	 * @since           0.1.0
@@ -50,7 +42,7 @@ public class UnprocessableEntityException extends ApiException {
 	 * @param Object... args
 	 * @see             ErrorEnum
 	 */
-	public UnprocessableEntityException(ErrorEnum errorEnum, Object... args) {
+	public UnprocessableEntityException(ErrorEnum errorEnum, @Nullable Object... args) {
 		super(String.format(errorEnum.getMessage(), args), errorEnum.getCode());
 	}
 }

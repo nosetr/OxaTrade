@@ -1,5 +1,9 @@
 package com.oxaata.trade.util.exception;
 
+import org.springframework.lang.Nullable;
+
+import com.oxaata.trade.enums.ErrorEnum;
+
 /**
  * Authentications exception.
  * 
@@ -9,7 +13,18 @@ package com.oxaata.trade.util.exception;
 public class AuthException extends ApiException {
 	private static final long serialVersionUID = 7529064453426516902L;
 
-	public AuthException(String message, String errorCode) {
-		super(message, errorCode);
+	/**
+	 * Controller with {@link ErrorEnum}
+	 * <p>Keep attention on {@code NullPointerException} if args is null and message
+	 * have any placeholder (%s, %d, etc.)
+	 * 
+	 * @autor           Nikolay Osetrov
+	 * @since           0.1.0
+	 * @param errorEnum
+	 * @param Object... args
+	 * @see ErrorEnum
+	 */
+	public AuthException(ErrorEnum errorEnum, @Nullable Object... args) {
+		super(String.format(errorEnum.getMessage(), args), errorEnum.getCode());
 	}
 }

@@ -37,6 +37,7 @@ public class AuthRestControllerV1 {
 
 	/**
 	 * Users registration action with requested body.
+	 * TODO confirmations link on email must be send before account is enabled.
 	 * 
 	 * @autor          Nikolay Osetrov
 	 * @since          0.1.0
@@ -80,7 +81,15 @@ public class AuthRestControllerV1 {
 				);
 	}
 
-//	@PreAuthorize("hasAnyRole('USER')")
+	/**
+	 * Get information about himself when user is on login.
+	 * 
+	 * @autor                 Nikolay Osetrov
+	 * @since                 0.1.0
+	 * @param  authentication
+	 * @return
+	 */
+	//	@PreAuthorize("hasAnyRole('USER')") // TODO make role
 	@GetMapping("/info")
 	public Mono<UserDto> getUserInfo(Authentication authentication) {
 		CustomPrincipal customPrincipal = (CustomPrincipal) authentication.getPrincipal();

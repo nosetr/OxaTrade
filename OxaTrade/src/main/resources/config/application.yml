@@ -3,6 +3,8 @@ spring:
     name: oxatrade-service
   profiles:
     active: dev
+  jackson:
+    property-naming-strategy: SNAKE_CASE # configure the whole application to expect the snake case input
   config:
     import: 
       - db.yml

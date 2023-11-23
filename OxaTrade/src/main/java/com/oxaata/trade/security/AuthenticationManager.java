@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import com.oxaata.trade.entity.UserEntity;
+import com.oxaata.trade.enums.ErrorEnum;
 import com.oxaata.trade.service.UserService;
 import com.oxaata.trade.util.exception.UnauthorizedException;
 
@@ -30,7 +31,7 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
 
 		return userService.getUserById(principal.getId()) // find one
 				.filter(UserEntity::isEnabled) // only if active
-				.switchIfEmpty(Mono.error(new UnauthorizedException("User disabled"))) // if no user founded
+				.switchIfEmpty(Mono.error(new UnauthorizedException(ErrorEnum.USER_ACCOUNT_IS_DISABLED))) // if no user founded
 				.map(user -> authentication);
 	}
 }

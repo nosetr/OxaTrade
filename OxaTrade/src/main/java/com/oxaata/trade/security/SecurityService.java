@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.oxaata.trade.entity.UserEntity;
+import com.oxaata.trade.enums.ErrorEnum;
 import com.oxaata.trade.service.UserService;
 import com.oxaata.trade.util.exception.AuthException;
 
@@ -59,12 +60,11 @@ public class SecurityService {
 				.flatMap(user -> {
 					// Exception if users account is not active:
 					if (!user.isEnabled()) {
-						// TODO change exceptions handler and error-code
-						return Mono.error(new AuthException("Account disabled", "USER_ACCOUNT_DISABLED"));
+						return Mono.error(new AuthException(ErrorEnum.USER_ACCOUNT_IS_DISABLED));
 					}
 					// Exception if password is invalid:
 					if (!passwordEncoder.matches(password, user.getPassword())) {
-						return Mono.error(new AuthException("Invalid password", "INVALID_PASSWORD"));
+						return Mono.error(new AuthException(ErrorEnum.INVALID_PASSWORD_IS_REQUESTED));
 					}
 					// Token generation:
 					return Mono.just(
@@ -74,7 +74,7 @@ public class SecurityService {
 					);
 				})
 				// If no user founded:
-				.switchIfEmpty(Mono.error(new AuthException("Invalid email", "INVALID_EMAIL")));
+				.switchIfEmpty(Mono.error(new AuthException(ErrorEnum.INVALID_EMAIL_IS_REQUESTED)));
 	}
 
 	/**

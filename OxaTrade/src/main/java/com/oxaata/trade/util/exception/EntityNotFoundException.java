@@ -21,17 +21,6 @@ public class EntityNotFoundException extends ApiException {
 	private static final long serialVersionUID = -3615634931582495487L;
 
 	/**
-	 * Controller
-	 * 
-	 * @autor         Nikolay Osetrov
-	 * @since         0.1.0
-	 * @param message as string on super
-	 */
-	public EntityNotFoundException(String message, String errorCode) {
-		super(message, errorCode);
-	}
-
-	/**
 	 * Controller with {@link ErrorEnum}
 	 * 
 	 * @autor           Nikolay Osetrov

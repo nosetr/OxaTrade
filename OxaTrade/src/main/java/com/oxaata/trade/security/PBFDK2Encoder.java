@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
  * 
  * @autor Nikolay Osetrov
  * @since 0.1.0
- * @see PasswordEncoder
- * @see Base64
+ * @see   PasswordEncoder
+ * @see   Base64
  */
 @Component
 public class PBFDK2Encoder implements PasswordEncoder {
