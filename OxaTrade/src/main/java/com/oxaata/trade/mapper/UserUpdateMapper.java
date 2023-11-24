@@ -3,6 +3,7 @@ package com.oxaata.trade.mapper;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import com.oxaata.trade.dto.UserDto;
 import com.oxaata.trade.dto.UserUpdateDto;
@@ -22,5 +23,21 @@ public interface UserUpdateMapper {
 	UserDto map(UserEntity userEntity);
 
 	@InheritInverseConfiguration
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "createdAt", ignore = true)
+	@Mapping(target = "email", ignore = true)
+	@Mapping(target = "enabled", ignore = true)
+	@Mapping(target = "password", ignore = true)
+	@Mapping(target = "updatedAt", ignore = true)
+	@Mapping(target = "userRole", ignore = true)
 	UserEntity map(UserUpdateDto dto);
+
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "createdAt", ignore = true)
+	@Mapping(target = "email", ignore = true)
+	@Mapping(target = "enabled", ignore = true)
+	@Mapping(target = "password", ignore = true)
+	@Mapping(target = "updatedAt", ignore = true)
+	@Mapping(target = "userRole", ignore = true)
+	UserEntity updateUserFromDto(UserUpdateDto dto, @MappingTarget UserEntity entity);
 }
