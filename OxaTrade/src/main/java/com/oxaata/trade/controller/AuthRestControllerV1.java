@@ -1,7 +1,5 @@
 package com.oxaata.trade.controller;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +10,6 @@ import com.oxaata.trade.dto.AuthResponseDto;
 import com.oxaata.trade.dto.UserDto;
 import com.oxaata.trade.entity.UserEntity;
 import com.oxaata.trade.mapper.UserMapper;
-import com.oxaata.trade.security.CustomPrincipal;
 import com.oxaata.trade.security.SecurityService;
 import com.oxaata.trade.service.UserService;
 
@@ -79,22 +76,5 @@ public class AuthRestControllerV1 {
 										.build()
 						)
 				);
-	}
-
-	/**
-	 * Get information about himself when user is on login.
-	 * 
-	 * @autor                 Nikolay Osetrov
-	 * @since                 0.1.0
-	 * @param  authentication
-	 * @return
-	 */
-	//	@PreAuthorize("hasAnyRole('USER')") // TODO make role
-	@GetMapping("/info")
-	public Mono<UserDto> getUserInfo(Authentication authentication) {
-		CustomPrincipal customPrincipal = (CustomPrincipal) authentication.getPrincipal();
-
-		return userService.getUserById(customPrincipal.getId())
-				.map(userMapper::map);
 	}
 }
