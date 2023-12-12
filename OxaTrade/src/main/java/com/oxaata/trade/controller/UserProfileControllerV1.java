@@ -46,7 +46,6 @@ public class UserProfileControllerV1 {
 		
 		CustomPrincipal customPrincipal = (CustomPrincipal) authentication.getPrincipal();
 
-		// TODO https://medium.com/@sumanzadeakhil/spring-boot-webflux-mongodb-crud-example-f1689f210b40
 		return userService.update(customPrincipal.getId(), userDto)
 				.map(userUpdateMapper::map);
 	}

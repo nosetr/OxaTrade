@@ -30,6 +30,7 @@ public interface UserUpdateMapper {
 	@Mapping(target = "password", ignore = true)
 	@Mapping(target = "updatedAt", ignore = true)
 	@Mapping(target = "userRole", ignore = true)
+	@Mapping(target = "provider", ignore = true)
 	UserEntity map(UserUpdateDto dto);
 
 	@Mapping(target = "id", ignore = true)
@@ -39,5 +40,6 @@ public interface UserUpdateMapper {
 	@Mapping(target = "password", ignore = true)
 	@Mapping(target = "updatedAt", ignore = true)
 	@Mapping(target = "userRole", ignore = true)
+	@Mapping(target = "provider", ignore = true)
 	UserEntity updateUserFromDto(UserUpdateDto dto, @MappingTarget UserEntity entity);
 }

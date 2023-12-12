@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
+import com.oxaata.trade.enums.OAuth2ProvidersEnum;
 import com.oxaata.trade.enums.UserRoleEnum;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class UserEntity {
 	private Long id;
 	private String email;
 	private String password;
+	private OAuth2ProvidersEnum provider; // 'google' or 'facebook', etc.
 	private UserRoleEnum userRole;
 	private String title;
 	private String firstName;
