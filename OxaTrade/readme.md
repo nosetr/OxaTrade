@@ -26,7 +26,8 @@ ___
 ## API requests:
 
 - [POST] http://localhost:8083/api/v1/auth/register <b>(Create new user)</b>
-	
+
+```	
 	{
     "first_name": "Ivan",
     "last_name": "Hahn",
@@ -34,25 +35,30 @@ ___
     "password": "12345$aA", // musst have min. 8 chars, one upper-case char, one lower-case char, one digit, one symbol
     "confirm_password": "12345$aA"
 	}
+```
 	
 - [POST] http://localhost:8083/api/v1/auth/login <b>(LogIn for to get a bearer token)</b>
 
+```
 	{
     "email": "proba8@proba.com",
     "password": "12345$aA"
 	}
+```
 
 - [GET] http://localhost:8083/api/v1/profile/info <b>(Get users info after login)</b>
 
 
 - [POST] http://localhost:8083/api/v1/profile/update <b>(Update main info about himself after login)</b>
 
+```
 	{
     "title": "Herr",
     "first_name": "Fritz2",
     "last_name": "Stöer",
     "email": "proba@proba2.com"
 	}
+```
 	
 ___
 

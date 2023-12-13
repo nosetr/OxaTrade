@@ -45,9 +45,9 @@ public class WebSecurityConfig {
 	/*
 	 * Array of routes with public access for registration and login
 	 */
-	private final String[] publicRoutes = { "/api/v1/auth/register", "/api/v1/auth/login"
-			, "/api/v1/oauth2/{registrationId}"
-			};
+	private final String[] publicRoutes = { "/api/v1/auth/register", "/api/v1/auth/login",
+			"/api/v1/oauth2/{registrationId}"
+	};
 
 	/**
 	 * Defines a filter chain for public and authorization access.
@@ -63,7 +63,9 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityWebFilterChain filterChain(ServerHttpSecurity http, AuthenticationManager authManager) {
 
-		return http.csrf(csrf -> csrf.disable()) // Disable CSRF for simplicity (should be enabled in production)
+		return http
+				// Disable CSRF for simplicity (should be enabled in production)
+				.csrf(csrf -> csrf.disable())
 				.authorizeExchange(
 						exchange -> exchange.pathMatchers(HttpMethod.OPTIONS)
 								.permitAll()
