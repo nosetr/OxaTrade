@@ -1,34 +1,42 @@
-CREATE SCHEMA IF NOT EXISTS oxatrade;
+CREATE SCHEMA IF NOT EXISTS oxatrade
+	CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
 
--- Create the "users" Table
+-- oxatrade.users definition
 CREATE TABLE IF NOT EXISTS oxatrade.users (
-    id         SERIAL PRIMARY KEY,
-    email      VARCHAR(64)   NOT NULL UNIQUE,
-    password   VARCHAR(2048) NOT NULL,
-    user_role  VARCHAR(32)   NOT NULL,
-    first_name VARCHAR(64)   NOT NULL,
-    last_name  VARCHAR(64)   NOT NULL,
-    enabled    BOOLEAN       NOT NULL DEFAULT FALSE,
-    created_at TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+  id BINARY(16) NOT NULL,
+--	id VARCHAR(36) NOT NULL,
+  email varchar(64) NOT NULL,
+  password varchar(2048) NOT NULL,
+  phone varchar(25) DEFAULT NULL,
+  provider varchar(25) DEFAULT NULL COMMENT 'google or facebook, etc.',
+  user_role varchar(32) NOT NULL DEFAULT 'USER',
+  first_name varchar(64) NOT NULL,
+  last_name varchar(64) DEFAULT NULL,
+  title varchar(32) DEFAULT NULL,
+  enabled BOOLEAN NOT NULL DEFAULT '0',
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY email (email)
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Table of users';
 
--- Unlike MySql, Postgres doesn’t come with inbuilt functionality.
--- So to solve this problem we will be using Triggers and Procedures.
--- Next step is creating a Postgres function which PL/pgSQL programming supports.
--- CREATE FUNCTION update_updated_at_users()
--- RETURNS TRIGGER AS $$
--- BEGIN
---     NEW.updated_at = now();
---     RETURN NEW;
--- END;
--- $$ language 'plpgsql';
+-- Triggers to automatically generate the UUID by "users"
+ CREATE TRIGGER IF NOT EXISTS before_insert_users
+ BEFORE INSERT ON oxatrade.users
+ FOR EACH ROW
+ BEGIN
+     IF NEW.id IS NULL THEN
+         SET NEW.id = (UUID_TO_BIN(UUID()));
+     END IF;
+ END;
 
--- Create the Trigger.
--- It will execute the update_updated_at_users() function that we defined earlier.
--- It will do so whenever a row is updated in the users table.
--- CREATE TRIGGER update_users_updated_at
---     BEFORE UPDATE
---     ON  users
---     FOR EACH ROW
--- EXECUTE PROCEDURE update_updated_at_users();
+-- Create new admin with pass: "12345$aA"
+INSERT INTO oxatrade.users(
+	email,
+	password,
+	user_role,
+	first_name,
+	last_name,
+	enabled)
+VALUES ("admin@adminov.com", "Ojv3Ym0Rg2atgLuVEhe3Ek9xVWp+zYQSvj51M7L66LA=", "ADMIN", "admin", "adminov", true);

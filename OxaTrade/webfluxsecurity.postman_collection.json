@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "ffc3375c-bfa8-4c93-bb15-aef74aadbdbe",
+		"name": "webfluxsecurity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29635875"
+	},
+	"item": [
+		{
+			"name": "Create new user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Ivan\",\n    \"last_name\": \"Hahn\",\n    \"email\": \"proba8@proba.com\",\n    \"password\": \"12345$aA\",\n    \"confirm_password\": \"12345$aA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get users info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImVtYWlsIjoicHJvYmFAcHJvYmEuY29tIiwiaXNzIjoib3hhYXRhIiwic3ViIjoiMiIsImlhdCI6MTcwMTg0ODgxNCwianRpIjoiOWFmMWI1Y2YtNDQwMS00MzBhLTk3ZWYtMDZjZWIzMDY2OTE5IiwiZXhwIjoxNzAxODUyNDE0fQ.b3b7Ntt07v3gPKhNltYNuQ3mEBua2r8FaCXEFwd0VCo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/api/v1/profile/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"profile",
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log in",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"admin@adminov.com\",\n    \"password\": \"12345$aA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/v1/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update my account",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImVtYWlsIjoicHJvYmFAcHJvYmEuY29tIiwiaXNzIjoib3hhYXRhIiwic3ViIjoiMiIsImlhdCI6MTcwMDcwMTIwNSwianRpIjoiNjUzNDliZGQtMzczYS00MWYzLThlZGYtYTRjMGRjYjQ5NmQ0IiwiZXhwIjoxNzAwNzA0ODA1fQ.15V79hrE_W4noCE952uviBuYlcs0lWXLerKw6OpQMD0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Herr\",\n    \"first_name\": \"Fritz\",\n    \"last_name\": \"Hahn\",\n    \"email\": \"proba@proba.com\",\n    \"password\": \"12345$aA\",\n    \"confirm_password\": \"12345$aA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8083/api/v1/profile/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"api",
+						"v1",
+						"profile",
+						"update"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
