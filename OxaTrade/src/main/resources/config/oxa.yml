@@ -1,0 +1,28 @@
+# see: https://randomkeygen.com/
+jwt:
+  password:
+    encoder:
+      secret: FZK2DZ82odqS13e8aENggaMbb_fAkl-nJL4AEVBX43g
+      iteration: 64
+      keylength: 256
+  secret: b5f59337a612a2a7dc07328f3e7d1a04722967c7f06df20a499a7d3f91ff2a7e
+  expiration: 3600 # in seconds 1 hour
+  issuer: oxaata # organisation
+# https://console.cloud.google.com/apis/credentials?hl=de&project=schleifpower
+# OAuth 2.0-Client-ID "OxaTrade"
+spring:
+  security:
+    oauth2: 
+      client:
+        registration:
+          # OAuth 2.0-Google-Client
+          google:
+            client-id: 1061580659113-kdja71abupqctcd47m8iv9iqjii3knfq.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: '{baseUrl}/api/v1/oauth2/google'
+          # OAuth 2.0-Facebook-Client
+          facebook:
+            client-id: 214206468602478
+            client-secret: 3557c1de65a3280bcd1f6176530da8e1
+            redirect-uri: '{baseUrl}/api/v1/oauth2/facebook'
+            
