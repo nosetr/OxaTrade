@@ -1,5 +1,7 @@
 package com.oxaata.trade.repository;
 
+import java.util.UUID;
+
 import org.springframework.data.r2dbc.repository.Modifying;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
@@ -19,7 +21,7 @@ import reactor.core.publisher.Mono;
  * @see   https://spring.io/guides/gs/accessing-data-r2dbc/
  */
 @Repository
-public interface UserRepository extends R2dbcRepository<UserEntity, Long> {
+public interface UserRepository extends R2dbcRepository<UserEntity, UUID> {
 
 	//	@Query("SELECT * FROM customer WHERE last_name = :lastname")
 	//  Flux<Customer> findByLastName(String lastName);
@@ -42,5 +44,5 @@ public interface UserRepository extends R2dbcRepository<UserEntity, Long> {
 	 */
 	@Modifying
 	@Query("UPDATE users u SET u.user_role = :userRole where u.id = :id")
-	void updateUserRole(@Param(value = "id") long id, @Param(value = "userRole") UserRoleEnum userRole);
+	void updateUserRole(@Param(value = "id") UUID id, @Param(value = "userRole") UserRoleEnum userRole);
 }

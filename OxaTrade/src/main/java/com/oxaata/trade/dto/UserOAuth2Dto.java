@@ -1,6 +1,7 @@
 package com.oxaata.trade.dto;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.oxaata.trade.enums.OAuth2ProvidersEnum;
 import com.oxaata.trade.enums.UserRoleEnum;
@@ -18,7 +19,7 @@ import lombok.Data;
 @Data
 public class UserOAuth2Dto {
 
-	private Long id;
+	private UUID id;
 
 	@NotBlank(message = "{validation.field.NotBlank}")
 	@ValidEmail

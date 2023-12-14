@@ -1,6 +1,7 @@
 package com.oxaata.trade.entity;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
@@ -27,7 +28,7 @@ import lombok.ToString;
 @Table("users")
 public class UserEntity {
 	@Id
-	private Long id;
+	private UUID id;
 	private String email;
 	private String password;
 	private OAuth2ProvidersEnum provider; // 'google' or 'facebook', etc.
@@ -38,6 +39,10 @@ public class UserEntity {
 	private boolean enabled;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+	
+//	public UserEntity() {
+//		this.id = UUID.randomUUID();
+//	}
 
 	@ToString.Include(name = "password")
 	private String maskPassword() {

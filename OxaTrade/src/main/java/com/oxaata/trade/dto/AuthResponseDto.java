@@ -1,6 +1,7 @@
 package com.oxaata.trade.dto;
 
 import java.util.Date;
+import java.util.UUID;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class) // values will be SnakeCase
 public class AuthResponseDto {
 
-	private Long userId;
+	private UUID userId;
 	private String token;
 	private Date issuedAt;
 	private Date expiresAt;

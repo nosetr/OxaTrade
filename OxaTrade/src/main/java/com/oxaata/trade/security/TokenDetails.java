@@ -1,6 +1,7 @@
 package com.oxaata.trade.security;
 
 import java.util.Date;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TokenDetails {
-	private Long userId;
+	private UUID userId;
 	// Bearer Token
 	private String token;
 	//createdDate

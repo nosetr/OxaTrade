@@ -2,6 +2,7 @@ package com.oxaata.trade.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -75,6 +76,7 @@ public class UserServiceImpl implements UserService{
 							.doOnSuccess(u -> {
 								// Make log about new users registration.
 								log.info("IN registerUser - user: {} created", u);
+								System.out.println(u.toString());
 							});
 				});
 	}
@@ -89,7 +91,7 @@ public class UserServiceImpl implements UserService{
 	 * @return
 	 */
 	@Override
-	public Mono<UserEntity> update(Long id, UserUpdateDto userDto) {
+	public Mono<UserEntity> update(UUID id, UserUpdateDto userDto) {
 
 		return userRepository.findById(id)
 				// only if active:
@@ -112,13 +114,13 @@ public class UserServiceImpl implements UserService{
 	 * 
 	 * @autor             Nikolay Osetrov
 	 * @since             0.1.0
-	 * @param  id         Long
+	 * @param  id         UUID
 	 * @param  userEntity
 	 * @return            Mono<UserEntity> or Mono.empty()
 	 */
 	@Override
 	@Deprecated
-	public Mono<UserEntity> update(Long id, UserEntity userEntity) {
+	public Mono<UserEntity> update(UUID id, UserEntity userEntity) {
 		return userRepository.findById(id)
 				.map(Optional::of)
 				.defaultIfEmpty(Optional.empty())
@@ -151,11 +153,11 @@ public class UserServiceImpl implements UserService{
 	 * 
 	 * @autor     Nikolay Osetrov
 	 * @since     0.1.0
-	 * @param  id Long
+	 * @param  id UUID
 	 * @return    Mono<UserEntity>
 	 */
 	@Override
-	public Mono<UserEntity> getUserById(Long id) {
+	public Mono<UserEntity> getUserById(UUID id) {
 		return userRepository.findById(id);
 	}
 
@@ -188,11 +190,11 @@ public class UserServiceImpl implements UserService{
 	 * 
 	 * @autor     Nikolay Osetrov
 	 * @since     0.1.0
-	 * @param  id Long
+	 * @param  id UUID
 	 * @return    Mono<Void>
 	 */
 	@Override
-	public Mono<Void> deleteById(Long id) {
+	public Mono<Void> deleteById(UUID id) {
 		return userRepository.deleteById(id);
 	}
 

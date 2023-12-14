@@ -1,5 +1,7 @@
 package com.oxaata.trade.service;
 
+import java.util.UUID;
+
 import com.oxaata.trade.dto.UserUpdateDto;
 import com.oxaata.trade.entity.UserEntity;
 
@@ -33,29 +35,29 @@ public interface UserService {
 	 * @param  userDto
 	 * @return Mono<UserEntity>
 	 */
-	Mono<UserEntity> update(Long id, UserUpdateDto userDto);
+	Mono<UserEntity> update(UUID id, UserUpdateDto userDto);
 
 	/**
 	 * Update user by ID
 	 * 
 	 * @autor             Nikolay Osetrov
 	 * @since             0.1.0
-	 * @param  id         Long
+	 * @param  id         UUID
 	 * @param  userEntity
 	 * @return            Mono<UserEntity> or Mono.empty()
 	 */
 	@Deprecated
-	Mono<UserEntity> update(Long id, UserEntity userEntity);
+	Mono<UserEntity> update(UUID id, UserEntity userEntity);
 
 	/**
 	 * Find user by ID
 	 * 
 	 * @autor     Nikolay Osetrov
 	 * @since     0.1.0
-	 * @param  id Long
+	 * @param  id UUID
 	 * @return    Mono<UserEntity>
 	 */
-	Mono<UserEntity> getUserById(Long id);
+	Mono<UserEntity> getUserById(UUID id);
 
 	/**
 	 * Find user by email
@@ -82,10 +84,10 @@ public interface UserService {
 	 * 
 	 * @autor     Nikolay Osetrov
 	 * @since     0.1.0
-	 * @param  id Long
+	 * @param  id UUID
 	 * @return    Mono<Void>
 	 */
-	Mono<Void> deleteById(Long id);
+	Mono<Void> deleteById(UUID id);
 
 	/**
 	 * Delete all users

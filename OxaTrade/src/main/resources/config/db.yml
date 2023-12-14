@@ -7,12 +7,22 @@ spring:
     url: r2dbc:mysql://${MYSQL_HOST:localhost}:3306/oxatrade?allowPublicKeyRetrieval=true&useSSL=false
     username: oxatrade
     password: 12345678
+    # Spec. for file "MySQLConfiguration"
+    host: ${MYSQL_HOST:localhost}
+    port: 3306
+    driver: mysql
+    database: oxatrade
+    
   flyway:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/oxatrade?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
     locations: classpath:db/migration
     baseline-on-migrate: true
     user: ${spring.r2dbc.username}
     password: ${spring.r2dbc.password}
+    
+  jpa:
+    hibernate:
+      ddl-auto: create # only for development
 
 ---
 spring:

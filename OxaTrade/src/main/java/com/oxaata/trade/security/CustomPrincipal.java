@@ -1,6 +1,7 @@
 package com.oxaata.trade.security;
 
 import java.security.Principal;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomPrincipal implements Principal {
-	private Long id;
+	private UUID id;
 	private String name; // as email
 }

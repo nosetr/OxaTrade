@@ -1,42 +1,59 @@
 -- oxatrade.organizations definition
-
-CREATE TABLE oxatrade.organizations (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `org_name` varchar(64) NOT NULL COMMENT 'title of organisation',
-  `address` bigint unsigned DEFAULT NULL COMMENT 'address-id',
-  `email` varchar(64) DEFAULT NULL,
-  `phone` varchar(25) DEFAULT NULL,
-  `enabled` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'Is active',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Organizations and firms';
+CREATE TABLE IF NOT EXISTS oxatrade.organizations (
+  id bigint unsigned NOT NULL AUTO_INCREMENT,
+  org_name varchar(64) NOT NULL COMMENT 'title of organisation',
+  email varchar(64) DEFAULT NULL,
+  phone varchar(25) DEFAULT NULL,
+  enabled BOOLEAN NOT NULL DEFAULT '1' COMMENT 'If is active',
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=10000 CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Organizations and firms';
 
 -- oxatrade.users_organizations definition
-
-CREATE TABLE oxatrade.users_organizations (
-  `user_id` bigint unsigned NOT NULL,
-  `org_id` bigint unsigned NOT NULL,
-  PRIMARY KEY (`user_id`,`org_id`),
-  KEY `FKh8ciramu9cc9q3qcqiv4ue8a6` (`org_id`),
-  CONSTRAINT `FKh8ciramu9cc9q3qcqiv4ue8a6` FOREIGN KEY (`org_id`) REFERENCES `organizations` (`id`),
-  CONSTRAINT `FKhfh9dx7w3ubf1co1vdev94g3f` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Many-to-many between users and organizations';
+-- Many-to-many connection
+CREATE TABLE IF NOT EXISTS oxatrade.users_organizations (
+  user_id BINARY(16) NOT NULL,
+  org_id bigint unsigned NOT NULL,
+  PRIMARY KEY (user_id, org_id),
+  KEY `FKh8ciramu9cc9q3qcqiv4ue8a6` (org_id),
+  CONSTRAINT `FKh8ciramu9cc9q3qcqiv4ue8a6` FOREIGN KEY (org_id) REFERENCES oxatrade.organizations (id),
+  CONSTRAINT `FKhfh9dx7w3ubf1co1vdev94g3f` FOREIGN KEY (user_id) REFERENCES oxatrade.users (id)
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Many-to-many between users and organizations';
 
 -- oxatrade.countries definition
+CREATE TABLE IF NOT EXISTS oxatrade.countries (
+  id int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Country identification',
+  country_code char(2) NOT NULL COMMENT 'Country abbreviation',
+  country_name varchar(200) DEFAULT NULL COMMENT 'Country name',
+  phone_prefix varchar(10) DEFAULT NULL COMMENT 'Telephone prefix',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Countries and Nations';
 
-CREATE TABLE oxatrade.countries (
-  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Country identification',
-  `country_code` char(2) NOT NULL COMMENT 'Country abbreviation',
-  `country_name` varchar(200) DEFAULT NULL COMMENT 'Country name',
-  `phone_prefix` varchar(10) DEFAULT NULL COMMENT 'Telephone prefix',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=247 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Countries and Nations';
+-- oxatrade.addresses definition
+CREATE TABLE IF NOT EXISTS oxatrade.addresses (
+  id bigint unsigned NOT NULL AUTO_INCREMENT,
+  title_name varchar(64) DEFAULT NULL COMMENT 'users name / firma / org',
+  alias_name varchar(64) DEFAULT NULL COMMENT 'additional address name',
+  street_name varchar(70) DEFAULT NULL,
+  house_number varchar(9) DEFAULT NULL,
+  district_name varchar(200) DEFAULT NULL COMMENT 'Part of a city/Additional data',
+  city_name varchar(200) NOT NULL COMMENT 'City name',
+  zip_code varchar(9) NOT NULL COMMENT 'Postal code',
+  state_name varchar(75) DEFAULT NULL COMMENT 'Complete state name',
+  country_id int unsigned NOT NULL COMMENT 'Country identification',
+  email varchar(64) DEFAULT NULL,
+  phone varchar(25) DEFAULT NULL,
+  user_id bigint unsigned DEFAULT NULL COMMENT 'id of creator if not from organisation',
+  org_id bigint unsigned DEFAULT NULL COMMENT 'id of organisation if not from user',
+  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY country_id (country_id),
+  CONSTRAINT addresses_ibfk_1 FOREIGN KEY (country_id) REFERENCES oxatrade.countries (id)
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Addresses for users, customers, organizations...';
 
-/*
- * Dumping data for table `oxatrade.countries`
- */
+-- Dumping data for table "oxatrade.countries"
 INSERT INTO oxatrade.countries (country_code, country_name, phone_prefix) VALUES
 ('AF', 'Afghanistan', '+93'),
 ('AL', 'Albania', '+355'),
@@ -284,27 +301,3 @@ INSERT INTO oxatrade.countries (country_code, country_name, phone_prefix) VALUES
 ('YE', 'Yemen', '+967'),
 ('ZM', 'Zambia', '+260'),
 ('ZW', 'Zimbabwe', '+263');
-
--- oxatrade.addresses definition
-
-CREATE TABLE oxatrade.addresses (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `street_name` varchar(70) DEFAULT NULL,
-  `house_number` varchar(9) DEFAULT NULL,
-  `district_name` varchar(200) DEFAULT NULL COMMENT 'Part of a city/Additional data',
-  `city_name` varchar(200) NOT NULL COMMENT 'City name',
-  `zip_code` varchar(9) NOT NULL COMMENT 'Postal code',
-  `state_name` varchar(75) DEFAULT NULL COMMENT 'Complete state name',
-  `country_id` int unsigned NOT NULL COMMENT 'Country identification',
-  `email` varchar(64) DEFAULT NULL,
-  `phone` varchar(25) DEFAULT NULL,
-  `org_id` bigint unsigned DEFAULT NULL COMMENT 'Id from organisation',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  KEY `country_id` (`country_id`),
-  CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Addresses for users, customers, organizations...';
-
-

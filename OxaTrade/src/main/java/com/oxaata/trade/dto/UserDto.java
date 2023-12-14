@@ -1,6 +1,7 @@
 package com.oxaata.trade.dto;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.oxaata.trade.entity.UserEntity;
@@ -29,10 +30,9 @@ import lombok.Data;
 	}
 )
 @Data
-//@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class) // not needed because of applications config
 public class UserDto {
 
-	private Long id;
+	private UUID id;
 
 	@NotBlank(message = "{validation.field.NotBlank}")
 	@ValidEmail

@@ -1,6 +1,7 @@
 package com.oxaata.trade.security;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -35,7 +36,7 @@ public class UserAuthenticationBearer {
 		// Stores a representation of an authority granted to the Authentication object.
 		List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(role));
 
-		Long principalId = Long.parseLong(subject);
+		UUID principalId = UUID.fromString(subject);
 		CustomPrincipal principal = new CustomPrincipal(principalId, email);
 
 		return Mono.justOrEmpty(new UsernamePasswordAuthenticationToken(principal, null, authorities));
