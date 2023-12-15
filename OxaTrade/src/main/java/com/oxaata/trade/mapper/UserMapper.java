@@ -8,7 +8,7 @@ import com.oxaata.trade.dto.UserDto;
 import com.oxaata.trade.entity.UserEntity;
 
 /**
- * Mapper for UserDto to UserEntity.
+ * Mapper between UserDto and UserEntity.
  * 
  * @autor Nikolay Osetrov
  * @since 0.1.0
@@ -22,5 +22,6 @@ public interface UserMapper {
 
 	@InheritInverseConfiguration
 	@Mapping(target = "provider", ignore = true)
+	@Mapping(target = "toDelete", ignore = true)
 	UserEntity map(UserDto dto);
 }

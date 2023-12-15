@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS oxatrade.users (
   enabled BOOLEAN NOT NULL DEFAULT '0',
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  to_delete BOOLEAN NOT NULL DEFAULT '0' COMMENT 'Must be delete with cronjob',
   PRIMARY KEY (id),
   UNIQUE KEY email (email)
 ) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Table of users';

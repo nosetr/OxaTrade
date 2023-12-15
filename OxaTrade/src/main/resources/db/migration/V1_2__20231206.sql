@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS oxatrade.organizations (
   enabled BOOLEAN NOT NULL DEFAULT '1' COMMENT 'If is active',
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  to_delete BOOLEAN NOT NULL DEFAULT '0' COMMENT 'Must be delete with cronjob',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=10000 CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Organizations and firms';
 
@@ -17,8 +18,8 @@ CREATE TABLE IF NOT EXISTS oxatrade.users_organizations (
   org_id bigint unsigned NOT NULL,
   PRIMARY KEY (user_id, org_id),
   KEY `FKh8ciramu9cc9q3qcqiv4ue8a6` (org_id),
-  CONSTRAINT `FKh8ciramu9cc9q3qcqiv4ue8a6` FOREIGN KEY (org_id) REFERENCES oxatrade.organizations (id),
-  CONSTRAINT `FKhfh9dx7w3ubf1co1vdev94g3f` FOREIGN KEY (user_id) REFERENCES oxatrade.users (id)
+  CONSTRAINT `FKh8ciramu9cc9q3qcqiv4ue8a6` FOREIGN KEY (org_id) REFERENCES oxatrade.organizations (id) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT `FKhfh9dx7w3ubf1co1vdev94g3f` FOREIGN KEY (user_id) REFERENCES oxatrade.users (id) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Many-to-many between users and organizations';
 
 -- oxatrade.countries definition
@@ -27,12 +28,14 @@ CREATE TABLE IF NOT EXISTS oxatrade.countries (
   country_code char(2) NOT NULL COMMENT 'Country abbreviation',
   country_name varchar(200) DEFAULT NULL COMMENT 'Country name',
   phone_prefix varchar(10) DEFAULT NULL COMMENT 'Telephone prefix',
+  enabled BOOLEAN NOT NULL DEFAULT '1' COMMENT 'If is active',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Countries and Nations';
 
 -- oxatrade.addresses definition
 CREATE TABLE IF NOT EXISTS oxatrade.addresses (
   id bigint unsigned NOT NULL AUTO_INCREMENT,
+  org_id bigint unsigned DEFAULT NULL COMMENT 'id of organisation if not from user',
   title_name varchar(64) DEFAULT NULL COMMENT 'users name / firma / org',
   alias_name varchar(64) DEFAULT NULL COMMENT 'additional address name',
   street_name varchar(70) DEFAULT NULL,
@@ -44,13 +47,13 @@ CREATE TABLE IF NOT EXISTS oxatrade.addresses (
   country_id int unsigned NOT NULL COMMENT 'Country identification',
   email varchar(64) DEFAULT NULL,
   phone varchar(25) DEFAULT NULL,
-  user_id bigint unsigned DEFAULT NULL COMMENT 'id of creator if not from organisation',
-  org_id bigint unsigned DEFAULT NULL COMMENT 'id of organisation if not from user',
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   KEY country_id (country_id),
-  CONSTRAINT addresses_ibfk_1 FOREIGN KEY (country_id) REFERENCES oxatrade.countries (id)
+  KEY addresses_FK (org_id),
+  CONSTRAINT addresses_FK FOREIGN KEY (org_id) REFERENCES organizations (id) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT addresses_ibfk_1 FOREIGN KEY (country_id) REFERENCES oxatrade.countries (id) ON UPDATE CASCADE
 ) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Addresses for users, customers, organizations...';
 
 -- Dumping data for table "oxatrade.countries"
