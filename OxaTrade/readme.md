@@ -69,26 +69,57 @@ ___
 ### Table users ( WebShop's users table )
 
 ```
+Field     |Type         |Null|Key|Default          |Extra                                        |
+----------+-------------+----+---+-----------------+---------------------------------------------+
+id        |binary(16)   |NO  |PRI|                 |                                             |
+email     |varchar(64)  |NO  |UNI|                 |                                             |
+password  |varchar(2048)|NO  |   |                 |                                             |
+phone     |varchar(25)  |YES |   |                 |                                             |
+provider  |varchar(25)  |YES |   |                 |                                             |
+user_role |varchar(32)  |NO  |   |USER             |                                             |
+first_name|varchar(64)  |NO  |   |                 |                                             |
+last_name |varchar(64)  |YES |   |                 |                                             |
+title     |varchar(32)  |YES |   |                 |                                             |
+enabled   |tinyint(1)   |NO  |   |0                |                                             |
+created_at|timestamp    |NO  |   |CURRENT_TIMESTAMP|DEFAULT_GENERATED                            |
+updated_at|timestamp    |NO  |   |CURRENT_TIMESTAMP|DEFAULT_GENERATED on update CURRENT_TIMESTAMP|
+to_delete |tinyint(1)   |NO  |   |0                |                                             |
+```
+
+### Table organizations ( WebShop's organizations table )
+
+```
 Field     |Type           |Null|Key|Default          |Extra                                        |
 ----------+---------------+----+---+-----------------+---------------------------------------------+
 id        |bigint unsigned|NO  |PRI|                 |auto_increment                               |
-email     |varchar(64)    |NO  |UNI|                 |                                             |
-password  |varchar(2048)  |NO  |   |                 |                                             |
-user_role |varchar(32)    |NO  |   |USER             |                                             |
-first_name|varchar(64)    |NO  |   |                 |                                             |
-last_name |varchar(64)    |YES |   |                 |                                             |
-title     |varchar(32)    |YES |   |                 |                                             |
-enabled   |tinyint(1)     |NO  |   |0                |                                             |
+org_name  |varchar(64)    |NO  |   |                 |                                             |
+email     |varchar(64)    |YES |   |                 |                                             |
+phone     |varchar(25)    |YES |   |                 |                                             |
+enabled   |tinyint(1)     |NO  |   |1                |                                             |
 created_at|timestamp      |NO  |   |CURRENT_TIMESTAMP|DEFAULT_GENERATED                            |
 updated_at|timestamp      |NO  |   |CURRENT_TIMESTAMP|DEFAULT_GENERATED on update CURRENT_TIMESTAMP|
+to_delete |tinyint(1)     |NO  |   |0                |                                             |
 ```
 
-### Table addresses ( WebShop's addresses table of users or organizations )
+### Table users_organizations ( Many-to-many connection between users and organizations ) 
+
+```
+Field        |Type           |Null|Key|Default|Extra|
+-------------+---------------+----+---+-------+-----+
+user_id      |binary(16)     |NO  |PRI|       |     |
+org_id       |bigint unsigned|NO  |PRI|       |     |
+user_org_role|varchar(32)    |YES |   |       |     |
+```
+
+### Table addresses ( WebShop's addresses table of organizations )
 
 ```
 Field        |Type           |Null|Key|Default          |Extra                                        |
 -------------+---------------+----+---+-----------------+---------------------------------------------+
 id           |bigint unsigned|NO  |PRI|                 |auto_increment                               |
+org_id       |bigint unsigned|YES |MUL|                 |                                             |
+title_name   |varchar(64)    |YES |   |                 |                                             |
+alias_name   |varchar(64)    |YES |   |                 |                                             |
 street_name  |varchar(70)    |YES |   |                 |                                             |
 house_number |varchar(9)     |YES |   |                 |                                             |
 district_name|varchar(200)   |YES |   |                 |                                             |
@@ -98,8 +129,6 @@ state_name   |varchar(75)    |YES |   |                 |                       
 country_id   |int unsigned   |NO  |MUL|                 |                                             |
 email        |varchar(64)    |YES |   |                 |                                             |
 phone        |varchar(25)    |YES |   |                 |                                             |
-creator      |bigint unsigned|NO  |   |                 |                                             |
-org_id       |bigint unsigned|YES |   |                 |                                             |
 created_at   |timestamp      |NO  |   |CURRENT_TIMESTAMP|DEFAULT_GENERATED                            |
 updated_at   |timestamp      |NO  |   |CURRENT_TIMESTAMP|DEFAULT_GENERATED on update CURRENT_TIMESTAMP|
 ```
@@ -113,28 +142,5 @@ id          |int unsigned|NO  |PRI|       |auto_increment|
 country_code|char(2)     |NO  |   |       |              |
 country_name|varchar(200)|YES |   |       |              |
 phone_prefix|varchar(10) |YES |   |       |              |
-```
-
-### Table organizations ( WebShop's organizations table )
-
-```
-Field     |Type           |Null|Key|Default          |Extra                                        |
-----------+---------------+----+---+-----------------+---------------------------------------------+
-id        |bigint unsigned|NO  |PRI|                 |auto_increment                               |
-org_name  |varchar(64)    |NO  |   |                 |                                             |
-address   |bigint unsigned|YES |   |                 |                                             |
-email     |varchar(64)    |YES |   |                 |                                             |
-phone     |varchar(25)    |YES |   |                 |                                             |
-enabled   |tinyint(1)     |NO  |   |1                |                                             |
-created_at|timestamp      |NO  |   |CURRENT_TIMESTAMP|DEFAULT_GENERATED                            |
-updated_at|timestamp      |NO  |   |CURRENT_TIMESTAMP|DEFAULT_GENERATED on update CURRENT_TIMESTAMP|
-```
-
-### Table users_organizations ( Many-to-many connection between users and organizations ) 
-
-```
-Field  |Type           |Null|Key|Default|Extra|
--------+---------------+----+---+-------+-----+
-user_id|bigint unsigned|NO  |PRI|       |     |
-org_id |bigint unsigned|NO  |PRI|       |     |
+enabled     |tinyint(1)  |NO  |   |1      |              |
 ```

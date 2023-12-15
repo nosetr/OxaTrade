@@ -12,12 +12,12 @@ SHOW COLUMNS FROM users;
 -- or
 DESCRIBE users;
 
-DESCRIBE addresses;
-
-DESCRIBE countries;
-
 DESCRIBE organizations;
 
 DESCRIBE users_organizations;
+
+DESCRIBE addresses;
+
+DESCRIBE countries;
 
 

@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS oxatrade.organizations (
 CREATE TABLE IF NOT EXISTS oxatrade.users_organizations (
   user_id BINARY(16) NOT NULL,
   org_id bigint unsigned NOT NULL,
+  user_org_role varchar(32) DEFAULT NULL,
   PRIMARY KEY (user_id, org_id),
   KEY `FKh8ciramu9cc9q3qcqiv4ue8a6` (org_id),
   CONSTRAINT `FKh8ciramu9cc9q3qcqiv4ue8a6` FOREIGN KEY (org_id) REFERENCES oxatrade.organizations (id) ON UPDATE CASCADE ON DELETE CASCADE,
