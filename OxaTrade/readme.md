@@ -10,6 +10,7 @@ ___
 - Spring Security
 - Flyway-Migration
 - r2dbc
+- Lombok
 - Mapstruct
 - JsonWebToken
 - Passay-Library for password validation
@@ -21,9 +22,11 @@ ___
 
 - [GET] http://localhost:8083/oauth2/authorization/google <b>(with Google)</b>
 - [GET] http://localhost:8083/oauth2/authorization/facebook <b>(with Facebook)</b>
+
 ___
 
 ## API requests:
+look at [Postman Collection](webfluxsecurity.postman_collection.json)
 
 - [POST] http://localhost:8083/api/v1/auth/register <b>(Create new user)</b>
 
@@ -64,7 +67,7 @@ ___
 
 
 ## Database structure
-(look at oxatrade.png)
+look at [ER Diagramm](oxatrade.png)
 
 ### Table users ( WebShop's users table )
 
