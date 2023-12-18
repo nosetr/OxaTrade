@@ -6,6 +6,7 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter;
 import org.springframework.web.server.ServerWebExchange;
 
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 /**
@@ -18,6 +19,7 @@ import reactor.core.publisher.Mono;
  * @autor Nikolay Osetrov
  * @since 0.1.0
  */
+@Slf4j
 public class OAuth2AuthenticationConverter implements ServerAuthenticationConverter {
 	
 	@Override
@@ -31,6 +33,7 @@ public class OAuth2AuthenticationConverter implements ServerAuthenticationConver
       	.filter(principal -> principal instanceof OAuth2AuthenticationToken)
       	.cast(OAuth2AuthenticationToken.class)
       	.map(oauthToken -> {
+      		log.trace("Load user {}", oauthToken.getCredentials());
           // Hier kannst du die Benutzerdetails aus dem OAuth2AuthenticationToken extrahieren
           String userId = oauthToken.getName(); // Hier wird die Facebook-Benutzer-ID angenommen
 

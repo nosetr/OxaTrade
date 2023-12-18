@@ -19,10 +19,16 @@ spring:
           google:
             client-id: 1061580659113-kdja71abupqctcd47m8iv9iqjii3knfq.apps.googleusercontent.com
             client-secret: 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
-            redirect-uri: '{baseUrl}/api/v1/oauth2/google'
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+            scope:
+              - https://www.googleapis.com/auth/userinfo.email
+              - https://www.googleapis.com/auth/userinfo.profile
+              - openid
           # OAuth 2.0-Facebook-Client
           facebook:
             client-id: 214206468602478
             client-secret: 3557c1de65a3280bcd1f6176530da8e1
-            redirect-uri: '{baseUrl}/api/v1/oauth2/facebook'
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+            scope:
+              - email
             

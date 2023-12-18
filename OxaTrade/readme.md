@@ -10,6 +10,7 @@ ___
 - Spring Security
 - Flyway-Migration
 - r2dbc
+- Messages for translation
 - Lombok
 - Mapstruct
 - JsonWebToken

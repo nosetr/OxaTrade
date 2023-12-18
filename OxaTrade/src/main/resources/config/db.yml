@@ -19,10 +19,6 @@ spring:
     baseline-on-migrate: true
     user: ${spring.r2dbc.username}
     password: ${spring.r2dbc.password}
-    
-  jpa:
-    hibernate:
-      ddl-auto: create # only for development
 
 ---
 spring:

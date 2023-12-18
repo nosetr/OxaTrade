@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: oxaauth-service
+  profiles:
+    active: dev
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE # configure the whole application to expect the snake case input
+
+  r2dbc:
+    url: r2dbc:mysql://${MYSQL_HOST:localhost}:3306/oxatrade?allowPublicKeyRetrieval=true&useSSL=false
+    username: oxatrade
+    password: 12345678
+
+  security:
+    oauth2: 
+      client:
+        registration:
+          # https://console.cloud.google.com/apis/credentials?hl=de&project=schleifpower
+          # OAuth 2.0-Client-ID "OxaTrade"
+          google:
+            client-id: 1061580659113-kdja71abupqctcd47m8iv9iqjii3knfq.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+            scope:
+              - https://www.googleapis.com/auth/userinfo.email
+              - https://www.googleapis.com/auth/userinfo.profile
+              - openid

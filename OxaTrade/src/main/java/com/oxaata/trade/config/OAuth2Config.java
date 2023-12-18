@@ -10,6 +10,8 @@ import org.springframework.security.oauth2.client.registration.ReactiveClientReg
 import org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction;
 import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
@@ -87,6 +89,7 @@ public class OAuth2Config {
 		return ClientRegistration.withRegistrationId("facebook")
 				.clientId(facebookClientId)
 				.clientSecret(facebookClientSecret)
+        .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 				.redirectUri(facebookRedirectUri)
 				.scope("email")
@@ -117,15 +120,17 @@ public class OAuth2Config {
 				.withRegistrationId("google")
 				.clientId(googleClientId)
 				.clientSecret(googleClientSecret)
+        .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 				// The URI where the OAuth 2.0 provider should redirect after the user grants or denies permission:
 				.redirectUri(googleRedirectUri)
-				.scope("openid", "profile", "email")
+				.scope("openid", "profile", "email", "address", "phone")
 				.authorizationUri("https://accounts.google.com/o/oauth2/auth")
 				.tokenUri("https://accounts.google.com/o/oauth2/token")
 				.userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
 				// The attribute name that represents the user's name in the user information returned by the OAuth 2.0 provider:
-				.userNameAttributeName("email")
+				.userNameAttributeName(IdTokenClaimNames.SUB)
+        .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
 				.clientName("Google")
 				.build();
 	}
