@@ -110,3 +110,26 @@ Notice that we installed Axios as a dependency. Axios is a promise-based HTTP cl
 
 <b>Tutorial for Axios:</b> https://blog.logrocket.com/how-to-make-http-requests-like-a-pro-with-axios/#new_tab
 
+___
+
+### React Router
+
+To add React Router in your application, run this in the terminal from the root directory of the application:
+
+```
+bun add react-router-dom
+```
+
+<b>Tutorial for React Router:</b> https://www.w3schools.com/react/react_router.asp
+
+___
+
+### Social Login
+
+Implementing social login (e.g., Google, Facebook, or GitHub) in a Spring Boot and React application involves integrating OAuth 2.0 authentication flow on the backend and handling authentication on the frontend.
+
+<b>Tutorial:</b> https://rathoreaparna678.medium.com/implementing-social-login-in-a-spring-boot-and-react-app-afcf5bec3f73
+
+- Add the required packages to your React project using bun `react-google-login`, `react-facebook-login`, or other social login libraries for the specific OAuth providers you want to support.
+- Create a Login component to handle the social login buttons and user authentication
+
