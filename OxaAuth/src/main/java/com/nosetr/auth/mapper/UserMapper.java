@@ -22,6 +22,5 @@ public interface UserMapper {
 
 	@InheritInverseConfiguration
 	@Mapping(target = "provider", ignore = true)
-	@Mapping(target = "toDelete", ignore = true)
 	UserEntity map(UserDto dto);
 }

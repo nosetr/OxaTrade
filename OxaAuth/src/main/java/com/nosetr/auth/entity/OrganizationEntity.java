@@ -31,6 +31,5 @@ public class OrganizationEntity {
 	private boolean enabled;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
-	private boolean toDelete;
 	
 }

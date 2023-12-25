@@ -40,7 +40,6 @@ public class UserEntity {
 	private boolean enabled;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
-	private boolean toDelete;
 
 	@ToString.Include(name = "password")
 	private String maskPassword() {

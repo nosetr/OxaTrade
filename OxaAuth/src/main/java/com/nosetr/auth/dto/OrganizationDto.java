@@ -20,6 +20,5 @@ public class OrganizationDto {
 	private boolean enabled;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
-	private boolean toDelete;
 	
 }
