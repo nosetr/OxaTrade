@@ -98,6 +98,41 @@ import { Button, Dropdown } from 'reactstrap';
 
 ___
 
+## React Bootstrap Icons
+
+```
+bun add react-bootstrap-icons
+```
+
+### Usage:
+
+```
+import { ArrowRight } from 'react-bootstrap-icons';
+
+export default function App() {
+  return <ArrowRight />;
+}
+```
+
+or:
+
+```
+import * as Icon from 'react-bootstrap-icons';
+
+export default function App() {
+  return <Icon.ArrowRight />;
+}
+```
+
+Icons can be configured with inline props:
+
+```
+<ArrowRight className="ml-4" color="royalblue" size={96} />
+```
+
+<b>Documentation:</b> https://www.npmjs.com/package/react-bootstrap-icons
+___
+
 ## Axios
 
 Next, install the [Axios](https://github.com/axios/axios) dependency as follows:
@@ -133,3 +168,8 @@ Implementing social login (e.g., Google, Facebook, or GitHub) in a Spring Boot a
 - Add the required packages to your React project using bun `react-google-login`, `react-facebook-login`, or other social login libraries for the specific OAuth providers you want to support.
 - Create a Login component to handle the social login buttons and user authentication
 
+___
+
+### Authentication with React Router v6
+
+<b>Tutorial:</b> https://blog.logrocket.com/complete-guide-authentication-with-react-router-v6/

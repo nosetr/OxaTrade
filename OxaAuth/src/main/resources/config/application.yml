@@ -1,31 +1,39 @@
-server:
-  port: 8080
-
 spring:
   application:
-    name: oxaauth-service
+    name: oxatrade-service
   profiles:
     active: dev
-
   jackson:
     property-naming-strategy: SNAKE_CASE # configure the whole application to expect the snake case input
+  config:
+    import: 
+      - db.yml
+      - oxa.yml
+  #autoconfigure:
+    # To discard the security auto-configuration and add our own configuration:
+    #exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
 
-  r2dbc:
-    url: r2dbc:mysql://${MYSQL_HOST:localhost}:3306/oxatrade?allowPublicKeyRetrieval=true&useSSL=false
-    username: oxatrade
-    password: 12345678
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  servlet:
+    multipart:
+     #For file upload:
+     max-file-size: 100MB
+     max-request-size: 100MB
 
-  security:
-    oauth2: 
-      client:
-        registration:
-          # https://console.cloud.google.com/apis/credentials?hl=de&project=schleifpower
-          # OAuth 2.0-Client-ID "OxaTrade"
-          google:
-            client-id: 1061580659113-kdja71abupqctcd47m8iv9iqjii3knfq.apps.googleusercontent.com
-            client-secret: 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
-            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
-            scope:
-              - https://www.googleapis.com/auth/userinfo.email
-              - https://www.googleapis.com/auth/userinfo.profile
-              - openid
+server:
+  port: 8083
+  error:
+    include-message: always
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+server:
+  port: 8083

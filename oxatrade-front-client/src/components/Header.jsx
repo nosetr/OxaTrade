@@ -15,7 +15,7 @@ const AVATAR = 'https://www.gravatar.com/avatar/429e504af19fc3e1cfa5c4326ef3394c
 const Header = () => (
   <>
     <header>
-      <Navbar full="true" container="fluid" color="light" light expand="md" className="border-bottom border-gray bg-white" style={{ height: 80 }}>
+      <Navbar full="true" container="fluid" expand="md" className="border-bottom" style={{ height: 80 }}>
 
         <Container>
           <Row g-0 className="position-relative w-100 align-items-center">
@@ -48,7 +48,9 @@ const Header = () => (
                     <DropdownItem>
                       <RRNavLink to="/contact">Contact</RRNavLink>
                     </DropdownItem>
-                    <DropdownItem>Courses</DropdownItem>
+                    <DropdownItem>
+                      <RRNavLink to="/add_address">Add Address</RRNavLink>
+                    </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
                 {/* <Outlet /> */}
