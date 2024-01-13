@@ -24,7 +24,7 @@ import DashboardPage from "./pages/user/dashboard/DashboardPage"
 import ProfilePage from "./pages/user/profile/ProfilePage"
 import OAuth2RedirectHandler from './pages/user/oauth2/OAuth2RedirectHandler'
 
-import { getCurrentUser } from './util/APIUtils_OLD'
+import { getCurrentUser } from './util/APIUtils'
 import LoadingIndicator from './components/LoadingIndicator'
 
 // ideally this would be an API call to server to get logged in user data
@@ -33,7 +33,7 @@ const getUserData = () =>
 		setTimeout(() => {
 			const user = window.localStorage.getItem("user");
 			resolve(user);
-		}, 1500)
+		}, 3000)
 	);
 // for error
 // const getUserData = () =>

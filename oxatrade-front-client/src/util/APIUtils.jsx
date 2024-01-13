@@ -1,48 +1,58 @@
+/**
+ * In this conversion:
+ * 1. I replaced the fetch API with the axios library, which simplifies the HTTP request
+ *    and response handling.
+ * 2. I changed the request function to use async/await syntax for cleaner asynchronous code.
+ * 3. The functions getCurrentUser, login, and signup now use the axios library to make the
+ *    HTTP requests, handling both successful and error responses more consistently.
+ */
+
+import axios from 'axios';
 import { API_BASE_URL, ACCESS_TOKEN } from '../constants';
 
 const request = async (options) => {
-    const headers = new Headers({
+    const headers = {
         'Content-Type': 'application/json',
-    })
-    
-    if(localStorage.getItem(ACCESS_TOKEN)) {
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
+    };
+
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+        headers['Authorization'] = 'Bearer ' + localStorage.getItem(ACCESS_TOKEN);
     }
 
-    const defaults = {headers: headers};
+    const defaults = { headers };
     options = Object.assign({}, defaults, options);
 
-    const response = await fetch(options.url, options);
-    const json = await response.json();
-    if (!response.ok) {
-        return Promise.reject(json);
+    try {
+        const response = await axios(options);
+        return response.data;
+    } catch (error) {
+        return Promise.reject(error.response ? error.response.data : error.message);
     }
-    return json;
 };
 
-export function getCurrentUser() {
-    if(!localStorage.getItem(ACCESS_TOKEN)) {
+export const getCurrentUser = () => {
+    if (!localStorage.getItem(ACCESS_TOKEN)) {
         return Promise.reject("No access token set.");
     }
 
     return request({
         url: API_BASE_URL + "/user/me",
-        method: 'GET'
+        method: 'GET',
     });
-}
+};
 
-export function login(loginRequest) {
+export const login = (loginRequest) => {
     return request({
         url: API_BASE_URL + "/auth/login",
         method: 'POST',
-        body: JSON.stringify(loginRequest)
+        data: JSON.stringify(loginRequest),
     });
-}
+};
 
-export function signup(signupRequest) {
+export const signup = (signupRequest) => {
     return request({
         url: API_BASE_URL + "/auth/signup",
         method: 'POST',
-        body: JSON.stringify(signupRequest)
+        data: JSON.stringify(signupRequest),
     });
-}
+};

@@ -1,0 +1,10 @@
+.bi {
+    width: 1em;
+    height: 1em;
+    vertical-align: -.125em;
+    fill: currentcolor;
+}
+
+.bd-navbar .dropdown-menu .active .bi {
+    display: block !important;
+}

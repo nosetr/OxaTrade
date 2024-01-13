@@ -131,6 +131,14 @@ Icons can be configured with inline props:
 ```
 
 <b>Documentation:</b> https://www.npmjs.com/package/react-bootstrap-icons
+
+___
+
+## react-toastify
+
+With react toastify you can easily create toast notifications and alerts in your react application
+
+<b>Documentation:</b> https://deadsimplechat.com/blog/react-toastify-the-complete-guide/
 ___
 
 ## Axios
@@ -157,6 +165,53 @@ bun add react-router-dom
 
 <b>Tutorial for React Router:</b> https://www.w3schools.com/react/react_router.asp
 
+___
+
+### Yup
+
+Yup is a popular validation library for Reactjs that makes it easy to create and manage form validation.
+
+```
+bun add yup
+```
+
+```
+import * as Yup from 'yup';
+
+const schema = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('Email is required'),
+  password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
+});
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  const formData = {
+    email: e.target.email.value,
+    password: e.target.password.value,
+  };
+
+  const errors = schema.validate(formData);
+
+  if (errors.length > 0) {
+    // There are errors in the form data
+    alert(errors.join("\n"));
+  } else {
+    // The form data is valid, do something with it
+  }
+};
+```
+___
+
+### formik
+
+Formik is the world's most popular open source form library for React and React Native.
+
+<b>Documentation:</b> https://formik.org/
+
+<b>A React component with reactstrap, formik, and yup:</b> https://gist.github.com/AndrewBedell/b5f650475012f62bbbdf6ffbdf3711da
+
+<b>Example:</b> https://blog.bitsrc.io/exploring-yup-a-powerful-validation-library-for-react-172ed02be464
 ___
 
 ### Social Login

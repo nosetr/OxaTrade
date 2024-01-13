@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
+import { API_BASE_URL } from '../constants'
+
 import TableView from '../layouts/tables/customers/CustomersTable';
 import FormNewItem from '../layouts/forms/customers/CustomerForm';
 
@@ -14,12 +16,12 @@ const Home = () => {
   //const keys = require("./config/keys").default;
   //import { API_BASE_URL } from './constants';
   //const HOST = API_BASE_URL + '/api/';
-  const HOST = 'http://localhost:8080/api/';
+  // const HOST = 'http://localhost:8080/api/';
 
   const [items, setItems] = useState([])
 
   useEffect(() => {
-    axios.get(HOST + 'contacts')
+    axios.get(API_BASE_URL + '/api/contacts')
       .then(res => {
         const data = [];
         res.data._embedded.contacts.forEach(item => {

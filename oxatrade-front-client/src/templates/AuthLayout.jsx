@@ -8,7 +8,8 @@ import { AuthProvider } from "../hooks/useAuth";
 import {
     Progress
 } from 'reactstrap';
-import ToastMsg from "../components/ToastMsg";
+import ToastMsg from "../components/ToastMsg"
+import { toast } from 'react-toastify'
 
 export const AuthLayout = () => {
 
@@ -33,6 +34,15 @@ export const AuthLayout = () => {
             <Await
                 resolve={userPromise}
                 errorElement={<ToastMsg text={'An error occurred. Please try again later.'} />}
+                // errorElement={toast.error('An error occurred. Please try again later.', {
+                //     position: "bottom-right",
+                //     // autoClose: false,
+                //     // hideProgressBar: false,
+                //     // closeOnClick: false,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     // progress: 0,
+                //   })}
                 children={(user) => (
                     <AuthProvider userData={user}>{outlet}</AuthProvider>
                 )}
