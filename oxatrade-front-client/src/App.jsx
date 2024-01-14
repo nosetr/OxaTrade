@@ -19,6 +19,8 @@ import OrdersPage from "./pages/OrdersPage"
 
 import LoginPage from "./pages/user/login/LoginPage";
 import RegistrationPage from "./pages/user/registration/RegistrationPage";
+import PassRequestPage from "./pages/user/pass_reset/PassRequestPage";
+import PassResetPage from "./pages/user/pass_reset/PassResetPage";
 import SetAddressPage from './pages/user/address/SetAddressPage'
 import DashboardPage from "./pages/user/dashboard/DashboardPage"
 import ProfilePage from "./pages/user/profile/ProfilePage"
@@ -57,6 +59,8 @@ export const router = createBrowserRouter(
 			<Route element={<EmptyLayout />}>
 				<Route path="/login" element={<LoginPage />} />
 				<Route path="/signup" element={<RegistrationPage />} />
+				<Route path="/pass_request" element={<PassRequestPage />} />
+				<Route path="/pass_reset" element={<PassResetPage />} />
 				<Route path='/add_address' element={<SetAddressPage />} />
 			</Route>
 			<Route path="/oauth2/redirect" component={<OAuth2RedirectHandler />} />

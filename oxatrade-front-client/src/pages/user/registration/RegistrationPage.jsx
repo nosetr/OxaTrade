@@ -4,7 +4,7 @@ import { NavLink, Navigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { useAuth } from '../../../hooks/useAuth'
-import { API_AUTH_URL } from '../../../constants'
+import { API_AUTH_URL, TITLES } from '../../../constants'
 
 import {
   Button,
@@ -19,6 +19,7 @@ import {
 } from 'reactstrap'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
+import Select from 'react-select'
 
 const Registration = () => {
   const { user } = useAuth();
@@ -34,6 +35,7 @@ const Registration = () => {
   )
 
   const validationSchema = Yup.object().shape({
+    title: Yup.object().required('Title is required'),
     first_name: Yup.string()
       .min(2, 'First name must be at least 2 characters')
       .max(64, 'First name must be at most 64 characters')
@@ -44,9 +46,16 @@ const Registration = () => {
       .required('Last name is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
     password: Yup.string()
-      .min(8, 'Password must be at least 8 characters')
-      .max(100, 'Password must be at most 100 characters')
-      .required('Password is required'),
+      .min(8, ({ min }) => `Password must be at least ${min} characters`)
+      .max(100, ({ max }) => `Password must be at most ${max} characters`)
+      .required('Password is required')
+      .matches(/^\S*$/, "White Spaces are not allowed")
+      .matches(/\w*[a-z]\w*/,  "Password must have a small letter")
+      .matches(/\w*[A-Z]\w*/,  "Password must have a capital letter")
+      .matches(/\d/, "Password must have a number")
+      .matches(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/, "Password must have a special character"),
+      // .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])[A-Za-z\d!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]{8,}$/,
+        // "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"),
     confirm_password: Yup.string()
       .required('Confirm Password is required')
       .oneOf([Yup.ref('password'), null], 'Passwords must match'),
@@ -54,16 +63,23 @@ const Registration = () => {
 
   const formik = useFormik({
     initialValues: {
+      title: '',
       first_name: '',
       last_name: '',
       email: '',
       password: '',
-      confirm_password: ''
+      confirm_password: '',
+      newsletter: false
     },
     validationSchema,
     onSubmit: (values, { setSubmitting, setFieldError }) => {
       setLoading(true)
-      console.log(values)
+      // Convert Title from object to string:
+      for (const [key, val] of Object.entries(values)) {
+        if ((val instanceof Object))
+          values[key] = values[key].value
+      }
+
       axios.post(API_AUTH_URL + '/api/v1/auth/register', values)
         .then(e => {
           console.log(e.data)
@@ -77,10 +93,8 @@ const Registration = () => {
           if (err.response) {
             erMsg = JSON.stringify(err.response.data.errors[0].message)
             setFieldError('first_name', erMsg)
-          } else if (err.request) {
-            erMsg = 'Network Error:', err.request
           } else {
-            erMsg = 'Error:', err.message
+            erMsg = 'An error has occurred. Please try again later.'
           }
           toast.error(`${erMsg}`, {
             position: "bottom-right",
@@ -100,6 +114,68 @@ const Registration = () => {
               <h1>Sign <b>Up</b></h1>
             </div>
             <Form onSubmit={formik.handleSubmit}>
+              <FormGroup row>
+                <Select
+                  classNamePrefix="react-select-lg"
+                  indicatorSeparator={null}
+                  options={TITLES}
+                  getOptionValue={option => option.value}
+                  getOptionLabel={option => option.label}
+                  value={formik.values.title}
+                  onChange={(title) => {
+                    formik.setFieldValue('title', title);
+                  }}
+                  placeholder="Select title..."
+                  className={(formik.touched.title && !!formik.errors.title) && 'n2s-select-is-invalid'}
+                  styles={{
+                    control: (provided, state) => ({
+                      ...provided,
+                      boxShadow: state.isFocused ? "0 0 0 .25rem rgba(13,110,253,.25)" : "none",
+                      border: state.isFocused ? "var(--bs-border-width) solid #86b7fe" : "var(--bs-border-width) solid var(--bs-border-color)",
+                      '&:hover': {
+                        borderColor: 'none'
+                      },
+                      backgroundColor: "var(--bs-body-bg)",
+                      borderRadius: "var(--bs-border-radius)",
+                      color: "var(--bs-body-color)",
+                      width: "100%"
+                    }),
+                    valueContainer: (provided, state) => ({
+                      ...provided,
+                      padding: ".375rem .75rem"
+                    }),
+                    singleValue: (provided, state) => ({
+                      ...provided,
+                      color: "var(--bs-body-color)"
+                    }),
+                    menu: (provided, state) => ({
+                      ...provided,
+                      zIndex: '3'
+                    }),
+                    menuList: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: "var(--bs-body-bg)"
+                    }),
+                    option: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: state.isSelected ? '#00AEEC' : '#var(--bs-body-bg)',
+                      "&:hover": {
+                        backgroundColor: '#00AEEC',
+                        color: "#dee2e6"
+                      }
+                    }),
+                    dropdownIndicator: (provided, state) => ({
+                      ...provided,
+                      '&:hover': {
+                        color: 'inherit'
+                      }
+                    }),
+                  }}
+                />
+                {(!!formik.errors.title && formik.touched.title) && (
+                  <FormFeedback className="d-block">{formik.errors.title}</FormFeedback>
+                )}
+              </FormGroup>
               <Row>
                 <Col md={6}>
                   <FormGroup floating>
@@ -186,7 +262,10 @@ const Registration = () => {
                 </Col>
               </Row>
               <FormGroup check inline>
-                <Input id="check" name="check" type="checkbox" />
+                <Input id="check" name="check" type="checkbox"
+                  onChange={() => {
+                    formik.setFieldValue('newsletter', !formik.values.newsletter)
+                  }} />
                 <Label check for="check">
                   I would like to receive information about news and promotions by email.
                   <br /><small className="text-muted">You can unsubscribe at any time via the newsletter or on our home page.</small>

@@ -20,7 +20,8 @@ import {
   FormGroup,
   FormFeedback,
   Input,
-  Label
+  Label,
+  InputGroup
 } from 'reactstrap'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
@@ -34,6 +35,7 @@ const LoginPage = () => {
 
   const [checked, setChecked] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   // const PreLoader = () => (
   //   <div id="n2s-preloader">
@@ -80,10 +82,8 @@ const LoginPage = () => {
           if (err.response) {
             erMsg = err.response.data.errors[0].message
             setFieldError('email', erMsg)
-          } else if (err.request) {
-            erMsg = 'Network Error:', err.request
           } else {
-            erMsg = 'Error:', err.message
+            erMsg = 'An error has occurred. Please try again later.'
           }
           // https://deadsimplechat.com/blog/react-toastify-the-complete-guide/
           toast.error(`${erMsg}`, {
@@ -127,16 +127,25 @@ const LoginPage = () => {
                 <Label for="email">Email</Label>
                 <FormFeedback>{formik.errors.email}</FormFeedback>
               </FormGroup>
-
-              <FormGroup floating>
-                <Input id="password" name="password" placeholder="Password" type="password"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  invalid={formik.touched.password && !!formik.errors.password} />
-                <Label for="password">Password</Label>
-                <FormFeedback>{formik.errors.password}</FormFeedback>
-              </FormGroup>
-
+              <InputGroup className='mb-5'>
+                <div className="form-floating">
+                  <Input id="password" name="password" placeholder="Password"
+                    type={
+                      showPassword ? "text" : "password"
+                    }
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    invalid={formik.touched.password && !!formik.errors.password} />
+                  <Label for="password">Password</Label>
+                  <FormFeedback>{formik.errors.password}</FormFeedback>
+                </div>
+                <Button
+                  onClick={() =>
+                    setShowPassword((prev) => !prev)
+                  } >
+                  <Icon.Eye size={25} />
+                </Button>
+              </InputGroup>
               <FormGroup check inline>
                 <Input id="remember_me" name="remember_me" type="checkbox"
                   onChange={() => { setChecked(!checked) }} />
@@ -160,7 +169,9 @@ const LoginPage = () => {
                 </NavLink>
               </div>
               <div className='d-none d-lg-flex justify-content-end col'>
-                <a href="#!" className="link-secondary text-decoration-none">Forgot password</a>
+                <NavLink className="link-secondary text-decoration-none" to="/pass_request">
+                  Forgot password
+                </NavLink>
               </div>
             </div>
 

@@ -22,7 +22,7 @@
 }
 
 /*Preloader*/
-#n2s-preloader{
+#n2s-preloader {
     position: fixed;
     top: 0;
     left: 0;
@@ -31,6 +31,7 @@
     height: 100vh;
     overflow: hidden;
 }
+
 .n2s-preloader-bg {
     background-color: var(--bs-body-bg);
     opacity: 0.5;
@@ -39,8 +40,9 @@
     bottom: 0;
     left: 0;
     position: fixed;
-  }
-.n2s-loader{
+}
+
+.n2s-loader {
     width: 80px;
     height: 80px;
     perspective: 800px;
@@ -49,39 +51,70 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.n2s-loader div{
+
+.n2s-loader div {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     position: absolute;
 }
-.n2s-loader div:nth-child(1){
+
+.n2s-loader div:nth-child(1) {
     border-bottom: 4px solid yellow;
     left: 0;
     top: 0;
     animation: rotate-one 1s linear infinite;
 }
-.n2s-loader div:nth-child(2){
+
+.n2s-loader div:nth-child(2) {
     border-right: 4px solid indigo;
     right: 0;
     top: 0;
     animation: rotate-two 1s linear infinite;
 }
-.n2s-loader div:nth-child(3){
+
+.n2s-loader div:nth-child(3) {
     border-top: 4px solid darkgrey;
     right: 0;
     bottom: 0;
     animation: rotate-three 1s linear infinite;
 }
-@keyframes rotate-one{
-    0%{ transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg); }
-    100%{ transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg); }
+
+@keyframes rotate-one {
+    0% {
+        transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+    }
 }
-@keyframes rotate-two{
-    0%{ transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg); }
-    100%{ transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg); }
+
+@keyframes rotate-two {
+    0% {
+        transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+    }
 }
-@keyframes rotate-three{
-    0%{ transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg); }
-    100%{ transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg); }
+
+@keyframes rotate-three {
+    0% {
+        transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+    }
+}
+
+/* react-select */
+.n2s-select-is-invalid>div {
+    border-color: var(--bs-form-invalid-border-color);
+}
+/* show error-msg in input-group */
+.input-group>.form-floating>.invalid-feedback {
+    position: absolute;
 }

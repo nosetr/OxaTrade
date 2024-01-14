@@ -212,6 +212,21 @@ Formik is the world's most popular open source form library for React and React 
 <b>A React component with reactstrap, formik, and yup:</b> https://gist.github.com/AndrewBedell/b5f650475012f62bbbdf6ffbdf3711da
 
 <b>Example:</b> https://blog.bitsrc.io/exploring-yup-a-powerful-validation-library-for-react-172ed02be464
+
+___
+
+### react-select
+
+A flexible and beautiful Select Input control for ReactJS with multiselect, autocomplete, async and creatable support.
+
+```
+bun add react-select
+```
+
+<b>Styles on GitHub:</b> https://github.com/JedWatson/react-select/blob/90995cca51e59c6691d35ec2862a62bbd02f68c2/packages/react-select/src/styles.js
+
+<b>Documentation:</b> https://react-select.com
+
 ___
 
 ### Social Login

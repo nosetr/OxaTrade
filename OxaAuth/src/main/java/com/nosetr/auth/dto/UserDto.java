@@ -53,7 +53,7 @@ public class UserDto {
 
 	@NotBlank(message = "{validation.field.NotBlank}")
   @Size(message = "{validation.firstname.size}", min = 2, max = 64)
-	@JsonProperty("first_name")
+//	@JsonProperty("first_name")
 	private String firstName;
 
 	@NotBlank(message = "{validation.field.NotBlank}")
