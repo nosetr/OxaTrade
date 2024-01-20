@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import reactor.core.publisher.Mono;
 
 /**
@@ -19,6 +20,7 @@ import reactor.core.publisher.Mono;
  * @autor Nikolay Osetrov
  * @since 0.1.0
  */
+@Tag(name = "OAuth2V1", description = "APIs for users authentication and registration with OAuth2")
 @RestController
 @RequestMapping("/api/v1/oauth2")
 public class OAuth2ControllerV1 {

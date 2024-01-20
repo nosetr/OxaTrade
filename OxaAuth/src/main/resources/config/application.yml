@@ -28,10 +28,26 @@ server:
   port: 8083
   error:
     include-message: always
-
+# custom:
 app:
   cors:
     allowedOrigins: http://localhost:5173,http://localhost:8080
+
+# swagger-ui custom path
+# see: https://springdoc.org/#properties
+springdoc:
+  swagger-ui:
+    # swagger-ui custom path:
+    path: /swagger    
+    # In order to disable the swagger-ui:
+    #enabled: false
+  api-docs:
+    # /api-docs endpoint custom path
+    path: /api-docs
+    # In order to disable the springdoc-openapi endpoint (/v3/api-docs by default):
+    #enabled: false
+  # Boolean. To enable spring-security support:
+  enable-spring-security: false
 
 ---
 spring:

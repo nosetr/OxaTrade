@@ -49,6 +49,15 @@ public class SecurityConfig {
 			"/api/v1/auth/login",
 			"/login/**"
 	};
+	
+	/*
+	 * Special routes for swagger
+	 */
+	private final String[] swaggerRouteStrings = {
+			"/swagger",
+			"/webjars/swagger-ui/**",
+			"/api-docs/**"
+	};
 
 	/*
 	 * Array of routes with access for users with role "USER"
@@ -87,6 +96,8 @@ public class SecurityConfig {
 						exchange -> exchange.pathMatchers(HttpMethod.OPTIONS)
 								.permitAll()
 								.pathMatchers(publicRoutes) // make routes from publicRoutes public
+								.permitAll()
+								.pathMatchers(swaggerRouteStrings) // swagger routes
 								.permitAll()
 								.pathMatchers(usersRoutes)
 								.hasRole("USER")

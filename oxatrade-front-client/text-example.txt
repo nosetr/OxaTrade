@@ -1,0 +1,19 @@
+Salutation*: Mr, Ms, Mx
+Academic title: Prof., Dr.
+First name*
+Surname*
+
+1. The contact person is the same person as the designated person.
+2. The contact person is not the same person as the designated person.
+
+https://friendlycaptcha.com/
+
+
+Vielen Dank!
+
+Ihr Login ist jetzt eingerichtet. Wir haben an Sie eine E-Mail mit dem Aktivierungslink versendet. Bitte sehen Sie in Ihrem Postfach nach, öffnen Sie diese E-Mail und klicken Sie den Link „Login aktivieren“ innerhalb von 24 Stunden an. Es öffnet sich dann das Login-Fenster. Dort können Sie Ihre E-Mail-Adresse und Ihr Kennwort eingeben und auf „Login“ klicken.
+
+Für den Abschluss Ihrer Registrierung haben Sie sieben Tage Zeit.
+
+Sie haben die E-Mail mit dem Aktivierungslink in keinem der Ordner Ihres Postfachs erhalten? Dann loggen Sie sich bitte ein und fordern über den Button „Link erneut zusenden“ einen neuen Link an.
+

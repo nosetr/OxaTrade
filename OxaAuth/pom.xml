@@ -17,8 +17,15 @@
 	<properties>
 		<java.version>21</java.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
-		<io.jsonwebtoken.verson>0.12.3</io.jsonwebtoken.verson>
+		<io.jsonwebtoken.version>0.12.3</io.jsonwebtoken.version>
+		<google.findbugs.version>3.0.2</google.findbugs.version>
+		<org.passay.version>1.6.4</org.passay.version>
+		<commons-validator.version>1.7</commons-validator.version>
+		<google.guava.version>32.1.3-jre</google.guava.version>
+		<ui.swagger.version>2.0.3</ui.swagger.version>
+		<springdoc.swagger.version>2.3.0</springdoc.swagger.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -40,13 +47,6 @@
 		<dependency>
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session-core</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
 		</dependency>
 
 		<dependency>
@@ -128,18 +128,18 @@
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
-			<version>${io.jsonwebtoken.verson}</version>
+			<version>${io.jsonwebtoken.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-impl</artifactId>
-			<version>${io.jsonwebtoken.verson}</version>
+			<version>${io.jsonwebtoken.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-jackson</artifactId>
-			<version>${io.jsonwebtoken.verson}</version>
+			<version>${io.jsonwebtoken.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -147,7 +147,7 @@
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
 			<artifactId>jsr305</artifactId>
-			<version>3.0.2</version>
+			<version>${google.findbugs.version}</version>
 		</dependency>
 
 
@@ -166,7 +166,7 @@
 		<dependency>
 			<groupId>org.passay</groupId>
 			<artifactId>passay</artifactId>
-			<version>1.6.4</version>
+			<version>${org.passay.version}</version>
 		</dependency>
 		<!--
 		https://mvnrepository.com/artifact/commons-validator/commons-validator
@@ -176,7 +176,7 @@
 		<dependency>
 			<groupId>commons-validator</groupId>
 			<artifactId>commons-validator</artifactId>
-			<version>1.7</version>
+			<version>${commons-validator.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.google.guava/guava
 		Sammlung von Open-Source-Utility-Klassen und -Methoden für Java, die von Google
@@ -185,7 +185,15 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>32.1.3-jre</version>
+			<version>${google.guava.version}</version>
+		</dependency>
+
+		<!-- Swagger 3
+		https://springdoc.org/#spring-webflux-support -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+			<version>${springdoc.swagger.version}</version>
 		</dependency>
 
 	</dependencies>
@@ -212,8 +220,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>21</source>
-					<target>21</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.mapstruct</groupId>
@@ -226,4 +234,8 @@
 		</plugins>
 	</build>
 
+	<scm>
+		<developerConnection>Nikolay Osetrov</developerConnection>
+		<connection>osetrov.n@gmail.com</connection>
+	</scm>
 </project>

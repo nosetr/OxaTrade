@@ -123,12 +123,12 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImVtYWlsIjoicHJvYmFAcHJvYmEuY29tIiwiaXNzIjoib3hhYXRhIiwic3ViIjoiMiIsImlhdCI6MTcwMDcwMTIwNSwianRpIjoiNjUzNDliZGQtMzczYS00MWYzLThlZGYtYTRjMGRjYjQ5NmQ0IiwiZXhwIjoxNzAwNzA0ODA1fQ.15V79hrE_W4noCE952uviBuYlcs0lWXLerKw6OpQMD0",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJlbWFpbCI6ImFkbWluQGFkbWlub3YuY29tIiwiaXNzIjoib3hhYXRhIiwic3ViIjoiYmY1ZjJiNDMtYTMyMS0xMWVlLThmMzUtY2NiMGRhZjliZjMzIiwiaWF0IjoxNzA1NzY2ODgzLCJqdGkiOiI0OThlMjBhYi01NTM5LTQwNzEtYjlkYy05NGU4ZDEwODgwMzUiLCJleHAiOjE3MDU3NzA0ODN9.zsH-UPDpyWHwtwuaBPPlzSqqOKF6Q1IZQLE0kb9lqZw",
 							"type": "string"
 						}
 					]
 				},
-				"method": "POST",
+				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -138,7 +138,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"Herr\",\n    \"first_name\": \"Fritz\",\n    \"last_name\": \"Hahn\",\n    \"email\": \"proba@proba.com\",\n    \"password\": \"12345$aA\",\n    \"confirm_password\": \"12345$aA\"\n}",
+					"raw": "{\n    \"title\": \"Herr\",\n    \"first_name\": \"Fritz3\",\n    \"last_name\": \"Stöer\",\n    \"email\": \"admin@adminov.com\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

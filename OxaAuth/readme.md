@@ -16,6 +16,14 @@ ___
 - JsonWebToken
 - Passay-Library for password validation
 - Commons Validator for email-send, fileupload, crypto and so on...
+- Swagger 3
+
+___
+
+## Swagger 3 API description:
+
+- swagger-ui custom path: [/swagger](http://localhost:8083/swagger)
+- api-docs endpoint custom path: [/api-docs](http://localhost:8083/api-docs)
 
 ___
 
@@ -53,7 +61,7 @@ look at [Postman Collection](webfluxsecurity.postman_collection.json)
 - [GET] http://localhost:8083/api/v1/profile/info <b>(Get users info after login)</b>
 
 
-- [POST] http://localhost:8083/api/v1/profile/update <b>(Update main info about himself after login)</b>
+- [PUT] http://localhost:8083/api/v1/profile/update <b>(Update main info about himself after login)</b>
 
 ```
 {

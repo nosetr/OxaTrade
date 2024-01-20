@@ -66,13 +66,14 @@ public class AppErrorAttributes extends DefaultErrorAttributes {
 			errorList.add(errorMap);
 		} // UNAUTHORIZED JwtException
 		else if (
-				error instanceof ExpiredJwtException || error instanceof SignatureException || error instanceof MalformedJwtException
-			) {
-				status = HttpStatus.UNAUTHORIZED;
-				errorMap.put("code", "UNAUTHORIZED");
-				errorMap.put("message", error.getMessage());
-				errorList.add(errorMap);
-			}
+			error instanceof ExpiredJwtException || error instanceof SignatureException
+					|| error instanceof MalformedJwtException
+		) {
+			status = HttpStatus.UNAUTHORIZED;
+			errorMap.put("code", "UNAUTHORIZED");
+			errorMap.put("message", error.getMessage());
+			errorList.add(errorMap);
+		}
 		// NOT_FOUND
 		else if (error instanceof EntityNotFoundException) {
 			status = HttpStatus.NOT_FOUND;
@@ -138,8 +139,10 @@ public class AppErrorAttributes extends DefaultErrorAttributes {
 				message = error.getClass()
 						.getName();
 
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
-			errorMap.put("code", "INTERNAL_ERROR");
+			status = (message.equals("404 NOT_FOUND")) ? HttpStatus.NOT_FOUND
+					: HttpStatus.INTERNAL_SERVER_ERROR;
+			errorMap.put("code", (message.equals("404 NOT_FOUND")) ? "NOT_FOUND"
+					:"INTERNAL_ERROR");
 			errorMap.put("message", message);
 			errorList.add(errorMap);
 		}

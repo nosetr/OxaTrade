@@ -13,6 +13,8 @@ import com.nosetr.auth.mapper.UserMapper;
 import com.nosetr.auth.security.SecurityService;
 import com.nosetr.auth.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
@@ -23,6 +25,7 @@ import reactor.core.publisher.Mono;
  * @autor Nikolay Osetrov
  * @since 0.1.0
  */
+@Tag(name = "AuthenticationV1", description = "APIs for users authentication and registration")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
@@ -42,6 +45,17 @@ public class AuthRestControllerV1 {
 	 * @return         Mono<UserDto>
 	 * @see            UserDto
 	 */
+	@Operation(
+			summary = "Register new user",
+			description = "Password need:"
+					+ " * at least 8 characters and at most 100 chars,\n"
+					+ " * at least one upper-case character,\n"
+					+ " * at least one lower-case character,\n"
+					+ " * at least one digit character,\n"
+					+ " * at least one symbol (special character)\n"
+					+ " * and no whitespace",
+			tags = { "auth", "register", "post" }
+	)
 	@PostMapping("/register")
 	public Mono<UserDto> register(@Valid @RequestBody UserDto userDto) {
 		// Map UserDto with UserEntity
@@ -61,6 +75,9 @@ public class AuthRestControllerV1 {
 	 * @return                Mono<AuthResponseDto>
 	 * @see                   AuthRequestDto
 	 */
+	@Operation(
+			summary = "Login with email and password", tags = { "auth", "login", "post" }
+	)
 	@PostMapping("/login")
 	public Mono<AuthResponseDto> login(@RequestBody AuthRequestDto authRequestDto) {
 		// Call authentications service
