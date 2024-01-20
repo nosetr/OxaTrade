@@ -15,6 +15,10 @@ import com.nosetr.auth.security.CustomPrincipal;
 import com.nosetr.auth.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -45,9 +49,16 @@ public class UserProfileControllerV1 {
 	 * @return
 	 */
 	@Operation(
-			summary = "Update users info", 
-			description = "Authorized user can update info about himself.",
-			tags = { "profile", "update", "put" }
+			summary = "Update users info", description = "Authorized user can update info about himself.", tags = { "profile",
+					"update", "put" }
+	)
+	@ApiResponses(
+		{
+				@ApiResponse(
+						responseCode = "200", content = {
+								@Content(schema = @Schema(implementation = UserDto.class), mediaType = "application/json") }
+				)
+		}
 	)
 	@PutMapping("/update")
 	public Mono<UserDto> selfUpdate(@Valid @RequestBody UserUpdateDto userDto, Authentication authentication) {
@@ -68,9 +79,16 @@ public class UserProfileControllerV1 {
 	 */
 	//	@PreAuthorize("hasAnyRole('USER')") // TODO make role
 	@Operation(
-			summary = "Get users info", 
-			description = "Authorized user can get info about himself.",
-			tags = { "profile", "get" }
+			summary = "Get users info", description = "Authorized user can get info about himself.", tags = { "profile",
+					"get" }
+	)
+	@ApiResponses(
+		{
+				@ApiResponse(
+						responseCode = "200", content = {
+								@Content(schema = @Schema(implementation = UserDto.class), mediaType = "application/json") }
+				)
+		}
 	)
 	@GetMapping("/info")
 	public Mono<UserDto> getUserInfo(Authentication authentication) {

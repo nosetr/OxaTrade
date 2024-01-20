@@ -76,7 +76,6 @@ public class UserServiceImpl implements UserService{
 							.doOnSuccess(u -> {
 								// Make log about new users registration.
 								log.info("IN registerUser - user: {} created", u);
-								System.out.println(u.toString());
 							});
 				});
 	}

@@ -14,6 +14,10 @@ import com.nosetr.auth.security.SecurityService;
 import com.nosetr.auth.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -46,15 +50,21 @@ public class AuthRestControllerV1 {
 	 * @see            UserDto
 	 */
 	@Operation(
-			summary = "Register new user",
-			description = "Password need:"
+			summary = "Register new user", description = "Password need:"
 					+ " * at least 8 characters and at most 100 chars,\n"
 					+ " * at least one upper-case character,\n"
 					+ " * at least one lower-case character,\n"
 					+ " * at least one digit character,\n"
 					+ " * at least one symbol (special character)\n"
-					+ " * and no whitespace",
-			tags = { "auth", "register", "post" }
+					+ " * and no whitespace", tags = { "auth", "register", "post" }
+	)
+	@ApiResponses(
+		{
+				@ApiResponse(
+						responseCode = "200", content = {
+								@Content(schema = @Schema(implementation = UserDto.class), mediaType = "application/json") }
+				)
+		}
 	)
 	@PostMapping("/register")
 	public Mono<UserDto> register(@Valid @RequestBody UserDto userDto) {
@@ -76,7 +86,18 @@ public class AuthRestControllerV1 {
 	 * @see                   AuthRequestDto
 	 */
 	@Operation(
-			summary = "Login with email and password", tags = { "auth", "login", "post" }
+			summary = "Login with email and password. Create response with token and additional info.", tags = { "auth",
+					"login", "post" }
+	)
+	@ApiResponses(
+		{
+				@ApiResponse(
+						responseCode = "200", content = {
+								@Content(schema = @Schema(implementation = AuthResponseDto.class), mediaType = "application/json") }
+				),
+		//				@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+		//				@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) })
+		}
 	)
 	@PostMapping("/login")
 	public Mono<AuthResponseDto> login(@RequestBody AuthRequestDto authRequestDto) {
