@@ -30,7 +30,7 @@ import reactor.core.publisher.Mono;
  * @autor Nikolay Osetrov
  * @since 0.1.0
  */
-@Tag(name = "UserProfileV1", description = "APIs for users profile")
+@Tag(name = "UserProfile_V1", description = "APIs for users profile")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/profile")
@@ -49,15 +49,19 @@ public class UserProfileControllerV1 {
 	 * @return
 	 */
 	@Operation(
-			summary = "Update users info", description = "Authorized user can update info about himself.", tags = { "profile",
-					"update", "put" }
+			summary = "Update users info", description = "Authorized user can update info about himself.",
+			tags = { "users_tag", "put_tag" }
 	)
 	@ApiResponses(
 		{
 				@ApiResponse(
 						responseCode = "200", content = {
 								@Content(schema = @Schema(implementation = UserDto.class), mediaType = "application/json") }
-				)
+				),
+				@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+				@ApiResponse(
+						responseCode = "500", content = { @Content(
+								schema = @Schema()) })
 		}
 	)
 	@PutMapping("/update")
@@ -79,15 +83,19 @@ public class UserProfileControllerV1 {
 	 */
 	//	@PreAuthorize("hasAnyRole('USER')") // TODO make role
 	@Operation(
-			summary = "Get users info", description = "Authorized user can get info about himself.", tags = { "profile",
-					"get" }
+			summary = "Get users info", description = "Authorized user can get info about himself.",
+			tags = { "users_tag", "get_tag" }
 	)
 	@ApiResponses(
 		{
 				@ApiResponse(
 						responseCode = "200", content = {
 								@Content(schema = @Schema(implementation = UserDto.class), mediaType = "application/json") }
-				)
+				),
+				@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+				@ApiResponse(
+						responseCode = "500", content = { @Content(
+								schema = @Schema()) })
 		}
 	)
 	@GetMapping("/info")

@@ -12,11 +12,13 @@ import com.nosetr.auth.util.annotation.ValidPassword;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 
 /**
  * DTO for users registration.
- * <p> All field, but not confirmPassword are equals to {@link UserEntity}
+ * <p> All field, but not confirmPassword and newsletter are equals to
+ * {@link UserEntity}
  * 
  * @autor Nikolay Osetrov
  * @since 0.1.0
@@ -30,6 +32,7 @@ import lombok.Data;
 	}
 )
 @Data
+@Builder(toBuilder = true)
 public class UserDto {
 
 	private UUID id;
@@ -48,19 +51,21 @@ public class UserDto {
 	private String confirmPassword;
 
 	private UserRoleEnum userRole;
-	
+
 	private String title;
 
 	@NotBlank(message = "{validation.field.NotBlank}")
-  @Size(message = "{validation.firstname.size}", min = 2, max = 64)
-//	@JsonProperty("first_name")
+	@Size(message = "{validation.firstname.size}", min = 2, max = 64)
+	//	@JsonProperty("first_name")
 	private String firstName;
 
 	@NotBlank(message = "{validation.field.NotBlank}")
-  @Size(message = "{validation.lastname.size}", min = 2, max = 64)
+	@Size(message = "{validation.lastname.size}", min = 2, max = 64)
 	private String lastName;
 
 	private boolean enabled;
+
+	private boolean newsletter;
 
 	private LocalDateTime createdAt;
 

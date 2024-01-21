@@ -29,7 +29,7 @@ import reactor.core.publisher.Mono;
  * @autor Nikolay Osetrov
  * @since 0.1.0
  */
-@Tag(name = "AuthenticationV1", description = "APIs for users authentication and registration")
+@Tag(name = "Authentication_V1", description = "APIs for users authentication and registration")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
@@ -50,19 +50,25 @@ public class AuthRestControllerV1 {
 	 * @see            UserDto
 	 */
 	@Operation(
-			summary = "Register new user", description = "Password need:"
+			summary = "Register new user", description = "Password need:\n"
 					+ " * at least 8 characters and at most 100 chars,\n"
 					+ " * at least one upper-case character,\n"
 					+ " * at least one lower-case character,\n"
 					+ " * at least one digit character,\n"
 					+ " * at least one symbol (special character)\n"
-					+ " * and no whitespace", tags = { "auth", "register", "post" }
+					+ " * and no whitespace", tags = { "users_tag", "post_tag" }
 	)
 	@ApiResponses(
 		{
 				@ApiResponse(
 						responseCode = "200", content = {
 								@Content(schema = @Schema(implementation = UserDto.class), mediaType = "application/json") }
+				),
+				@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+				@ApiResponse(
+						responseCode = "500", content = { @Content(
+								schema = @Schema()
+						) }
 				)
 		}
 	)
@@ -86,8 +92,8 @@ public class AuthRestControllerV1 {
 	 * @see                   AuthRequestDto
 	 */
 	@Operation(
-			summary = "Login with email and password. Create response with token and additional info.", tags = { "auth",
-					"login", "post" }
+			summary = "Login with email and password. Create response with token and additional info.",
+			tags = { "users_tag", "post_tag" }
 	)
 	@ApiResponses(
 		{
@@ -95,8 +101,12 @@ public class AuthRestControllerV1 {
 						responseCode = "200", content = {
 								@Content(schema = @Schema(implementation = AuthResponseDto.class), mediaType = "application/json") }
 				),
-		//				@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
-		//				@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) })
+				@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+				@ApiResponse(
+						responseCode = "500", content = { @Content(
+								schema = @Schema()
+						) }
+				)
 		}
 	)
 	@PostMapping("/login")

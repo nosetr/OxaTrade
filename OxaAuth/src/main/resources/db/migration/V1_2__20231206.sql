@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS oxatrade.organizations (
   enabled BOOLEAN NOT NULL DEFAULT '1' COMMENT 'If is active',
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  memo text COMMENT 'memo/information',
   PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=10000 CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Organizations and firms';
 
@@ -43,16 +44,16 @@ CREATE TABLE IF NOT EXISTS oxatrade.addresses (
   city_name varchar(200) NOT NULL COMMENT 'City name',
   zip_code varchar(9) NOT NULL COMMENT 'Postal code',
   state_name varchar(75) DEFAULT NULL COMMENT 'Complete state name',
-  -- country_id int unsigned NOT NULL COMMENT 'Country identification',
   country_code char(2) NOT NULL COMMENT 'Country identification',
   email varchar(64) DEFAULT NULL,
   phone varchar(25) DEFAULT NULL,
   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  memo text COMMENT 'memo/information',
   PRIMARY KEY (id),
   KEY country_code (country_code),
   KEY addresses_FK (org_id),
-  CONSTRAINT addresses_FK FOREIGN KEY (org_id) REFERENCES organizations (id) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT addresses_FK FOREIGN KEY (org_id) REFERENCES oxatrade.organizations (id) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT addresses_ibfk_1 FOREIGN KEY (country_code) REFERENCES oxatrade.countries (country_code) ON UPDATE CASCADE
 ) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Addresses for users, customers, organizations...';
 
