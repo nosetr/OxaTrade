@@ -1,6 +1,7 @@
 package com.nosetr.auth.dto;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import lombok.Data;
 
@@ -13,7 +14,7 @@ import lombok.Data;
 @Data
 public class AddressDto {
 
-	private Long id;
+	private UUID id;
 	private Long orgId;
 	private String titleName;
 	private String aliasName;
@@ -28,5 +29,6 @@ public class AddressDto {
 	private String phone;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+	private String memo;
 
 }

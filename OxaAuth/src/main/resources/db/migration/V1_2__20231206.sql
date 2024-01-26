@@ -1,6 +1,6 @@
 -- oxatrade.organizations definition
 CREATE TABLE IF NOT EXISTS oxatrade.organizations (
-  id bigint unsigned NOT NULL AUTO_INCREMENT,
+  id bigint unsigned NOT NULL AUTO_INCREMENT, -- customer ID > 10000
   org_name varchar(64) NOT NULL COMMENT 'title of organisation',
   email varchar(64) DEFAULT NULL,
   phone varchar(25) DEFAULT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS oxatrade.countries (
 
 -- oxatrade.addresses definition
 CREATE TABLE IF NOT EXISTS oxatrade.addresses (
-  id bigint unsigned NOT NULL AUTO_INCREMENT,
+  id BINARY(16) NOT NULL,
   org_id bigint unsigned DEFAULT NULL COMMENT 'id of organisation if not from user',
   title_name varchar(64) DEFAULT NULL COMMENT 'users name / firma / org',
   alias_name varchar(64) DEFAULT NULL COMMENT 'additional address name',
@@ -56,6 +56,16 @@ CREATE TABLE IF NOT EXISTS oxatrade.addresses (
   CONSTRAINT addresses_FK FOREIGN KEY (org_id) REFERENCES oxatrade.organizations (id) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT addresses_ibfk_1 FOREIGN KEY (country_code) REFERENCES oxatrade.countries (country_code) ON UPDATE CASCADE
 ) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Addresses for users, customers, organizations...';
+
+-- Triggers to automatically generate the UUID by "users"
+ CREATE TRIGGER IF NOT EXISTS before_insert_addresses
+ BEFORE INSERT ON oxatrade.addresses
+ FOR EACH ROW
+ BEGIN
+     IF NEW.id IS NULL THEN
+         SET NEW.id = (UUID_TO_BIN(UUID()));
+     END IF;
+ END;
 
 -- Dumping data for table "oxatrade.countries"
 INSERT INTO oxatrade.countries (country_code, country_name, phone_prefix) VALUES

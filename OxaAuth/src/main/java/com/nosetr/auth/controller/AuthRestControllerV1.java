@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nosetr.auth.dto.AuthRequestDto;
 import com.nosetr.auth.dto.AuthResponseDto;
 import com.nosetr.auth.dto.UserDto;
-import com.nosetr.auth.entity.UserEntity;
-import com.nosetr.auth.mapper.UserMapper;
-import com.nosetr.auth.security.SecurityService;
+import com.nosetr.auth.dto.UserRegisterDto;
+import com.nosetr.auth.service.SecurityService;
 import com.nosetr.auth.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,7 +36,6 @@ public class AuthRestControllerV1 {
 
 	private final SecurityService securityService;
 	private final UserService userService;
-	private final UserMapper userMapper;
 
 	/**
 	 * Users registration action with requested body.
@@ -73,12 +71,9 @@ public class AuthRestControllerV1 {
 		}
 	)
 	@PostMapping("/register")
-	public Mono<UserDto> register(@Valid @RequestBody UserDto userDto) {
-		// Map UserDto with UserEntity
-		UserEntity entity = userMapper.map(userDto);
+	public Mono<UserDto> register(@Valid @RequestBody UserRegisterDto userRegisterDto) {
 		// Call registrations service
-		return userService.registerUser(entity)
-				.map(userMapper::map);
+		return userService.registerUser(userRegisterDto);
 	}
 
 	/**
@@ -92,8 +87,8 @@ public class AuthRestControllerV1 {
 	 * @see                   AuthRequestDto
 	 */
 	@Operation(
-			summary = "Login with email and password. Create response with token and additional info.",
-			tags = { "users_tag", "post_tag" }
+			summary = "Login with email and password. Create response with token and additional info.", tags = { "users_tag",
+					"post_tag" }
 	)
 	@ApiResponses(
 		{
@@ -110,7 +105,7 @@ public class AuthRestControllerV1 {
 		}
 	)
 	@PostMapping("/login")
-	public Mono<AuthResponseDto> login(@RequestBody AuthRequestDto authRequestDto) {
+	public Mono<AuthResponseDto> login(@Valid @RequestBody AuthRequestDto authRequestDto) {
 		// Call authentications service
 		return securityService.authenticate(authRequestDto.getEmail(), authRequestDto.getPassword())
 				.flatMap(

@@ -6,11 +6,13 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.nosetr.auth.dto.UserDto;
+import com.nosetr.auth.dto.UserRegisterDto;
 import com.nosetr.auth.dto.UserUpdateDto;
 import com.nosetr.auth.entity.UserEntity;
 import com.nosetr.auth.enums.ErrorEnum;
 import com.nosetr.auth.enums.UserRoleEnum;
-import com.nosetr.auth.mapper.UserUpdateMapper;
+import com.nosetr.auth.mapper.UserMapper;
 import com.nosetr.auth.repository.UserRepository;
 import com.nosetr.auth.security.PBFDK2Encoder;
 import com.nosetr.auth.service.UserService;
@@ -32,11 +34,11 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
 	private final PBFDK2Encoder passwordEncoder;
-	private final UserUpdateMapper userUpdateMapper;
+	private final UserMapper userMapper;
 
 	/**
 	 * Create new user with UserRepository.
@@ -48,7 +50,8 @@ public class UserServiceImpl implements UserService{
 	 * @see               PBFDK2Encoder
 	 */
 	@Override
-	public Mono<UserEntity> registerUser(UserEntity userEntity) {
+	public Mono<UserDto> registerUser(UserRegisterDto userDto) {
+		UserEntity userEntity = userMapper.map(userDto);
 		String email = userEntity.getEmail();
 		// Check if email is already in use:
 		return userRepository.findByEmail(email)
@@ -73,6 +76,7 @@ public class UserServiceImpl implements UserService{
 									.updatedAt(LocalDateTime.now())
 									.build()
 					)
+							.map(userMapper::map)
 							.doOnSuccess(u -> {
 								// Make log about new users registration.
 								log.info("IN registerUser - user: {} created", u);
@@ -97,7 +101,7 @@ public class UserServiceImpl implements UserService{
 				.filter(UserEntity::isEnabled)
 				.flatMap(
 						found -> userRepository.save(
-								userUpdateMapper.updateUserFromDto(
+								userMapper.updateUserFromDto(
 										userDto, found.toBuilder()
 												.updatedAt(LocalDateTime.now())
 												.build()

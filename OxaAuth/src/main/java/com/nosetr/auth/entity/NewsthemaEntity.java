@@ -1,36 +1,39 @@
 package com.nosetr.auth.entity;
 
-import java.time.LocalDateTime;
+import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Entity for organizations-table.
+ * Entity for newsthema-table.
  * 
  * @autor Nikolay Osetrov
- * @since 0.1.1
+ * @since 0.1.2
  */
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table("organizations")
-public class OrganizationEntity {
+@Table("newsthema")
+public class NewsthemaEntity {
 
-	@Id
+	@Id @GeneratedValue
 	private Long id;
-	private String orgName;
-	private String email;
-	private String phone;
-	private boolean enabled;
-	private LocalDateTime createdAt;
-	private LocalDateTime updatedAt;
+	private String themaName;
 	private String memo;
+
+	/*
+	 * see: https://www.baeldung.com/jpa-many-to-many
+	 */
+	@ManyToMany(mappedBy = "themenEntities")
+	private Set<NewsletterEntity> emailEntities;
 	
 }

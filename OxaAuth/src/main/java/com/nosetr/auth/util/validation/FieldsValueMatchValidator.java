@@ -2,18 +2,19 @@ package com.nosetr.auth.util.validation;
 
 import org.springframework.beans.BeanWrapperImpl;
 
-import com.nosetr.auth.util.annotation.PasswordValueMatch;
+import com.nosetr.auth.util.annotation.FieldsValueMatch;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 /**
- * Check if the password and confirmation password match.
+ * Check if for example the password and confirmation password match or other
+ * fields.
  * 
  * @autor Nikolay Osetrov
  * @since 0.1.0
  */
-public class PasswordFieldsValueMatchValidator implements ConstraintValidator<PasswordValueMatch, Object> {
+public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValueMatch, Object> {
 
 	private String field;
 	private String fieldMatch;
@@ -23,7 +24,7 @@ public class PasswordFieldsValueMatchValidator implements ConstraintValidator<Pa
 	 * Annotation initialization.
 	 */
 	@Override
-	public void initialize(PasswordValueMatch constraintAnnotation) {
+	public void initialize(FieldsValueMatch constraintAnnotation) {
 		this.field = constraintAnnotation.field();
 		this.fieldMatch = constraintAnnotation.fieldMatch();
 		this.message = constraintAnnotation.message();

@@ -11,6 +11,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nosetr.auth.controller.AuthRestControllerV1;
 import com.nosetr.auth.dto.UserDto;
+import com.nosetr.auth.dto.UserRegisterDto;
 import com.nosetr.auth.entity.UserEntity;
 import com.nosetr.auth.mapper.UserMapper;
 import com.nosetr.auth.service.UserService;
@@ -65,7 +66,7 @@ class AuthRestControllerV1Test {
 		when(userMapper.map(userDto)).thenReturn(new UserEntity());
 
 		// Mock service response
-		when(userService.registerUser(new UserEntity())).thenReturn(Mono.just(new UserEntity()));
+		when(userService.registerUser(new UserRegisterDto())).thenReturn(Mono.just(new UserDto()));
 
 		// Perform the request and verify the response
 		//		webTestClient.post()

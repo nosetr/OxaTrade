@@ -1,4 +1,4 @@
-package com.nosetr.auth.security;
+package com.nosetr.auth.service.impl;
 
 import java.util.Base64;
 import java.util.Date;
@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 
 import com.nosetr.auth.entity.UserEntity;
 import com.nosetr.auth.enums.ErrorEnum;
+import com.nosetr.auth.security.PBFDK2Encoder;
+import com.nosetr.auth.security.TokenDetails;
+import com.nosetr.auth.service.SecurityService;
 import com.nosetr.auth.service.UserService;
 import com.nosetr.auth.util.exception.AuthException;
 
@@ -28,7 +31,7 @@ import reactor.core.publisher.Mono;
  */
 @Component
 @RequiredArgsConstructor
-public class SecurityService {
+public class SecurityServiceImpl implements SecurityService{
 
 	private final UserService userService;
 	private final PBFDK2Encoder passwordEncoder;
@@ -54,6 +57,7 @@ public class SecurityService {
 	 * @see             TokenDetails
 	 * @see             PBFDK2Encoder#matches(CharSequence, String)
 	 */
+	@Override
 	public Mono<TokenDetails> authenticate(String email, String password) {
 		// Find UserEntity by email and return TokenDetails:
 		return userService.getUserByEmail(email)

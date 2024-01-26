@@ -2,7 +2,10 @@ package com.nosetr.auth.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.nosetr.auth.util.annotation.ValidEmail;
+import com.nosetr.auth.util.annotation.ValidPassword;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
@@ -14,6 +17,12 @@ import lombok.Data;
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class) // values will be SnakeCase
 public class AuthRequestDto {
+	
+	@NotBlank(message = "{validation.field.NotBlank}")
+	@ValidEmail
 	private String email;
+
+	@NotBlank(message = "{validation.field.NotBlank}")
+	@ValidPassword
 	private String password;
 }

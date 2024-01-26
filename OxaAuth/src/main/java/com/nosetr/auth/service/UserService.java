@@ -2,6 +2,8 @@ package com.nosetr.auth.service;
 
 import java.util.UUID;
 
+import com.nosetr.auth.dto.UserDto;
+import com.nosetr.auth.dto.UserRegisterDto;
 import com.nosetr.auth.dto.UserUpdateDto;
 import com.nosetr.auth.entity.UserEntity;
 
@@ -24,7 +26,7 @@ public interface UserService {
 	 * @param  userEntity UserEntity
 	 * @return            Mono<UserEntity>
 	 */
-	Mono<UserEntity> registerUser(UserEntity userEntity);
+	Mono<UserDto> registerUser(UserRegisterDto userDto);
 
 	/**
 	 * Update user by ID

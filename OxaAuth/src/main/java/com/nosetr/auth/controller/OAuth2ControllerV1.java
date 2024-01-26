@@ -74,4 +74,31 @@ public class OAuth2ControllerV1 {
 		
 //		return clientRegistrationRepository.findByRegistrationId(provider);
 	}
+	
+//	@GetMapping("/")
+//	public Mono<UserDetailsResponse> index(@AuthenticationPrincipal OAuth2User oauth2User) {
+//		
+//		String firstName = oauth2User.getAttribute("given_name");
+//    String lastName = oauth2User.getAttribute("family_name");
+//    String email = oauth2User.getAttribute("email");
+//    String phone = oauth2User.getAttribute("phone_number");
+//		
+//    UserDetailsResponse userDetailsResponse = new UserDetailsResponse(firstName, lastName, email, phone);
+//    return Mono.just(userDetailsResponse);
+//	}
+//
+//	@Getter
+//  private static class UserDetailsResponse {
+//      private final String firstName;
+//      private final String lastName;
+//      private final String email;
+//      private final String phone;
+//
+//      public UserDetailsResponse(String firstName, String lastName, String email, String phone) {
+//          this.firstName = firstName;
+//          this.lastName = lastName;
+//          this.email = email;
+//          this.phone = phone;
+//      }
+//  }
 }

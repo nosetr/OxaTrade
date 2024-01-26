@@ -6,23 +6,23 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.nosetr.auth.util.validation.PasswordFieldsValueMatchValidator;
+import com.nosetr.auth.util.validation.FieldsValueMatchValidator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 /**
- * Annotation for password confirmation.
+ * Annotation for password confirmation or other fields to match.
  * 
  * @autor Nikolay Osetrov
  * @since 0.1.0
- * @see   PasswordFieldsValueMatchValidator
+ * @see   FieldsValueMatchValidator
  */
 @Documented
-@Constraint(validatedBy = PasswordFieldsValueMatchValidator.class)
+@Constraint(validatedBy = FieldsValueMatchValidator.class)
 @Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PasswordValueMatch {
+public @interface FieldsValueMatch {
 
 	String message() default "{validation.password.confirm}";
 
@@ -35,7 +35,7 @@ public @interface PasswordValueMatch {
 	String fieldMatch();
 
 	/**
-	 * Check if the password and confirmation password match.
+	 * Check if the fields match.
 	 * 
 	 * @autor Nikolay Osetrov
 	 * @since 0.1.0
@@ -43,6 +43,6 @@ public @interface PasswordValueMatch {
 	@Target({ ElementType.TYPE })
 	@Retention(RetentionPolicy.RUNTIME)
 	@interface List {
-		PasswordValueMatch[] value();
+		FieldsValueMatch[] value();
 	}
 }

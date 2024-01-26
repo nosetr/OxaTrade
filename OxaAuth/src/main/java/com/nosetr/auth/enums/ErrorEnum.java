@@ -35,6 +35,9 @@ public enum ErrorEnum {
 	),
 	TOKEN_IS_EXPIRED(
 			"TOKEN_EXPIRED", "exception.access.tokenExpired"
+	),
+	NEWS_EMAIL_ALREADY_EXISTS(
+			"EMAIL_ALREADY_IN_USE", "exception.newsemail.alreadyExists"
 	);
 
 	@Getter
