@@ -48,7 +48,7 @@ class AuthRestControllerV1Test {
 
 	public AuthRestControllerV1Test(WebTestClient.Builder webTestClientBuilder) {
 		this.webTestClient = webTestClientBuilder
-				.controller(authRestControllerV1)
+//				.controller(authRestControllerV1)
 				.build();
 	}
 

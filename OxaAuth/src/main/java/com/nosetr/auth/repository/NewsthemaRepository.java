@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.nosetr.auth.entity.NewsthemaEntity;
 
+import reactor.core.publisher.Mono;
+
 /**
  * Repository for newsthema-table.
  * 
@@ -13,5 +15,8 @@ import com.nosetr.auth.entity.NewsthemaEntity;
  */
 @Repository
 public interface NewsthemaRepository extends R2dbcRepository<NewsthemaEntity, Long> {
-	// Weitere benutzerdefinierte Abfragen können hinzugefügt werden
+
+	Mono<NewsthemaEntity> findOneById(Long id);
+
+//	Flux<NewsthemaEntity> findNewsthemesByNewsletterId(UUID emailId);
 }

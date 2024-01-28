@@ -23,6 +23,13 @@ spring:
      #For file upload:
      max-file-size: 100MB
      max-request-size: 100MB
+     
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          r2dbc: DEBUG # INFO, WARN, or ERROR
 
 server:
   port: 8083

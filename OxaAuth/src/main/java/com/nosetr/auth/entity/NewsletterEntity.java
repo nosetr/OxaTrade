@@ -1,15 +1,13 @@
 package com.nosetr.auth.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,19 +27,43 @@ import lombok.NoArgsConstructor;
 public class NewsletterEntity {
 
 	@Id
+	private UUID id;
 	private String email;
 	private boolean enabled;
-	
-	@CreationTimestamp
 	private LocalDateTime lastUpdate;
 
 	/*
-	 * see: https://www.baeldung.com/jpa-many-to-many
+	 * The many-to-many relationship to NewsthemaEntity
 	 */
-	@ManyToMany
-	@JoinTable(
-		  name = "newsletter_newsthema", 
-		  joinColumns = @JoinColumn(name = "email"), 
-		  inverseJoinColumns = @JoinColumn(name = "thema_id"))
-	private Set<NewsthemaEntity> themenEntities;
+	@Builder.Default
+	private Set<NewsthemaEntity> newsthemen = new HashSet<>();
+
+	/**
+	 * Add theme by many-to-many.
+	 * 
+	 * @autor           Nikolay Osetrov
+	 * @since           0.1.2
+	 * @param themaMono
+	 * @see             https://manerajona.medium.com/mapping-bidirectional-object-associations-using-mapstruct-ce49b1857604
+	 */
+	public void addTheme(NewsthemaEntity thema) {
+		if (this.newsthemen == null) this.newsthemen = new HashSet<>();
+		this.newsthemen.add(thema);
+		thema.getEmails()
+				.add(this);
+	}
+
+	/**
+	 * Remove theme by many-to-many.
+	 * 
+	 * @autor         Nikolay Osetrov
+	 * @since         0.1.2
+	 * @param themeId
+	 */
+	public void removeTheme(Long themeId) {
+		this.newsthemen.removeIf(
+				theme -> theme.getId()
+						.equals(themeId)
+		);
+	}
 }

@@ -1,5 +1,7 @@
 package com.nosetr.auth.repository;
 
+import java.util.UUID;
+
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.stereotype.Repository;
@@ -17,7 +19,7 @@ import reactor.core.publisher.Flux;
 @Repository
 interface NewsletterNewsthemaRepository extends R2dbcRepository<NewsletterNewsthemaEntity, Void> {
 
-	Flux<NewsletterNewsthemaEntity> findByEmail(String email);
+	Flux<NewsletterNewsthemaEntity> findByEmailId(UUID emailId);
 
 	Flux<NewsletterNewsthemaEntity> findByThemaId(Long themaId);
 

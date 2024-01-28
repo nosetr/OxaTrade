@@ -16,4 +16,5 @@ public class EmailDto {
 	@NotBlank(message = "{validation.field.NotBlank}")
 	@ValidEmail
 	private String email;
+	private Long newstheme;
 }

@@ -1,3 +1,5 @@
+-- DROP DATABASE IF EXISTS oxatrade;
+
 -- oxatrade.organizations definition
 CREATE TABLE IF NOT EXISTS oxatrade.organizations (
   id bigint unsigned NOT NULL AUTO_INCREMENT, -- customer ID > 10000

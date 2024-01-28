@@ -25,46 +25,10 @@
 		<ui.swagger.version>2.0.3</ui.swagger.version>
 		<springdoc.swagger.version>2.3.0</springdoc.swagger.version>
 
-		<hibernate-reactive.version>2.2.0.Final</hibernate-reactive.version>
-		<vertx-mysql-client.version>4.5.1</vertx-mysql-client.version>
+		<lc-spring-data-r2dbc.version>0.10.2</lc-spring-data-r2dbc.version>
 	</properties>
 
 	<dependencies>
-
-		<!-- Hibernate Start: -->
-		<dependency>
-			<groupId>io.vertx</groupId>
-			<artifactId>vertx-mysql-client</artifactId>
-			<version>${vertx-mysql-client.version}</version>
-		</dependency>
-		<!-- see: https://github.com/eclipse-vertx/vertx-sql-client/issues/1059 -->
-		<dependency>
-			<groupId>com.ongres.scram</groupId>
-			<artifactId>client</artifactId>
-			<version>2.1</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.reactive</groupId>
-			<artifactId>hibernate-reactive-core</artifactId>
-			<version>${hibernate-reactive.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.orm</groupId>
-			<artifactId>hibernate-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.antlr</groupId>
-			<artifactId>antlr4-runtime</artifactId>
-			<version>4.13.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.orm</groupId>
-			<artifactId>hibernate-jpamodelgen</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<!-- Hibernate End. -->
-
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -1,6 +1,7 @@
 package com.nosetr.auth.dto;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import com.nosetr.auth.util.annotation.ValidEmail;
 
@@ -18,9 +19,12 @@ import lombok.Data;
 @Builder(toBuilder = true)
 public class NewsletterDto {
 
+	private UUID id;
+
 	@NotBlank(message = "{validation.field.NotBlank}")
 	@ValidEmail
 	private String email;
+
 	private boolean enabled;
 	private LocalDateTime lastUpdate;
 

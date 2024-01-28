@@ -1,12 +1,11 @@
 package com.nosetr.auth.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,15 +24,15 @@ import lombok.NoArgsConstructor;
 @Table("newsthema")
 public class NewsthemaEntity {
 
-	@Id @GeneratedValue
+	@Id
 	private Long id;
 	private String themaName;
 	private String memo;
 
 	/*
-	 * see: https://www.baeldung.com/jpa-many-to-many
+	 * The many-to-many relationship to NewsletterEntity
 	 */
-	@ManyToMany(mappedBy = "themenEntities")
-	private Set<NewsletterEntity> emailEntities;
-	
+	@Builder.Default
+	private Set<NewsletterEntity> emails = new HashSet<>();
+
 }

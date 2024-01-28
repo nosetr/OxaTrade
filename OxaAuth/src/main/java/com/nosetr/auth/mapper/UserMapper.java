@@ -24,6 +24,7 @@ import jakarta.validation.Valid;
 public interface UserMapper {
 
 	@Mapping(target = "confirmPassword", ignore = true)
+	@Mapping(target = "newsletter", ignore = true)
 	UserDto map(UserEntity userEntity);
 
 	@InheritInverseConfiguration
@@ -36,7 +37,7 @@ public interface UserMapper {
 	@Mapping(target = "updatedAt", ignore = true)
 	@Mapping(target = "userRole", ignore = true)
 	@Mapping(target = "provider", ignore = true)
-	UserEntity map(@Valid UserRegisterDto userDto);
+	UserEntity map(@Valid UserRegisterDto dto);
 
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "createdAt", ignore = true)

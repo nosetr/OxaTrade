@@ -1,5 +1,7 @@
 package com.nosetr.auth.entity;
 
+import java.util.UUID;
+
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -23,8 +25,8 @@ import lombok.NoArgsConstructor;
 @Table("newsletter_newsthema")
 public class NewsletterNewsthemaEntity {
 
-	@Column("email")
-	private String email;
+	@Column("email_id")
+	private UUID emailId;
 
 	@Column("thema_id")
 	private Long themaId;

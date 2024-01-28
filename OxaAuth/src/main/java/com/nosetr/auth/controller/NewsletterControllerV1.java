@@ -42,7 +42,7 @@ public class NewsletterControllerV1 {
 			tags = { "users_tag", "post_tag" }
 	)
 	@PostMapping
-	public Mono<NewsletterDto> saveNewEmail(@Valid @RequestBody EmailDto authRequestDto) {
-		return newsletterService.saveEmail(authRequestDto);
+	public Mono<NewsletterDto> saveNewEmail(@Valid @RequestBody EmailDto emailDto) {
+		return newsletterService.saveEmail(emailDto);
 	}
 }

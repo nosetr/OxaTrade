@@ -3,7 +3,6 @@ package com.nosetr.auth.entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -26,7 +25,6 @@ import lombok.NoArgsConstructor;
 public class AddressEntity {
 
 	@Id
-	@UuidGenerator
 	private UUID id;
 	private Long orgId;
 	private String titleName;
