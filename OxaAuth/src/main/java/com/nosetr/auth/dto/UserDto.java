@@ -9,6 +9,7 @@ import com.nosetr.auth.enums.UserRoleEnum;
 import com.nosetr.auth.util.annotation.FieldsValueMatch;
 import com.nosetr.auth.util.annotation.ValidEmail;
 import com.nosetr.auth.util.annotation.ValidPassword;
+import com.nosetr.auth.util.annotation.ValidUUID;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -39,6 +40,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserDto {
 
+	@ValidUUID
 	private UUID id;
 
 	@NotBlank(message = "{validation.field.NotBlank}")

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.nosetr.auth.util.annotation.ValidEmail;
+import com.nosetr.auth.util.annotation.ValidUUID;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
@@ -19,6 +20,7 @@ import lombok.Data;
 @Builder(toBuilder = true)
 public class NewsletterDto {
 
+	@ValidUUID
 	private UUID id;
 
 	@NotBlank(message = "{validation.field.NotBlank}")

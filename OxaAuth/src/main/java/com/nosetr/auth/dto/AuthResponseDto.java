@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.nosetr.auth.util.annotation.ValidUUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +25,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class) // values will be SnakeCase
 public class AuthResponseDto {
 
+	@ValidUUID
 	private UUID userId;
 	private String token;
 	private Date issuedAt;

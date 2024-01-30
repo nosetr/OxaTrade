@@ -3,6 +3,8 @@ package com.nosetr.auth.dto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.nosetr.auth.util.annotation.ValidUUID;
+
 import lombok.Data;
 
 /**
@@ -14,6 +16,7 @@ import lombok.Data;
 @Data
 public class AddressDto {
 
+	@ValidUUID
 	private UUID id;
 	private Long orgId;
 	private String titleName;

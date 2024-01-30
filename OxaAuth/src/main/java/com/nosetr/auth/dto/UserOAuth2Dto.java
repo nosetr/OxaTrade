@@ -6,6 +6,7 @@ import java.util.UUID;
 import com.nosetr.auth.enums.OAuth2ProvidersEnum;
 import com.nosetr.auth.enums.UserRoleEnum;
 import com.nosetr.auth.util.annotation.ValidEmail;
+import com.nosetr.auth.util.annotation.ValidUUID;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -19,6 +20,7 @@ import lombok.Data;
 @Data
 public class UserOAuth2Dto {
 
+	@ValidUUID
 	private UUID id;
 
 	@NotBlank(message = "{validation.field.NotBlank}")
