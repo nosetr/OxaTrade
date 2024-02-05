@@ -3,8 +3,8 @@ package com.nosetr.auth.security;
 import java.util.Base64;
 import java.util.Date;
 
-import com.nosetr.auth.enums.ErrorEnum;
-import com.nosetr.auth.util.exception.UnauthorizedException;
+import com.nosetr.library.enums.ErrorEnum;
+import com.nosetr.library.util.exception.UnauthorizedException;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

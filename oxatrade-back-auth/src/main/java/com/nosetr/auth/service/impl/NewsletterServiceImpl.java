@@ -9,12 +9,12 @@ import com.nosetr.auth.dto.EmailDto;
 import com.nosetr.auth.dto.NewsletterDto;
 import com.nosetr.auth.entity.NewsletterEntity;
 import com.nosetr.auth.entity.NewsthemaEntity;
-import com.nosetr.auth.enums.ErrorEnum;
 import com.nosetr.auth.mapper.NewsletterMapper;
 import com.nosetr.auth.repository.NewsletterRepository;
 import com.nosetr.auth.repository.NewsthemaRepository;
 import com.nosetr.auth.service.NewsletterService;
-import com.nosetr.auth.util.exception.EntityAlreadyExistsException;
+import com.nosetr.library.enums.ErrorEnum;
+import com.nosetr.library.util.exception.EntityAlreadyExistsException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

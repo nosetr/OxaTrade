@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.nosetr.auth.entity.UserEntity;
-import com.nosetr.auth.enums.ErrorEnum;
 import com.nosetr.auth.security.PBFDK2Encoder;
 import com.nosetr.auth.security.TokenDetails;
 import com.nosetr.auth.service.SecurityService;
 import com.nosetr.auth.service.UserService;
-import com.nosetr.auth.util.exception.AuthException;
+import com.nosetr.library.enums.ErrorEnum;
+import com.nosetr.library.util.exception.AuthException;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;

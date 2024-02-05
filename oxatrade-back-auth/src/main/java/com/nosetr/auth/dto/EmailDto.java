@@ -1,6 +1,6 @@
 package com.nosetr.auth.dto;
 
-import com.nosetr.auth.util.annotation.ValidEmail;
+import com.nosetr.library.util.annotation.ValidEmail;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

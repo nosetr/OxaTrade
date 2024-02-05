@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 
-import com.nosetr.auth.util.factories.YamlPropertySourceFactory;
+import com.nosetr.library.util.factories.YamlPropertySourceFactory;
 
 /**
  * Enabling Cross Origin Requests for a RESTful Web Service

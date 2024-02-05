@@ -6,9 +6,9 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nosetr.auth.entity.UserEntity;
 import com.nosetr.auth.enums.UserRoleEnum;
-import com.nosetr.auth.util.annotation.FieldsValueMatch;
-import com.nosetr.auth.util.annotation.ValidEmail;
-import com.nosetr.auth.util.annotation.ValidPassword;
+import com.nosetr.library.util.annotation.FieldsValueMatch;
+import com.nosetr.library.util.annotation.ValidEmail;
+import com.nosetr.library.util.annotation.ValidPassword;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

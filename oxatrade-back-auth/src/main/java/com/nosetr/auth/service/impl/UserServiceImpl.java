@@ -10,15 +10,16 @@ import com.nosetr.auth.dto.UserDto;
 import com.nosetr.auth.dto.UserRegisterDto;
 import com.nosetr.auth.dto.UserUpdateDto;
 import com.nosetr.auth.entity.UserEntity;
-import com.nosetr.auth.enums.ErrorEnum;
 import com.nosetr.auth.enums.UserRoleEnum;
 import com.nosetr.auth.mapper.UserMapper;
 import com.nosetr.auth.repository.UserRepository;
 import com.nosetr.auth.security.PBFDK2Encoder;
 import com.nosetr.auth.service.UserService;
-import com.nosetr.auth.util.exception.EntityAlreadyExistsException;
-import com.nosetr.auth.util.exception.UnauthorizedException;
+import com.nosetr.library.enums.ErrorEnum;
+import com.nosetr.library.util.exception.EntityAlreadyExistsException;
+import com.nosetr.library.util.exception.UnauthorizedException;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
@@ -50,6 +51,7 @@ public class UserServiceImpl implements UserService {
 	 * @see               PBFDK2Encoder
 	 */
 	@Override
+	@Transactional
 	public Mono<UserDto> registerUser(UserRegisterDto userDto) {
 		UserEntity userEntity = userMapper.map(userDto);
 		String email = userEntity.getEmail();
@@ -94,6 +96,7 @@ public class UserServiceImpl implements UserService {
 	 * @return
 	 */
 	@Override
+	@Transactional
 	public Mono<UserEntity> update(UUID id, UserUpdateDto userDto) {
 
 		return userRepository.findById(id)
@@ -197,6 +200,7 @@ public class UserServiceImpl implements UserService {
 	 * @return    Mono<Void>
 	 */
 	@Override
+	@Transactional
 	public Mono<Void> deleteById(UUID id) {
 		return userRepository.deleteById(id);
 	}
@@ -209,6 +213,7 @@ public class UserServiceImpl implements UserService {
 	 * @return Mono<Void>
 	 */
 	@Override
+	@Transactional
 	public Mono<Void> deleteAll() {
 		return userRepository.deleteAll();
 	}
