@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.nosetr</groupId>
+		<artifactId>oxatrade-back-parent</artifactId>
+		<version>0.1.3</version>
+		<relativePath>../oxatrade-back-parent</relativePath>
+	</parent>
+
+	<properties>
+		<org.passay.version>1.6.4</org.passay.version>
+		<google.guava.version>32.1.3-jre</google.guava.version>
+	</properties>
+	
+	<artifactId>oxatrade-back-library</artifactId>
+	<name>oxatrade-back-library</name>
+	<description>Library module for OxaTrade</description>
+	<packaging>jar</packaging>
+
+	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava
+		Sammlung von Open-Source-Utility-Klassen und -Methoden für Java, die von Google
+		entwickelt wurde. Sie bietet verschiedene Funktionen, um häufig auftretende
+		Aufgaben in der Java-Programmierung zu vereinfachen und zu verbessern. -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${google.guava.version}</version>
+		</dependency>
+		
+		<!--
+		https://mvnrepository.com/artifact/org.passay/passay
+		Library for checking that a password complies with a custom set of
+		rules
+		https://www.baeldung.com/java-passay
+		-->
+		<dependency>
+			<groupId>org.passay</groupId>
+			<artifactId>passay</artifactId>
+			<version>${org.passay.version}</version>
+		</dependency>
+		<!--
+		https://mvnrepository.com/artifact/commons-validator/commons-validator
+		https://commons.apache.org/components.html
+		For email-send, fileupload, crypto and so on...
+		-->
+		<dependency>
+			<groupId>commons-validator</groupId>
+			<artifactId>commons-validator</artifactId>
+		</dependency>
+	</dependencies>
+</project>
