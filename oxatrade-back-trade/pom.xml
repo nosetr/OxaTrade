@@ -20,17 +20,6 @@
 		<hibernate.reactive.version>2.2.1.Final</hibernate.reactive.version>
 	</properties>
 	<dependencies>
-		<!-- Own modules:
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>oxatrade-back-auth</artifactId>
-			<version>${project.version}</version>
-		</dependency> -->
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webflux</artifactId>
-		</dependency>
 		<!--
 		https://mvnrepository.com/artifact/org.hibernate.reactive/hibernate-reactive-core -->
 		<dependency>

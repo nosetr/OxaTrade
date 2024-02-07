@@ -17,6 +17,7 @@ ___
 - Passay-Library for password validation
 - Commons Validator for email-send, fileupload, crypto and so on...
 - Swagger 3
+- Logback
 
 ___
 

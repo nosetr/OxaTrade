@@ -1,10 +1,13 @@
 HELP.md
 .dbeaver/
+logs/
 .mvn/
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+/.settings/
 
 ### STS ###
 .apt_generated
