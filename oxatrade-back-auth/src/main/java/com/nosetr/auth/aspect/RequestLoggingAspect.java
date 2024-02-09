@@ -8,7 +8,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
@@ -45,16 +44,12 @@ public class RequestLoggingAspect {
 	 * @autor Nikolay Osetrov
 	 * @since 0.1.3
 	 */
-	@Pointcut("execution (* com.nosetr.auth2.controller.*..*.*Controller*.*(..))")
+	@Pointcut("execution (* com.nosetr.auth.controller.*..*.*Controller*.*(..))")
 	public void controllerMethods() {}
 	
-
-	@Pointcut("execution (* com.nosetr.auth.controller.*..*.*Controller*.*(..))")
-	public void method() {}
-	
-	@Around("method()")
+	@Around("controllerMethods()")
   public Object specialTransaction(ProceedingJoinPoint joinPoint) {
-      System.out.println("Special Transaction start");
+      System.out.println("+++++++++++++++++++++Special Transaction start+++++++++++++++++++++");
 //      boolean condition = false;
       boolean condition = true;
       try {
@@ -62,56 +57,56 @@ public class RequestLoggingAspect {
               Object methodResult = joinPoint.proceed();
               return methodResult;
           } else {
-              System.out.println("Alternative logic");
+              System.out.println("+++++++++++++++++++++Alternative logic+++++++++++++++++++++");
           }
       } catch (Throwable e) {
-          System.out.println("Special logic for exceptions");
-          System.out.println("Special Transaction rollback");
+          System.out.println("+++++++++++++++++++++Special logic for exceptions+++++++++++++++++++++");
+          System.out.println("+++++++++++++++++++++Special Transaction rollback+++++++++++++++++++++");
       } finally {
-          System.out.println("Special Transaction end");
+          System.out.println("+++++++++++++++++++++Special Transaction end+++++++++++++++++++++");
       }
       return null;
   }
 
-	/**
-	 * Assuming that all the endpoints in our project are located within a package
-	 * named “controller” and that Controller classes end with the term
-	 * “Controller*”, we can craft an advice method as depicted below:
-	 * 
-	 * @autor            Nikolay Osetrov
-	 * @since            0.1.3
-	 * @param  joinPoint
-	 * @return
-	 * @throws Throwable
-	 */
-	//	@Around("execution (* com.nosetr.auth.controller.*..*.*Controller*.*(..))")
-	@Around("controllerMethods()")
-	public Object logInOut(ProceedingJoinPoint joinPoint) throws Throwable {
-		Class<?> clazz = joinPoint.getTarget()
-				.getClass();
-		Logger logger = LoggerFactory.getLogger(clazz);
-
-		Date start = new Date();
-		Object result = null;
-		Throwable exception = null;
-		try {
-			result = joinPoint.proceed();
-			if (result instanceof Mono<?> monoOut) {
-				return logMonoResult(joinPoint, clazz, logger, start, monoOut);
-			} else if (result instanceof Flux<?> fluxOut) {
-				return logFluxResult(joinPoint, clazz, logger, start, fluxOut);
-			} else { // non-Webflux
-				return result;
-			}
-		} catch (Throwable e) {
-			exception = e;
-			throw e;
-		} finally {
-			if (!(result instanceof Mono<?>) && !(result instanceof Flux<?>)) {
-				doOutputLogging(joinPoint, clazz, logger, start, result, exception);
-			}
-		}
-	}
+//	/**
+//	 * Assuming that all the endpoints in our project are located within a package
+//	 * named “controller” and that Controller classes end with the term
+//	 * “Controller*”, we can craft an advice method as depicted below:
+//	 * 
+//	 * @autor            Nikolay Osetrov
+//	 * @since            0.1.3
+//	 * @param  joinPoint
+//	 * @return
+//	 * @throws Throwable
+//	 */
+//	//	@Around("execution (* com.nosetr.auth.controller.*..*.*Controller*.*(..))")
+//	@Around("controllerMethods()")
+//	public Object logInOut(ProceedingJoinPoint joinPoint) throws Throwable {
+//		Class<?> clazz = joinPoint.getTarget()
+//				.getClass();
+//		Logger logger = LoggerFactory.getLogger(clazz);
+//
+//		Date start = new Date();
+//		Object result = null;
+//		Throwable exception = null;
+//		try {
+//			result = joinPoint.proceed();
+//			if (result instanceof Mono<?> monoOut) {
+//				return logMonoResult(joinPoint, clazz, logger, start, monoOut);
+//			} else if (result instanceof Flux<?> fluxOut) {
+//				return logFluxResult(joinPoint, clazz, logger, start, fluxOut);
+//			} else { // non-Webflux
+//				return result;
+//			}
+//		} catch (Throwable e) {
+//			exception = e;
+//			throw e;
+//		} finally {
+//			if (!(result instanceof Mono<?>) && !(result instanceof Flux<?>)) {
+//				doOutputLogging(joinPoint, clazz, logger, start, result, exception);
+//			}
+//		}
+//	}
 
 	/**
 	 * logMonoResult method, which efficiently logs with contextView to retrieve

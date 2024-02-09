@@ -200,7 +200,7 @@ public class UserServiceImpl implements UserService {
 	 * @return    Mono<Void>
 	 */
 	@Override
-	@Transactional
+	@Transactional()
 	public Mono<Void> deleteById(UUID id) {
 		return userRepository.deleteById(id);
 	}
