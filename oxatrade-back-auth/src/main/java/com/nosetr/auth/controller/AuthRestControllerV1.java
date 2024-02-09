@@ -20,6 +20,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 /**
@@ -28,6 +29,7 @@ import reactor.core.publisher.Mono;
  * @autor Nikolay Osetrov
  * @since 0.1.0
  */
+@Slf4j
 @Tag(name = "Authentication_V1", description = "APIs for users authentication and registration")
 @RestController
 @RequiredArgsConstructor
@@ -62,7 +64,6 @@ public class AuthRestControllerV1 {
 						responseCode = "200", content = {
 								@Content(schema = @Schema(implementation = UserDto.class), mediaType = "application/json") }
 				),
-				@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
 				@ApiResponse(
 						responseCode = "500", content = { @Content(
 								schema = @Schema()
@@ -73,6 +74,7 @@ public class AuthRestControllerV1 {
 	@PostMapping("/register")
 	public Mono<UserDto> register(@Valid @RequestBody UserRegisterDto userRegisterDto) {
 		// Call registrations service
+//		log.error("proba");
 		return userService.registerUser(userRegisterDto);
 	}
 

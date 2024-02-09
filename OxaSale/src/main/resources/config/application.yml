@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: oxatrade-service
+  profiles:
+    active: dev
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE # configure the whole application to expect the snake case input
+
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/oxatrade?allowPublicKeyRetrieval=true&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: oxatrade
+    password: 12345678
+    
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    
