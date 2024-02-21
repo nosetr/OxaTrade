@@ -1,11 +1,11 @@
--- DROP DATABASE IF EXISTS oxatrade;
+-- DROP DATABASE IF EXISTS oxatrade_webflux;
 
-CREATE SCHEMA IF NOT EXISTS oxatrade
+CREATE SCHEMA IF NOT EXISTS oxatrade_webflux
 	CHARACTER SET utf8mb4
   COLLATE utf8mb4_general_ci;
 
--- oxatrade.users definition
-CREATE TABLE IF NOT EXISTS oxatrade.users (
+-- oxatrade_webflux.users definition
+CREATE TABLE IF NOT EXISTS oxatrade_webflux.users (
   id BINARY(16) NOT NULL,
   email varchar(64) NOT NULL,
   password varchar(2048) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS oxatrade.users (
 
 -- Triggers to automatically generate the UUID by "users"
  CREATE TRIGGER IF NOT EXISTS before_insert_users
- BEFORE INSERT ON oxatrade.users
+ BEFORE INSERT ON oxatrade_webflux.users
  FOR EACH ROW
  BEGIN
      IF NEW.id IS NULL THEN
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS oxatrade.users (
  END;
 
 -- Create new admin with pass: "12345$aA"
-INSERT INTO oxatrade.users(
+INSERT INTO oxatrade_webflux.users(
 	email,
 	password,
 	user_role,

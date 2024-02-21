@@ -32,7 +32,7 @@ logging:
           r2dbc: DEBUG # INFO, WARN, or ERROR
 
 server:
-  port: 8083
+  port: 8082
   error:
     include-message: always
 

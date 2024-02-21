@@ -1,7 +1,7 @@
--- DROP DATABASE IF EXISTS oxatrade;
+-- DROP DATABASE IF EXISTS oxatrade_webflux;
 
--- oxatrade.organizations definition
-CREATE TABLE IF NOT EXISTS oxatrade.organizations (
+-- oxatrade_webflux.organizations definition
+CREATE TABLE IF NOT EXISTS oxatrade_webflux.organizations (
   id bigint unsigned NOT NULL AUTO_INCREMENT, -- customer ID > 10000
   org_name varchar(64) NOT NULL COMMENT 'title of organisation',
   email varchar(64) DEFAULT NULL,
@@ -13,20 +13,20 @@ CREATE TABLE IF NOT EXISTS oxatrade.organizations (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=10000 CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Organizations and firms';
 
--- oxatrade.users_organizations definition
+-- oxatrade_webflux.users_organizations definition
 -- Many-to-many connection
-CREATE TABLE IF NOT EXISTS oxatrade.users_organizations (
+CREATE TABLE IF NOT EXISTS oxatrade_webflux.users_organizations (
   user_id BINARY(16) NOT NULL,
   org_id bigint unsigned NOT NULL,
   user_org_role varchar(32) DEFAULT NULL,
   PRIMARY KEY (user_id, org_id),
   KEY `FKh8ciramu9cc9q3qcqiv4ue8a6` (org_id),
-  CONSTRAINT `FKh8ciramu9cc9q3qcqiv4ue8a6` FOREIGN KEY (org_id) REFERENCES oxatrade.organizations (id) ON UPDATE CASCADE ON DELETE CASCADE,
-  CONSTRAINT `FKhfh9dx7w3ubf1co1vdev94g3f` FOREIGN KEY (user_id) REFERENCES oxatrade.users (id) ON UPDATE CASCADE ON DELETE CASCADE
+  CONSTRAINT `FKh8ciramu9cc9q3qcqiv4ue8a6` FOREIGN KEY (org_id) REFERENCES oxatrade_webflux.organizations (id) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT `FKhfh9dx7w3ubf1co1vdev94g3f` FOREIGN KEY (user_id) REFERENCES oxatrade_webflux.users (id) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Many-to-many between users and organizations';
 
--- oxatrade.countries definition
-CREATE TABLE IF NOT EXISTS oxatrade.countries (
+-- oxatrade_webflux.countries definition
+CREATE TABLE IF NOT EXISTS oxatrade_webflux.countries (
   country_code char(2) NOT NULL COMMENT 'Country abbreviation',
   country_name varchar(200) DEFAULT NULL COMMENT 'Country name',
   phone_prefix varchar(10) DEFAULT NULL COMMENT 'Telephone prefix',
@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS oxatrade.countries (
   PRIMARY KEY (country_code)
 ) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Countries and Nations';
 
--- oxatrade.addresses definition
-CREATE TABLE IF NOT EXISTS oxatrade.addresses (
+-- oxatrade_webflux.addresses definition
+CREATE TABLE IF NOT EXISTS oxatrade_webflux.addresses (
   id BINARY(16) NOT NULL,
   org_id bigint unsigned DEFAULT NULL COMMENT 'id of organisation if not from user',
   title_name varchar(64) DEFAULT NULL COMMENT 'users name / firma / org',
@@ -55,13 +55,13 @@ CREATE TABLE IF NOT EXISTS oxatrade.addresses (
   PRIMARY KEY (id),
   KEY country_code (country_code),
   KEY addresses_FK (org_id),
-  CONSTRAINT addresses_FK FOREIGN KEY (org_id) REFERENCES oxatrade.organizations (id) ON UPDATE CASCADE ON DELETE CASCADE,
-  CONSTRAINT addresses_ibfk_1 FOREIGN KEY (country_code) REFERENCES oxatrade.countries (country_code) ON UPDATE CASCADE
+  CONSTRAINT addresses_FK FOREIGN KEY (org_id) REFERENCES oxatrade_webflux.organizations (id) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT addresses_ibfk_1 FOREIGN KEY (country_code) REFERENCES oxatrade_webflux.countries (country_code) ON UPDATE CASCADE
 ) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Addresses for users, customers, organizations...';
 
 -- Triggers to automatically generate the UUID by "users"
  CREATE TRIGGER IF NOT EXISTS before_insert_addresses
- BEFORE INSERT ON oxatrade.addresses
+ BEFORE INSERT ON oxatrade_webflux.addresses
  FOR EACH ROW
  BEGIN
      IF NEW.id IS NULL THEN
@@ -69,8 +69,8 @@ CREATE TABLE IF NOT EXISTS oxatrade.addresses (
      END IF;
  END;
 
--- Dumping data for table "oxatrade.countries"
-INSERT INTO oxatrade.countries (country_code, country_name, phone_prefix) VALUES
+-- Dumping data for table "oxatrade_webflux.countries"
+INSERT INTO oxatrade_webflux.countries (country_code, country_name, phone_prefix) VALUES
 ('AF', 'Afghanistan', '+93'),
 ('AL', 'Albania', '+355'),
 ('DZ', 'Algeria', '+213'),

@@ -44,7 +44,7 @@ public class RequestLoggingAspect {
 	 * @autor Nikolay Osetrov
 	 * @since 0.1.3
 	 */
-	@Pointcut("execution (* com.nosetr.auth.controller.*..*.*Controller*.*(..))")
+	@Pointcut("execution (* com.nosetr.auth.controller.*Controller*.*(..))")
 	public void controllerMethods() {}
 	
 	@Around("controllerMethods()")
