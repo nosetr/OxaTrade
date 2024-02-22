@@ -3,14 +3,11 @@ package com.nosetr.auth.controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.nosetr.auth.dto.AuthRequestDto;
 import com.nosetr.auth.dto.AuthResponseDto;
 import com.nosetr.auth.dto.UserDto;
 import com.nosetr.auth.dto.UserRegisterDto;
-import com.nosetr.auth.service.SecurityService;
-import com.nosetr.auth.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -19,8 +16,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 /**
@@ -29,19 +24,12 @@ import reactor.core.publisher.Mono;
  * @autor Nikolay Osetrov
  * @since 0.1.0
  */
-@Slf4j
 @Tag(name = "Authentication_V1", description = "APIs for users authentication and registration")
-@RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
-public class AuthRestControllerV1 {
-
-	private final SecurityService securityService;
-	private final UserService userService;
+public interface AuthRestV1Controller {
 
 	/**
 	 * Users registration action with requested body.
-	 * TODO confirmations link on email must be send before account is enabled.
 	 * 
 	 * @autor          Nikolay Osetrov
 	 * @since          0.1.0
@@ -72,11 +60,7 @@ public class AuthRestControllerV1 {
 		}
 	)
 	@PostMapping("/register")
-	public Mono<UserDto> register(@Valid @RequestBody UserRegisterDto userRegisterDto) {
-		// Call registrations service
-//		log.error("proba");
-		return userService.registerUser(userRegisterDto);
-	}
+	public Mono<UserDto> register(@Valid @RequestBody UserRegisterDto userRegisterDto);
 
 	/**
 	 * Users login action.
@@ -107,19 +91,5 @@ public class AuthRestControllerV1 {
 		}
 	)
 	@PostMapping("/login")
-	public Mono<AuthResponseDto> login(@Valid @RequestBody AuthRequestDto authRequestDto) {
-		// Call authentications service
-		return securityService.authenticate(authRequestDto.getEmail(), authRequestDto.getPassword())
-				.flatMap(
-						tokenDetails -> Mono.just(
-								// Create response with token and additional info.
-								AuthResponseDto.builder()
-										.userId(tokenDetails.getUserId())
-										.token(tokenDetails.getToken())
-										.issuedAt(tokenDetails.getIssuedAt())
-										.expiresAt(tokenDetails.getExpiresAt())
-										.build()
-						)
-				);
-	}
+	public Mono<AuthResponseDto> login(@Valid @RequestBody AuthRequestDto authRequestDto);
 }

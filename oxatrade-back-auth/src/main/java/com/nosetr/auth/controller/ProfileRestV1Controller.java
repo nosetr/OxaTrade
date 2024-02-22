@@ -5,13 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.nosetr.auth.dto.UserDto;
 import com.nosetr.auth.dto.UserUpdateDto;
-import com.nosetr.auth.mapper.UserMapper;
-import com.nosetr.auth.security.CustomPrincipal;
-import com.nosetr.auth.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -20,23 +16,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
 /**
- * Controller for actions with users profile.
+ * Controller interface for actions with users profile.
  * 
  * @autor Nikolay Osetrov
  * @since 0.1.0
  */
 @Tag(name = "UserProfile_V1", description = "APIs for users profile")
-@RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/v1/profile")
-public class UserProfileControllerV1 {
-
-	private final UserService userService;
-	private final UserMapper userMapper;
+public interface ProfileRestV1Controller {
 
 	/**
 	 * User can update himself if login.
@@ -63,13 +53,7 @@ public class UserProfileControllerV1 {
 		}
 	)
 	@PutMapping("/update")
-	public Mono<UserDto> selfUpdate(@Valid @RequestBody UserUpdateDto userDto, Authentication authentication) {
-
-		CustomPrincipal customPrincipal = (CustomPrincipal) authentication.getPrincipal();
-
-		return userService.update(customPrincipal.getId(), userDto)
-				.map(userMapper::map);
-	}
+	public Mono<UserDto> selfUpdate(@Valid @RequestBody UserUpdateDto userDto, Authentication authentication);
 
 	/**
 	 * Get information about himself when user is on login.
@@ -97,10 +81,5 @@ public class UserProfileControllerV1 {
 		}
 	)
 	@GetMapping("/info")
-	public Mono<UserDto> getUserInfo(Authentication authentication) {
-		CustomPrincipal customPrincipal = (CustomPrincipal) authentication.getPrincipal();
-
-		return userService.getUserById(customPrincipal.getId())
-				.map(userMapper::map);
-	}
+	public Mono<UserDto> getUserInfo(Authentication authentication);
 }

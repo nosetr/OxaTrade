@@ -7,12 +7,15 @@ spring:
     property-naming-strategy: SNAKE_CASE # configure the whole application to expect the snake case input
   config:
     import: 
-      - db.yml
-      - oxa.yml
+      - classpath:config/db.yml
+      - classpath:config/oxa.yml
   #autoconfigure:
     # To discard the security auto-configuration and add our own configuration:
     #exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
 
+logging:
+  config: classpath:config/logback-spring.xml
+  
 ---
 spring:
   config:
@@ -23,6 +26,15 @@ spring:
      #For file upload:
      max-file-size: 100MB
      max-request-size: 100MB
+
+server:
+  port: 8083
+  servlet:
+    context-path: /
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: true
      
 logging:
   level:
@@ -31,17 +43,19 @@ logging:
         data:
           r2dbc: DEBUG # INFO, WARN, or ERROR
 
-server:
-  port: 8082
-  error:
-    include-message: always
-
 # swagger-ui custom path
 # see: https://springdoc.org/#properties
 springdoc:
+  #webjars:
+    #prefix:
   swagger-ui:
+    enabled: true
+    disable-swagger-default-url: true
     # swagger-ui custom path:
-    path: /swagger    
+    path: /swagger
+    operationsSorter: alpha
+    tagsSorter: alpha
+    doc-expansion: none
     # In order to disable the swagger-ui:
     #enabled: false
   api-docs:
@@ -50,7 +64,7 @@ springdoc:
     # In order to disable the springdoc-openapi endpoint (/v3/api-docs by default):
     #enabled: false
   # Boolean. To enable spring-security support:
-  enable-spring-security: false
+  enable-spring-security: true
 
 ---
 spring:
@@ -59,4 +73,4 @@ spring:
       on-profile: test
 
 server:
-  port: 8083
+  port: 8082

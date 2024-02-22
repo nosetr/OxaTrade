@@ -1,0 +1,145 @@
+<!-- @see https://www.baeldung.com/logback -->
+<!-- @see https://logback.qos.ch/manual/configuration.html -->
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>
+    
+	<!--Variable Substitution
+    <property name="LOG_DIR" value="/var/log/OxaTrade/" />-->
+    <!-- <property name="LOG_DIR" value="../logs/" /> Here, the parent directory and the "logs" subfolder are used -->
+    <property name="LOG_DIR" value="logs/" />
+    <!-- <property name="MAX_FILE_SIZE" value="1MB" />
+    <property name="MIN_INDEX" value="1" />
+    <property name="MAX_INDEX" value="30" /> -->
+    <property name="MAX_HISTORY" value="30" />
+    <property name="TOTAL_SIZE_CAP" value="1GB" />
+    <property name="DATE_PATTERN" value="%d{yyyy-MM-dd}" />
+    <property name="FILE_PREFIX" value="oxatrade_back_auth_" />
+    
+    <!-- Console -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %green(%logger.%M) - %msg%n</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>	
+	
+    <appender name="FILE_OVERALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- File -->
+        <file>${LOG_DIR}${FILE_PREFIX}full.log</file>
+	    <append>true</append>
+	    <!--We specify a maximum of 3 archived log files (<maxIndex>3</maxIndex>),
+	    and the archived files will have names like oxatrade_back_auth.1.log.zip,
+	    oxatrade_back_auth.2.log.zip, etc.-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}${FILE_PREFIX}full_${DATE_PATTERN}.log.zip</fileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+        <!--Is used to trigger rollover based on the file size.
+        We set the maximum file size to 1MB:-->
+        <!--<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>1MB</maxFileSize>
+        </triggeringPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} -%msg%n</Pattern>
+        </layout>-->
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="FILE_CONTROLLERS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}${FILE_PREFIX}controllers-journal.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}${FILE_PREFIX}controllers-journal_${DATE_PATTERN}.log.zip</fileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} :: %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE_JOURNAL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}${FILE_PREFIX}user-journal.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}${FILE_PREFIX}user-journal_${DATE_PATTERN}.log.zip</fileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} :: %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <file>${LOG_DIR}${FILE_PREFIX}error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}${FILE_PREFIX}error_${DATE_PATTERN}.log.zip</fileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE_WEB" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <file>${LOG_DIR}${FILE_PREFIX}web.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}${FILE_PREFIX}web_${DATE_PATTERN}.log.zip</fileNamePattern>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- Root logger.
+    The log levels: TRACE -> DEBUG -> INFO -> WARN -> ERROR
+    -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE_OVERALL"/>
+        <appender-ref ref="FILE_ERROR"/>
+    </root>
+    <logger name="org.springframework.web" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE_OVERALL"/>
+        <appender-ref ref="FILE_ERROR"/>
+    </logger>
+    <logger name="org.springframework.Hibernate" level="ERROR" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE_OVERALL"/>
+        <appender-ref ref="FILE_ERROR"/>
+    </logger>
+    <logger name="org.springframework.Data" level="ERROR" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE_OVERALL"/>
+        <appender-ref ref="FILE_ERROR"/>
+    </logger>
+    <logger name="com.nosetr.auth" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE_OVERALL"/>
+        <appender-ref ref="FILE_ERROR"/>
+        <appender-ref ref="FILE_JOURNAL"/>
+    </logger>
+    <logger name="com.nosetr.auth.service.SecurityService" level="TRACE" additivity="false" >
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE_WEB"/>
+<!--        <appender-ref ref="FILE_OVERALL"/>-->
+<!--        <appender-ref ref="FILE_ERROR"/>-->
+<!--        <appender-ref ref="FILE_JOURNAL"/>-->
+<!--        <appender-ref ref="FILE_CONTROLLERS"/>-->
+    </logger>
+<!--    <logger name="de.telran.market.services.PaymentService" level="DEBUG" additivity="false">-->
+<!--        <appender-ref ref="FILE_OVERALL"/>-->
+<!--    </logger>-->
+
+</configuration>
