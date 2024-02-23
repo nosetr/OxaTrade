@@ -15,7 +15,7 @@ import com.nosetr.auth.security.TokenDetails;
 import com.nosetr.auth.service.SecurityService;
 import com.nosetr.auth.service.UserService;
 import com.nosetr.library.enums.ErrorEnum;
-import com.nosetr.library.util.exception.AuthException;
+import com.nosetr.library.exception.AuthException;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;

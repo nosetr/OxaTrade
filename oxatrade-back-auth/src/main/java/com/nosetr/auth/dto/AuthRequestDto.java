@@ -2,8 +2,8 @@ package com.nosetr.auth.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.nosetr.library.util.annotation.ValidEmail;
-import com.nosetr.library.util.annotation.ValidPassword;
+import com.nosetr.library.annotation.ValidEmail;
+import com.nosetr.library.annotation.ValidPassword;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

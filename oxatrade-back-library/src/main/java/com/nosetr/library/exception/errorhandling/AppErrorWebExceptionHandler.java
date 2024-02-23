@@ -1,4 +1,4 @@
-package com.nosetr.library.util.exception.errorhandling;
+package com.nosetr.library.exception.errorhandling;
 
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;

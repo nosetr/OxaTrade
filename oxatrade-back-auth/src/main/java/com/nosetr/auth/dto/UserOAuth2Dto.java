@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import com.nosetr.auth.enums.OAuth2ProvidersEnum;
 import com.nosetr.auth.enums.UserRoleEnum;
-import com.nosetr.library.util.annotation.ValidEmail;
+import com.nosetr.library.annotation.ValidEmail;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

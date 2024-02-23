@@ -1,20 +1,17 @@
-package com.nosetr.library.util.exception;
+package com.nosetr.library.exception;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.nosetr.library.enums.ErrorEnum;
 
 /**
- * Exception for unauthorized access.
+ * Authentications exception.
  * 
  * @autor Nikolay Osetrov
  * @since 0.1.0
  */
-@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
-public class UnauthorizedException extends ApiException {
-	private static final long serialVersionUID = -6571994714217148411L;
+public class AuthException extends ApiException {
+	private static final long serialVersionUID = 7529064453426516902L;
 
 	/**
 	 * Controller with {@link ErrorEnum}
@@ -25,9 +22,9 @@ public class UnauthorizedException extends ApiException {
 	 * @since           0.1.0
 	 * @param errorEnum
 	 * @param Object... args
-	 * @see             ErrorEnum
+	 * @see ErrorEnum
 	 */
-	public UnauthorizedException(ErrorEnum errorEnum, @Nullable Object... args) {
+	public AuthException(ErrorEnum errorEnum, @Nullable Object... args) {
 		super(String.format(errorEnum.getMessage(), args), errorEnum.getCode());
 	}
 }

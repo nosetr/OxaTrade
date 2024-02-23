@@ -1,8 +1,8 @@
-package com.nosetr.library.util.validation;
+package com.nosetr.library.validation;
 
 import org.springframework.beans.BeanWrapperImpl;
 
-import com.nosetr.library.util.annotation.FieldsValueMatch;
+import com.nosetr.library.annotation.FieldsValueMatch;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

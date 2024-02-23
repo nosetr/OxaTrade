@@ -1,4 +1,4 @@
-package com.nosetr.library.util.exception;
+package com.nosetr.library.exception;
 
 import com.nosetr.library.enums.ErrorEnum;
 

@@ -3,7 +3,7 @@ package com.nosetr.auth.dto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.nosetr.library.util.annotation.ValidEmail;
+import com.nosetr.library.annotation.ValidEmail;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;

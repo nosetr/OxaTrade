@@ -1,4 +1,4 @@
-package com.nosetr.library.util.helper;
+package com.nosetr.library.helper;
 
 import java.util.Locale;
 

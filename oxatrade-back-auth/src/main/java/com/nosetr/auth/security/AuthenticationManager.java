@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.nosetr.auth.entity.UserEntity;
 import com.nosetr.auth.service.UserService;
 import com.nosetr.library.enums.ErrorEnum;
-import com.nosetr.library.util.exception.UnauthorizedException;
+import com.nosetr.library.exception.UnauthorizedException;
 
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;

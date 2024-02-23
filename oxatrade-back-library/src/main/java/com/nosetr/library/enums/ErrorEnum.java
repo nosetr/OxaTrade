@@ -1,6 +1,6 @@
 package com.nosetr.library.enums;
 
-import com.nosetr.library.util.helper.MessageSourceHelper;
+import com.nosetr.library.helper.MessageSourceHelper;
 
 import lombok.Getter;
 

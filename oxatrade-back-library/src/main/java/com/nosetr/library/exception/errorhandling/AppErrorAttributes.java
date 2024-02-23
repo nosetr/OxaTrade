@@ -1,4 +1,4 @@
-package com.nosetr.library.util.exception.errorhandling;
+package com.nosetr.library.exception.errorhandling;
 
 import java.security.SignatureException;
 import java.util.ArrayList;
@@ -16,12 +16,12 @@ import org.springframework.web.bind.support.WebExchangeBindException;
 import org.springframework.web.reactive.function.server.ServerRequest;
 
 import com.google.common.base.CaseFormat;
-import com.nosetr.library.util.exception.ApiException;
-import com.nosetr.library.util.exception.AuthException;
-import com.nosetr.library.util.exception.EntityAlreadyExistsException;
-import com.nosetr.library.util.exception.EntityNotFoundException;
-import com.nosetr.library.util.exception.UnauthorizedException;
-import com.nosetr.library.util.exception.UnprocessableEntityException;
+import com.nosetr.library.exception.ApiException;
+import com.nosetr.library.exception.AuthException;
+import com.nosetr.library.exception.EntityAlreadyExistsException;
+import com.nosetr.library.exception.EntityNotFoundException;
+import com.nosetr.library.exception.UnauthorizedException;
+import com.nosetr.library.exception.UnprocessableEntityException;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;

@@ -14,7 +14,7 @@ import com.nosetr.auth.repository.NewsletterRepository;
 import com.nosetr.auth.repository.NewsthemaRepository;
 import com.nosetr.auth.service.NewsletterService;
 import com.nosetr.library.enums.ErrorEnum;
-import com.nosetr.library.util.exception.EntityAlreadyExistsException;
+import com.nosetr.library.exception.EntityAlreadyExistsException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

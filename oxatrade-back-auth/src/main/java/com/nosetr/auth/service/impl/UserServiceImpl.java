@@ -16,8 +16,8 @@ import com.nosetr.auth.repository.UserRepository;
 import com.nosetr.auth.security.PBFDK2Encoder;
 import com.nosetr.auth.service.UserService;
 import com.nosetr.library.enums.ErrorEnum;
-import com.nosetr.library.util.exception.EntityAlreadyExistsException;
-import com.nosetr.library.util.exception.UnauthorizedException;
+import com.nosetr.library.exception.EntityAlreadyExistsException;
+import com.nosetr.library.exception.UnauthorizedException;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

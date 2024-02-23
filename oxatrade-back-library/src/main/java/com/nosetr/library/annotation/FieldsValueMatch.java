@@ -1,4 +1,4 @@
-package com.nosetr.library.util.annotation;
+package com.nosetr.library.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.nosetr.library.util.validation.FieldsValueMatchValidator;
+import com.nosetr.library.validation.FieldsValueMatchValidator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

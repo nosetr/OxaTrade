@@ -1,8 +1,8 @@
-package com.nosetr.library.util.validation;
+package com.nosetr.library.validation;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
-import com.nosetr.library.util.annotation.ValidEmail;
+import com.nosetr.library.annotation.ValidEmail;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

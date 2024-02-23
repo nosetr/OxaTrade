@@ -1,11 +1,11 @@
-package com.nosetr.library.util.exception;
+package com.nosetr.library.exception;
 
 import lombok.Getter;
 
 /**
  * API exception.
  * <p>Help to become an {@code errorCode} by
- * {@link com.nosetr.library.util.exception.errorhandling.AppErrorAttributes
+ * {@link com.nosetr.library.exception.errorhandling.AppErrorAttributes
  * AppErrorAttributes}.
  * 
  * @autor Nikolay Osetrov

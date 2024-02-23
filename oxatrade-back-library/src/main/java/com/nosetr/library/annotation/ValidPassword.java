@@ -1,4 +1,4 @@
-package com.nosetr.library.util.annotation;
+package com.nosetr.library.annotation;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
@@ -8,25 +8,25 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import com.nosetr.library.util.validation.EmailConstraintValidator;
+import com.nosetr.library.validation.PasswordConstraintValidator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 /**
- * Annotation to check email validation.
+ * Annotation to check passwords validation.
  * 
  * @autor Nikolay Osetrov
  * @since 0.1.0
- * @see EmailConstraintValidator
+ * @see PasswordConstraintValidator
  */
 @Documented
-@Constraint(validatedBy = EmailConstraintValidator.class)
+@Constraint(validatedBy = PasswordConstraintValidator.class)
 @Target({ FIELD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
-public @interface ValidEmail {
+public @interface ValidPassword {
 
-	String message() default "{validation.email.ValidEmail}";
+	String message() default "{validation.password.ValidPassword}";
 
 	Class<?>[] groups() default {};
 

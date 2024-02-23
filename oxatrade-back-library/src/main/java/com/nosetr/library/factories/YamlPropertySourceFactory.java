@@ -1,4 +1,4 @@
-package com.nosetr.library.util.factories;
+package com.nosetr.library.factories;
 
 import java.io.IOException;
 import java.util.Properties;

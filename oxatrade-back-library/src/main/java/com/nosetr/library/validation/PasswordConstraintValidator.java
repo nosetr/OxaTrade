@@ -1,4 +1,4 @@
-package com.nosetr.library.util.validation;
+package com.nosetr.library.validation;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -17,7 +17,7 @@ import org.passay.WhitespaceRule;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 
-import com.nosetr.library.util.annotation.ValidPassword;
+import com.nosetr.library.annotation.ValidPassword;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
