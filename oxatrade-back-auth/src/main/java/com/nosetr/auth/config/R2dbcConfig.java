@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
@@ -13,8 +12,6 @@ import org.springframework.data.convert.ReadingConverter;
 import org.springframework.data.convert.WritingConverter;
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration;
 
-import io.asyncer.r2dbc.mysql.MySqlConnectionConfiguration;
-import io.asyncer.r2dbc.mysql.MySqlConnectionFactory;
 import io.r2dbc.spi.ConnectionFactory;
 
 /**
@@ -26,33 +23,34 @@ import io.r2dbc.spi.ConnectionFactory;
 @Configuration
 public class R2dbcConfig extends AbstractR2dbcConfiguration {
 
-	@Value("${spring.r2dbc.host}")
-	private String host;
+//	@Value("${spring.r2dbc.host}")
+//	private String host;
+//
+//	@Value("${spring.r2dbc.port}")
+//	private int port;
+//
+//	@Value("${spring.r2dbc.username}")
+//	private String username;
+//
+//	@Value("${spring.r2dbc.password}")
+//	private String password;
+//
+//	@Value("${spring.r2dbc.database}")
+//	private String databaseName;
 
-	@Value("${spring.r2dbc.port}")
-	private int port;
-
-	@Value("${spring.r2dbc.username}")
-	private String username;
-
-	@Value("${spring.r2dbc.password}")
-	private String password;
-
-	@Value("${spring.r2dbc.database}")
-	private String databaseName;
-
-	@Bean
+//	@Bean
 	@Override
 	public ConnectionFactory connectionFactory() {
-		return MySqlConnectionFactory.from(
-				MySqlConnectionConfiguration.builder()
-						.host(host)
-						.port(port)
-						.username(username)
-						.password(password)
-						.database(databaseName)
-						.build()
-		);
+//		return MySqlConnectionFactory.from(
+//				MySqlConnectionConfiguration.builder()
+//						.host(host)
+//						.port(port)
+//						.username(username)
+//						.password(password)
+//						.database(databaseName)
+//						.build()
+//		);
+		return null;
 	}
 
 	/*

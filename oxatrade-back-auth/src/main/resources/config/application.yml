@@ -12,9 +12,6 @@ spring:
   #autoconfigure:
     # To discard the security auto-configuration and add our own configuration:
     #exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
-
-logging:
-  config: classpath:config/logback-spring.xml
   
 ---
 spring:
@@ -36,14 +33,15 @@ server:
     include-binding-errors: always
     include-exception: true
      
+
 logging:
+  config: classpath:config/logback-spring.xml
   level:
     org:
       springframework:
         data:
           r2dbc: DEBUG # INFO, WARN, or ERROR
 
-# swagger-ui custom path
 # see: https://springdoc.org/#properties
 springdoc:
   #webjars:
@@ -71,6 +69,21 @@ spring:
   config:
     activate:
       on-profile: test
+      
+  sql:
+    init:
+        mode: never
 
 server:
-  port: 8082
+  port: 8083
+  servlet:
+    context-path: /
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: true
+    
+
+springdoc:
+  swagger-ui:
+    enabled: false
