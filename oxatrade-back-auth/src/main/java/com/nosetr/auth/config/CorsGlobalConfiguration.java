@@ -5,14 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 
-import com.nosetr.library.factories.YamlPropertySourceFactory;
-
 /**
  * Enabling Cross Origin Requests for a RESTful Web Service
  * 
  * @autor Nikolay Osetrov
  * @since 0.1.2
- * @see   YamlPropertySourceFactory
  */
 //@PropertySource(value = "classpath:config/oxa.yml", factory = YamlPropertySourceFactory.class)
 @Configuration

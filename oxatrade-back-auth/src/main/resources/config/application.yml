@@ -34,6 +34,13 @@ spring:
             scope:
               - email
 
+server:
+  error:
+    include-stacktrace: never
+    include-message: never
+    include-binding-errors: never
+    include-exception: false
+    
 # custom:
 oxa:
   # see: https://randomkeygen.com/
