@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
  * @since 0.1.2
  */
 @Tag(name = "Newsletter_V1", description = "APIs for newsletters")
-@RequestMapping("/api/v1/newsletter")
+@RequestMapping("/v1/newsletter")
 public interface NewsletterRestV1Controller {
 
 	/**

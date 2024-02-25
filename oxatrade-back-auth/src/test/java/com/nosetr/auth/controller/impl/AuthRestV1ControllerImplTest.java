@@ -3,39 +3,61 @@
  */
 package com.nosetr.auth.controller.impl;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nosetr.auth.dto.AuthRequestDto;
+import com.nosetr.auth.dto.AuthResponseDto;
 import com.nosetr.auth.dto.UserRegisterDto;
 import com.nosetr.auth.entity.UserEntity;
+import com.nosetr.auth.enums.UserRoleEnum;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @autor Nikolay Osetrov
  * @since 0.1.4
+ * @see   https://medium.com/javarevisited/spring-boot-testing-testcontainers-and-flyway-df4a71376db4
+ * @see   https://medium.com/@susantamon/r2dbc-with-testcontainers-for-spring-boot-webflux-integration-test-3822b7819039
  */
+@Slf4j
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Testcontainers
 @ActiveProfiles("test")
-@SpringBootTest
-//@AutoConfigureMockMvc
-@AutoConfigureWebTestClient
+@TestMethodOrder(OrderAnnotation.class)
 class AuthRestV1ControllerImplTest {
 
 	@Autowired
-	//	private MockMvc mockMvc;
 	private WebTestClient webTestClient;
 
 	@Autowired
 	private ObjectMapper objectMapper;
 
+	/**
+	 * @autor            Nikolay Osetrov
+	 * @since            0.1.4
+	 * @throws Exception
+	 */
 	@Test
-	void register_new_user_with_success_without_newsletter() throws Exception {
+	@Order(1)
+	void register_new_user_without_newsletter_with_success() throws Exception {
+
 		UserRegisterDto userRegisterDto = new UserRegisterDto();
 		userRegisterDto.setFirstName("test_first_name");
 		userRegisterDto.setLastName("test_last_name");
@@ -43,15 +65,11 @@ class AuthRestV1ControllerImplTest {
 		userRegisterDto.setPassword("12345$aA");
 		userRegisterDto.setConfirmPassword("12345$aA");
 		userRegisterDto.setNewsletter(false);
-
+		userRegisterDto.setTitle("Mr.");
 		String valueAsString = objectMapper.writeValueAsString(userRegisterDto);
 
-		System.out.println("**********************************************");
-		System.out.println("**********************************************");
-		System.out.println("**********************************************");
-
 		System.out.println("UserRegisterDtoAsString: " + valueAsString);
-		//		Return with error(password and confirmPassword mists
+		//		Return with error("password" and "confirmPassword" mists
 		//		because of "@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)" in UserRegisterDto): 
 		//		
 		//		UserRegisterDtoAsString: {
@@ -61,39 +79,95 @@ class AuthRestV1ControllerImplTest {
 		//		"email":"test@test.com",
 		//		"newsletter":false}
 
-		System.out.println("**********************************************");
-		System.out.println("**********************************************");
-		System.out.println("**********************************************");
-
-		//		MvcResult mvcResult = mockMvc
-		//				.perform(
-		//						MockMvcRequestBuilders.post("/register")
-		//								.contentType(MediaType.APPLICATION_JSON)
-		//								.content(valueAsString)
-		//				)
-		//				.andReturn();
-		//		
-		//		MockHttpServletResponse jsonHttpServletResponse = mvcResult.getResponse();
-		//		
-		//		UserEntity userEntity = objectMapper.readValue(jsonHttpServletResponse.getContentAsString(), UserEntity.class);		
-		//
-		//    Assertions.assertEquals(200, jsonHttpServletResponse.getStatus());
-		//    Assertions.assertEquals(userRegisterDto.getFirstName(), userEntity.getFirstName());
+		Map<String, String> user = getUserData();
 
 		webTestClient.post()
-				.uri("/api/v1/auth/register")
+				.uri("/v1/auth/register")
 				.contentType(MediaType.APPLICATION_JSON)
-				.body(BodyInserters.fromValue(valueAsString))
+				.body(
+						BodyInserters.fromValue(
+								"{\"first_name\":\"" + user.get("first_name") + "\","
+										+ "\"last_name\":\"" + user.get("last_name") + "\","
+										+ "\"title\":\"" + user.get("title") + "\","
+										+ "\"email\":\"" + user.get("email") + "\","
+										+ "\"password\":\"" + user.get("password") + "\","
+										+ "\"confirm_password\":\"" + user.get("password") + "\"}"
+						)
+				)
 				.exchange()
 				.expectStatus()
 				.isOk()
 				.expectBody(UserEntity.class)
 				.consumeWith(response -> {
 					UserEntity userEntity = response.getResponseBody();
+					log.info("+++ New user is created: {}", userEntity.toString());
 					Assertions.assertNotNull(userEntity);
-					Assertions.assertEquals(userRegisterDto.getFirstName(), userEntity.getFirstName());
+
+					Assertions.assertNull(userEntity.getProvider());
+					Assertions.assertNull(userEntity.getPassword());
+
+					Assertions.assertEquals(user.get("email"), userEntity.getEmail());
+					Assertions.assertEquals(UserRoleEnum.USER, userEntity.getUserRole());
+					Assertions.assertEquals(user.get("title"), userEntity.getTitle());
+					Assertions.assertEquals(user.get("first_name"), userEntity.getFirstName());
+					Assertions.assertEquals(user.get("last_name"), userEntity.getLastName());
 				});
 
+	}
+
+	/**
+	 * @autor            Nikolay Osetrov
+	 * @since            0.1.4
+	 * @throws Exception
+	 */
+	@Test
+	@Order(2)
+	void login_with_email_and_pass_with_success() throws Exception {
+		Map<String, String> user = getUserData();
+
+		AuthRequestDto authRequestDto = new AuthRequestDto();
+		authRequestDto.setEmail(user.get("email"));
+		authRequestDto.setPassword(user.get("password"));
+
+		String valueAsString = objectMapper.writeValueAsString(authRequestDto);
+
+		webTestClient.post()
+				.uri("/v1/auth/login")
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(
+						BodyInserters.fromValue(valueAsString)
+				)
+				.exchange()
+				.expectStatus()
+				.isOk()
+				.expectBody(AuthResponseDto.class)
+				.consumeWith(response -> {
+					AuthResponseDto userEntity = response.getResponseBody();
+					log.info("+++ User is sign in: {}", userEntity.toString());
+					Assertions.assertNotNull(userEntity);
+					Assertions.assertNotNull(userEntity.getToken());
+					Assertions.assertInstanceOf(UUID.class, userEntity.getUserId());
+					Assertions.assertInstanceOf(String.class, userEntity.getToken());
+					Assertions.assertInstanceOf(Date.class, userEntity.getExpiresAt());
+					Assertions.assertInstanceOf(Date.class, userEntity.getIssuedAt());
+				});
+	}
+
+	/**
+	 * Set default users data as HashMap for tests.
+	 * 
+	 * @autor  Nikolay Osetrov
+	 * @since  0.1.4
+	 * @return
+	 */
+	private Map<String, String> getUserData() {
+		Map<String, String> userMap = new HashMap<>();
+		userMap.put("title", "Mr.");
+		userMap.put("first_name", "test_first_name");
+		userMap.put("last_name", "test_last_name");
+		userMap.put("email", "test@test.com");
+		userMap.put("password", "12345$aA");
+		return userMap;
 	}
 
 }

@@ -25,7 +25,7 @@ import reactor.core.publisher.Mono;
  * @since 0.1.0
  */
 @Tag(name = "UserProfile_V1", description = "APIs for users profile")
-@RequestMapping("/api/v1/profile")
+@RequestMapping("/v1/profile")
 public interface ProfileRestV1Controller {
 
 	/**

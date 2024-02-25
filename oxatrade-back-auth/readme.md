@@ -10,6 +10,7 @@ ___
 - Spring Security
 - Flyway-Migration
 - r2dbc
+- MySql
 - Messages for translation
 - Lombok
 - Mapstruct
@@ -18,6 +19,7 @@ ___
 - Commons Validator for email-send, fileupload, crypto and so on...
 - Swagger 3
 - Logback
+- Testcontainers
 
 ___
 

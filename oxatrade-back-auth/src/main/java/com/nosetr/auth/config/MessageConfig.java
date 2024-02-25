@@ -8,8 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
-import com.nosetr.library.config.MessageLibConfig;
-
 /**
  * Instead of hard coding the messages in the class level, we might want to
  * retrieve the messages from a property file.
@@ -22,11 +20,6 @@ import com.nosetr.library.config.MessageLibConfig;
  */
 @Configuration
 public class MessageConfig {
-	
-	@Bean
-  public MessageLibConfig messageLibConfig() {
-      return new MessageLibConfig();
-  }
 
 	@Bean
 	public MessageSource messageSource() {

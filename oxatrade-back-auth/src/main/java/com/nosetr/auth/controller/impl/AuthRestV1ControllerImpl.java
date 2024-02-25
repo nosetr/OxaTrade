@@ -42,7 +42,6 @@ public class AuthRestV1ControllerImpl implements AuthRestV1Controller {
 	@Override
 	public Mono<UserDto> register(@Valid UserRegisterDto userRegisterDto) {
 		// Call registrations service
-//		log.error("proba");
 		return userService.registerUser(userRegisterDto);
 	}
 

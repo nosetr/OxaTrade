@@ -45,10 +45,10 @@ public class SecurityConfig {
 	 * Array of routes with public access for registration and login
 	 */
 	private final String[] publicRoutes = {
-			"/api/v1/auth/register",
-			"/api/v1/auth/login",
+			"/v1/auth/register",
+			"/v1/auth/login",
 			"/login/**",
-			"/api/v1/newsletter"
+			"/v1/newsletter"
 	};
 	
 	/*
@@ -63,7 +63,7 @@ public class SecurityConfig {
 	/*
 	 * Array of routes with access for users with role "USER"
 	 */
-	private final String[] usersRoutes = { "/api/v1/secure/**" };
+	private final String[] usersRoutes = { "/v1/secure/**" };
 
 //	@Bean
 //	public ServerOAuth2AuthorizationRequestResolver authorizationRequestResolver(
@@ -144,7 +144,7 @@ public class SecurityConfig {
 				//								.authenticationConverter(new OAuth2AuthenticationConverter())
 				//								// The default Authorization Response redirection endpoint is /login/oauth2/code/{registrationId}
 				//								.authenticationMatcher(
-				//										new PathPatternParserServerWebExchangeMatcher("/api/v1/oauth2/{registrationId}")
+				//										new PathPatternParserServerWebExchangeMatcher("/v1/oauth2/{registrationId}")
 				//								)
 				//				)
 				.build();

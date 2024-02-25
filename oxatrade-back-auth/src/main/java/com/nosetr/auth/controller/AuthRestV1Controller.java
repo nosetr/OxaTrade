@@ -25,7 +25,7 @@ import reactor.core.publisher.Mono;
  * @since 0.1.0
  */
 @Tag(name = "Authentication_V1", description = "APIs for users authentication and registration")
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/v1/auth")
 public interface AuthRestV1Controller {
 
 	/**

@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
  * @since 0.1.0
  */
 @Tag(name = "OAuth2_V1", description = "APIs for users authentication and registration with OAuth2")
-@RequestMapping("/api/v1/oauth2")
+@RequestMapping("/v1/oauth2")
 public interface OAuth2RestV1Controller {
 
 	@Operation(

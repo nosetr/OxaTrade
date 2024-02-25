@@ -1,4 +1,6 @@
 spring:
+  webflux:
+    base-path: /api
   application:
     name: oxatrade-service
   profiles:
@@ -7,8 +9,8 @@ spring:
     property-naming-strategy: SNAKE_CASE # configure the whole application to expect the snake case input
   config:
     import: 
-      - classpath:config/db.yml
       - classpath:config/oxa.yml
+      - classpath:config/db.yml
   #autoconfigure:
     # To discard the security auto-configuration and add our own configuration:
     #exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
@@ -64,26 +66,3 @@ springdoc:
   # Boolean. To enable spring-security support:
   enable-spring-security: true
 
----
-spring:
-  config:
-    activate:
-      on-profile: test
-      
-  sql:
-    init:
-        mode: never
-
-server:
-  port: 8083
-  servlet:
-    context-path: /
-  error:
-    include-message: always
-    include-binding-errors: always
-    include-exception: true
-    
-
-springdoc:
-  swagger-ui:
-    enabled: false
