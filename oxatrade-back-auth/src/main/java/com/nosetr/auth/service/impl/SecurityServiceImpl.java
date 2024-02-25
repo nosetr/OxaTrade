@@ -9,9 +9,9 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.nosetr.auth.dto.AuthResponseDto;
 import com.nosetr.auth.entity.UserEntity;
 import com.nosetr.auth.security.PBFDK2Encoder;
-import com.nosetr.auth.security.TokenDetails;
 import com.nosetr.auth.service.SecurityService;
 import com.nosetr.auth.service.UserService;
 import com.nosetr.library.enums.ErrorEnum;
@@ -46,20 +46,19 @@ public class SecurityServiceImpl implements SecurityService{
 
 	/**
 	 * Begin users login with values from {@link com.nosetr.auth.dto.AuthRequestDto
-	 * AuthRequestDto} and return mapped {@link TokenDetails} as Mono.
+	 * AuthRequestDto} and return mapped {@link AuthResponseDto} as Mono.
 	 * 
 	 * @autor           Nikolay Osetrov
 	 * @since           0.1.0
 	 * @param  email    String
 	 * @param  password String
-	 * @return          Mono<TokenDetails>
+	 * @return          Mono<AuthResponseDto>
 	 * @see             UserService
-	 * @see             TokenDetails
 	 * @see             PBFDK2Encoder#matches(CharSequence, String)
 	 */
 	@Override
-	public Mono<TokenDetails> authenticate(String email, String password) {
-		// Find UserEntity by email and return TokenDetails:
+	public Mono<AuthResponseDto> authenticate(String email, String password) {
+		// Find UserEntity by email and return AuthResponseDto:
 		return userService.getUserByEmail(email)
 				.flatMap(user -> {
 					// Exception if users account is not active:
@@ -88,10 +87,10 @@ public class SecurityServiceImpl implements SecurityService{
 	 * @autor       Nikolay Osetrov
 	 * @since       0.1.0
 	 * @param  user UserEntity
-	 * @return      TokenDetails
+	 * @return      AuthResponseDto
 	 */
 	@SuppressWarnings("serial")
-	private TokenDetails generateToken(UserEntity user) {
+	private AuthResponseDto generateToken(UserEntity user) {
 		Map<String, Object> claims = new HashMap<>() {
 			{
 				put("role", user.getUserRole());
@@ -112,10 +111,9 @@ public class SecurityServiceImpl implements SecurityService{
 	 * @since          0.1.0
 	 * @param  claims  Map<String, Object>
 	 * @param  subject UserId as String
-	 * @return         TokenDetails
-	 * @see            TokenDetails
+	 * @return         AuthResponseDto
 	 */
-	private TokenDetails generateToken(Map<String, Object> claims, String subject) {
+	private AuthResponseDto generateToken(Map<String, Object> claims, String subject) {
 
 		// Set expirationDate:
 		Long expirationTimeInMillis = expirationInSeconds * 1000L;
@@ -145,8 +143,8 @@ public class SecurityServiceImpl implements SecurityService{
 				.signWith(Keys.hmacShaKeyFor(bytes), Jwts.SIG.HS256)
 				.compact();
 
-		// Build TokenDetails:
-		return TokenDetails.builder()
+		// Build AuthResponseDto:
+		return AuthResponseDto.builder()
 				.token(token)
 				.issuedAt(createdDate)
 				.expiresAt(expirationDate)

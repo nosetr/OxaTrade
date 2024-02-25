@@ -58,17 +58,6 @@ public class AuthRestV1ControllerImpl implements AuthRestV1Controller {
 	@Override
 	public Mono<AuthResponseDto> login(@Valid AuthRequestDto authRequestDto) {
 		// Call authentications service
-		return securityService.authenticate(authRequestDto.getEmail(), authRequestDto.getPassword())
-				.flatMap(
-						tokenDetails -> Mono.just(
-								// Create response with token and additional info.
-								AuthResponseDto.builder()
-										.userId(tokenDetails.getUserId())
-										.token(tokenDetails.getToken())
-										.issuedAt(tokenDetails.getIssuedAt())
-										.expiresAt(tokenDetails.getExpiresAt())
-										.build()
-						)
-				);
+		return securityService.authenticate(authRequestDto.getEmail(), authRequestDto.getPassword());
 	}
 }
