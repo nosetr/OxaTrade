@@ -1,0 +1,58 @@
+#---
+spring:
+  #config:
+    #activate:
+      #on-profile: dev
+    #import:
+      #- classpath:config/oxa.yml
+  servlet:
+    multipart:
+     #For file upload:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  r2dbc:
+    url: r2dbc:mysql://${MYSQL_HOST:localhost}:3306/oxatrade_webflux?allowPublicKeyRetrieval=true&useSSL=false
+    username: oxatrade
+    password: 12345678
+    # Spec. for file "R2dbcConfig"
+    #host: ${MYSQL_HOST:localhost}
+    #port: 3306
+    #driver: mysql
+    #database: oxatrade_webflux
+    
+  flyway:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/oxatrade_webflux?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    user: ${spring.r2dbc.username}
+    password: ${spring.r2dbc.password}
+
+server:
+  port: 8083
+  servlet:
+    context-path: /
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: true
+     
+
+logging:
+  config: classpath:config/logback-dev.xml
+  level:
+    org:
+      springframework:
+        data:
+          r2dbc: DEBUG # INFO, WARN, or ERROR
+
+springdoc:
+  swagger-ui:
+    # In order to disable the swagger-ui:
+    enabled: true
+    
+# custom:
+oxa:
+  cors:
+    allowedOrigins: http://localhost:5173,http://localhost:8080
+

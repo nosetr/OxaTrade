@@ -7,57 +7,55 @@ spring:
     active: dev
   jackson:
     property-naming-strategy: SNAKE_CASE # configure the whole application to expect the snake case input
-  config:
-    import: 
-      - classpath:config/oxa.yml
-      - classpath:config/db.yml
   #autoconfigure:
     # To discard the security auto-configuration and add our own configuration:
     #exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
   
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-  servlet:
-    multipart:
-     #For file upload:
-     max-file-size: 100MB
-     max-request-size: 100MB
+  security:
+    oauth2: 
+      client:
+        registration:
+          # OAuth 2.0-Google-Client
+          # https://console.cloud.google.com/apis/credentials
+          google:
+            client-id: ${OAUTH2_GOOGLE_ID}
+            client-secret: ${OAUTH2_GOOGLE_SECRET}
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+            scope:
+              - https://www.googleapis.com/auth/userinfo.email
+              - https://www.googleapis.com/auth/userinfo.profile
+              - openid
+          # OAuth 2.0-Facebook-Client
+          # https://developers.facebook.com/apps/
+          facebook:
+            client-id: ${OAUTH2_FACEBOOK_ID}
+            client-secret: ${OAUTH2_FACEBOOK_SECRET}
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+            scope:
+              - email
 
-server:
-  port: 8083
-  servlet:
-    context-path: /
-  error:
-    include-message: always
-    include-binding-errors: always
-    include-exception: true
-     
-
-logging:
-  config: classpath:config/logback-spring.xml
-  level:
-    org:
-      springframework:
-        data:
-          r2dbc: DEBUG # INFO, WARN, or ERROR
-
+# custom:
+oxa:
+  # see: https://randomkeygen.com/
+  jwt:
+    password:
+      encoder:
+        secret: ${JWT_PASS_SECRET} # Run -> Run Config. -> Environment
+        iteration: 64
+        keylength: 256
+    secret: ${JWT_SECRET}
+    expiration: 3600 # in seconds 1 hour
+    issuer: nosetr # organisation
+  
 # see: https://springdoc.org/#properties
 springdoc:
-  #webjars:
-    #prefix:
   swagger-ui:
-    enabled: true
     disable-swagger-default-url: true
     # swagger-ui custom path:
     path: /swagger
     operationsSorter: alpha
     tagsSorter: alpha
     doc-expansion: none
-    # In order to disable the swagger-ui:
-    #enabled: false
   api-docs:
     # /api-docs endpoint custom path
     path: /api-docs
@@ -65,4 +63,5 @@ springdoc:
     #enabled: false
   # Boolean. To enable spring-security support:
   enable-spring-security: true
+
 

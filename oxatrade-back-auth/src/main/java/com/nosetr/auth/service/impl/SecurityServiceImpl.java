@@ -37,11 +37,11 @@ public class SecurityServiceImpl implements SecurityService{
 	private final PBFDK2Encoder passwordEncoder;
 
 	// Values from config-file:
-	@Value("${jwt.secret}")
+	@Value("${oxa.jwt.secret}")
 	private String secret;
-	@Value("${jwt.expiration}")
+	@Value("${oxa.jwt.expiration}")
 	private Integer expirationInSeconds;
-	@Value("${jwt.issuer}")
+	@Value("${oxa.jwt.issuer}")
 	private String issuer;
 
 	/**
@@ -122,7 +122,7 @@ public class SecurityServiceImpl implements SecurityService{
 		// Set creations date:
 		Date createdDate = new Date();
 
-		// Encode jwt.secret from config-file:
+		// Encode oxa.jwt.secret from config-file:
 		byte[] bytes = Decoders.BASE64.decode(
 				Base64.getEncoder()
 						.encodeToString(secret.getBytes())

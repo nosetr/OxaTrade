@@ -24,11 +24,11 @@ import org.springframework.stereotype.Component;
 public class PBFDK2Encoder implements PasswordEncoder {
 
 	// Values from config-file
-	@Value("${jwt.password.encoder.secret}")
+	@Value("${oxa.jwt.password.encoder.secret}")
 	private String secret;
-	@Value("${jwt.password.encoder.iteration}")
+	@Value("${oxa.jwt.password.encoder.iteration}")
 	private Integer iteration;
-	@Value("${jwt.password.encoder.keylength}")
+	@Value("${oxa.jwt.password.encoder.keylength}")
 	private Integer keyLength;
 
 	// Form of encoding

@@ -1,3 +1,24 @@
 spring:
   application:
     name: oxatrade-test
+
+  r2dbc:
+    url: r2dbc:tc:postgresql:///testdb?TC_IMAGE_TAG=16-alpine
+  flyway:
+    enabled: false
+
+server:
+  port: 8083
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: true
+
+springdoc:
+  swagger-ui:
+    enabled: false
+
+# custom:
+oxa:
+  cors:
+    allowedOrigins: ""

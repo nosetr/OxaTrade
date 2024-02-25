@@ -1,7 +1,37 @@
 {"properties": [
   {
-    "name": "oxa.allowed-origins",
+    "name": "oxa.cors.allowed-origins",
     "type": "java.lang.String",
     "description": "List of allowed addresses for cors"
+  },
+  {
+    "name": "oxa.jwt.password.encoder.secret",
+    "type": "java.lang.String",
+    "description": "JWT secret"
+  },
+  {
+    "name": "oxa.jwt.password.encoder.iteration",
+    "type": "java.lang.Integer",
+    "description": "JWT iteration"
+  },
+  {
+    "name": "oxa.jwt.password.encoder.keylength",
+    "type": "java.lang.Integer",
+    "description": "JWT keylength"
+  },
+  {
+    "name": "oxa.jwt.secret",
+    "type": "java.lang.String",
+    "description": "JWT secret"
+  },
+  {
+    "name": "oxa.jwt.expiration",
+    "type": "java.lang.Integer",
+    "description": "JWT expiration in seconds"
+  },
+  {
+    "name": "oxa.jwt.issuer",
+    "type": "java.lang.String",
+    "description": "JWT organisation"
   }
 ]}

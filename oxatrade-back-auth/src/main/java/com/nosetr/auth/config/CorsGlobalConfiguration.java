@@ -2,7 +2,6 @@ package com.nosetr.auth.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 
@@ -15,8 +14,8 @@ import com.nosetr.library.factories.YamlPropertySourceFactory;
  * @since 0.1.2
  * @see   YamlPropertySourceFactory
  */
+//@PropertySource(value = "classpath:config/oxa.yml", factory = YamlPropertySourceFactory.class)
 @Configuration
-@PropertySource(value = "classpath:config/oxa.yml", factory = YamlPropertySourceFactory.class)
 public class CorsGlobalConfiguration implements WebFluxConfigurer {
 
 	private final long MAX_AGE_SECS = 3600;
