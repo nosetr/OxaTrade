@@ -83,11 +83,8 @@ public interface AuthRestV1Controller {
 								@Content(schema = @Schema(implementation = AuthResponseDto.class), mediaType = "application/json") }
 				),
 				@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
-				@ApiResponse(
-						responseCode = "500", content = { @Content(
-								schema = @Schema()
-						) }
-				)
+				@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }),
+				@ApiResponse(responseCode = "400", content = { @Content(schema = @Schema()) })
 		}
 	)
 	@PostMapping("/login")

@@ -49,6 +49,8 @@ class AuthRestV1ControllerImplTest {
 	@Autowired
 	private ObjectMapper objectMapper;
 
+	private AuthRequestDto authRequestDto = new AuthRequestDto();
+	
 	/**
 	 * @autor            Nikolay Osetrov
 	 * @since            0.1.4
@@ -122,10 +124,96 @@ class AuthRestV1ControllerImplTest {
 	 */
 	@Test
 	@Order(2)
-	void login_with_email_and_pass_with_success() throws Exception {
+	void login_with_credentions_validation_failed() throws Exception {
+
 		Map<String, String> user = getUserData();
 
-		AuthRequestDto authRequestDto = new AuthRequestDto();
+		// Invalid password format
+		authRequestDto.setEmail(user.get("email"));
+		authRequestDto.setPassword("14578");
+
+		var value = BodyInserters.fromValue(objectMapper.writeValueAsString(authRequestDto));
+
+		webTestClient.post()
+				.uri("/v1/auth/login")
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(value)
+				.exchange()
+				.expectStatus()
+				.isBadRequest();
+
+		// Invalid email format
+		authRequestDto.setEmail("email(at)email.com");
+		authRequestDto.setPassword(user.get("password"));
+
+		value = BodyInserters.fromValue(objectMapper.writeValueAsString(authRequestDto));
+
+		webTestClient.post()
+				.uri("/v1/auth/login")
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(value)
+				.exchange()
+				.expectStatus()
+				.isBadRequest();
+	}
+
+	@Test
+	@Order(3)
+	void login_with_invalid_credentions_without_success() throws Exception {
+
+		Map<String, String> user = getUserData();
+
+		// Invalid email
+		authRequestDto.setEmail("invalid@test.com");
+		authRequestDto.setPassword(user.get("password"));
+		var value = BodyInserters.fromValue(objectMapper.writeValueAsString(authRequestDto));
+
+		webTestClient.post()
+				.uri("/v1/auth/login")
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(value)
+				.exchange()
+				.expectStatus()
+				.is5xxServerError();
+
+		// Invalid password
+		authRequestDto.setEmail(user.get("email"));
+		authRequestDto.setPassword("invalid" + user.get("password"));
+		value = BodyInserters.fromValue(objectMapper.writeValueAsString(authRequestDto));
+
+		webTestClient.post()
+				.uri("/v1/auth/login")
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(value)
+				.exchange()
+				.expectStatus()
+				.is5xxServerError();
+
+		// Invalid password and email
+		authRequestDto.setEmail("invalid@test.com");
+		authRequestDto.setPassword("invalid" + user.get("password"));
+		value = BodyInserters.fromValue(objectMapper.writeValueAsString(authRequestDto));
+
+		webTestClient.post()
+				.uri("/v1/auth/login")
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(value)
+				.exchange()
+				.expectStatus()
+				.is5xxServerError();
+	}
+
+	/**
+	 * @autor            Nikolay Osetrov
+	 * @since            0.1.4
+	 * @throws Exception
+	 */
+	@Test
+	@Order(4)
+	void login_with_email_and_pass_with_success() throws Exception {
+
+		Map<String, String> user = getUserData();
+
 		authRequestDto.setEmail(user.get("email"));
 		authRequestDto.setPassword(user.get("password"));
 
