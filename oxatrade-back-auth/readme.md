@@ -11,15 +11,18 @@ ___
 - Flyway-Migration
 - r2dbc
 - MySql
+- Postgres
 - Messages for translation
 - Lombok
 - Mapstruct
 - JsonWebToken
+- JavaMail
 - Passay-Library for password validation
 - Commons Validator for email-send, fileupload, crypto and so on...
 - Swagger 3
 - Logback
 - Testcontainers
+- Thymeleaf
 
 ___
 

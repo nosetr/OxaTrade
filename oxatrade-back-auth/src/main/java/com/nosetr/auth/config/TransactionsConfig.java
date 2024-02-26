@@ -14,6 +14,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement	// R2dbcTransactionManager
-public class TransactionsConfiguration {
+public class TransactionsConfig {
 
 }

@@ -12,7 +12,7 @@ import lombok.Data;
  * @since 0.1.2
  */
 @Data
-public class EmailDto {
+public class EmailRequestDto {
 	@NotBlank(message = "{validation.field.NotBlank}")
 	@ValidEmail
 	private String email;

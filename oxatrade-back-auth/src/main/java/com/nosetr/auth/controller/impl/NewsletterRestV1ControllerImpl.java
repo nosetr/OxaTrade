@@ -3,7 +3,7 @@ package com.nosetr.auth.controller.impl;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nosetr.auth.controller.NewsletterRestV1Controller;
-import com.nosetr.auth.dto.EmailDto;
+import com.nosetr.auth.dto.EmailRequestDto;
 import com.nosetr.auth.dto.NewsletterDto;
 import com.nosetr.auth.service.NewsletterService;
 
@@ -33,8 +33,8 @@ public class NewsletterRestV1ControllerImpl implements NewsletterRestV1Controlle
 	 * @return               Mono<NewsletterDto>
 	 */
 	@Override
-	public Mono<NewsletterDto> saveNewEmail(@Valid EmailDto emailDto) {
-		return newsletterService.saveEmail(emailDto);
+	public Mono<NewsletterDto> saveNewEmail(@Valid EmailRequestDto emailRequestDto) {
+		return newsletterService.saveEmail(emailRequestDto);
 	}
 
 }

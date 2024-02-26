@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.nosetr.auth.dto.EmailDto;
+import com.nosetr.auth.dto.EmailRequestDto;
 import com.nosetr.auth.dto.NewsletterDto;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,5 +35,5 @@ public interface NewsletterRestV1Controller {
 			tags = { "users_tag", "post_tag" }
 	)
 	@PostMapping
-	public Mono<NewsletterDto> saveNewEmail(@Valid @RequestBody EmailDto emailDto);
+	public Mono<NewsletterDto> saveNewEmail(@Valid @RequestBody EmailRequestDto emailRequestDto);
 }

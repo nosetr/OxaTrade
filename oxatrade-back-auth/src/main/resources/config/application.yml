@@ -10,7 +10,24 @@ spring:
   #autoconfigure:
     # To discard the security auto-configuration and add our own configuration:
     #exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
-  
+  thymeleaf:
+    check-template-location: false # Disable Location Checking at classpath:/templates/
+    
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USER_NAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          transport:
+            protocol: ${MAIL_TRANSPORT_PROTOCOL}
+          debug: true
+
   security:
     oauth2: 
       client:
@@ -53,6 +70,10 @@ oxa:
     secret: ${JWT_SECRET}
     expiration: 3600 # in seconds 1 hour
     issuer: nosetr # organisation
+  # Mail templates directory inside main/resources or absolute filesystem path 
+  mail:
+    templates:
+      path: mail-templates
   
 # see: https://springdoc.org/#properties
 springdoc:

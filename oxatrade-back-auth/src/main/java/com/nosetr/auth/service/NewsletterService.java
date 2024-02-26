@@ -1,6 +1,6 @@
 package com.nosetr.auth.service;
 
-import com.nosetr.auth.dto.EmailDto;
+import com.nosetr.auth.dto.EmailRequestDto;
 import com.nosetr.auth.dto.NewsletterDto;
 import com.nosetr.auth.entity.NewsletterEntity;
 
@@ -22,7 +22,7 @@ public interface NewsletterService {
 	 * @param  newsletterDto
 	 * @return
 	 */
-	Mono<NewsletterDto> saveEmail(EmailDto emailNewsletterDto);
+	Mono<NewsletterDto> saveEmail(EmailRequestDto emailNewsletterDto);
 
 	/**
 	 * Update exists email.

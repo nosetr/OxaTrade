@@ -13,7 +13,7 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
  */
 //@PropertySource(value = "classpath:config/oxa.yml", factory = YamlPropertySourceFactory.class)
 @Configuration
-public class CorsGlobalConfiguration implements WebFluxConfigurer {
+public class CorsGlobalConfig implements WebFluxConfigurer {
 
 	private final long MAX_AGE_SECS = 3600;
 

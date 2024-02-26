@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.support.WebExchangeBindException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.reactive.function.server.ServerRequest;
 
 import com.google.common.base.CaseFormat;
@@ -128,6 +129,13 @@ public class AppErrorAttributes extends DefaultErrorAttributes {
 		else if (error instanceof ApiException) {
 			status = HttpStatus.BAD_REQUEST;
 			errorMap.put("code", ((ApiException) error).getErrorCode());
+			errorMap.put("message", error.getMessage());
+			errorList.add(errorMap);
+		}
+		// File too large
+		else if (error instanceof MaxUploadSizeExceededException) {
+			status = HttpStatus.PAYLOAD_TOO_LARGE;
+			errorMap.put("code", "MAX_UPLOAD_SIZE_EXCEEDED");
 			errorMap.put("message", error.getMessage());
 			errorList.add(errorMap);
 		}

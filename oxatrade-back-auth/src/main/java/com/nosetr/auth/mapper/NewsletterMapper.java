@@ -31,7 +31,7 @@ public interface NewsletterMapper {
 	//	@Mapping(target = "lastUpdate", ignore = true)
 	//	@Mapping(target = "newsthemen", ignore = true)
 	//	@Mapping(target = "newsthemen", qualifiedByName = "newsthemaDtoToNewsthemaEntitySet")
-	//	NewsletterEntity map(EmailDto emailDto);
+	//	NewsletterEntity map(EmailRequestDto emailDto);
 
 	//	@Named("newsthemaDtoToNewsthemaEntitySet")
 	//  default Set<NewsthemaEntity> newsthemenDtoToNewsthemaEntitySet(Set<NewsthemaDto> newsthemenDtoSet) {

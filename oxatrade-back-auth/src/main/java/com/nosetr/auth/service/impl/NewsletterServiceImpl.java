@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.nosetr.auth.dto.EmailDto;
+import com.nosetr.auth.dto.EmailRequestDto;
 import com.nosetr.auth.dto.NewsletterDto;
 import com.nosetr.auth.entity.NewsletterEntity;
 import com.nosetr.auth.entity.NewsthemaEntity;
@@ -36,12 +36,12 @@ public class NewsletterServiceImpl implements NewsletterService {
 	private final NewsletterMapper newsletterMapper;
 
 	@Override
-	public Mono<NewsletterDto> saveEmail(EmailDto emailDto) {
+	public Mono<NewsletterDto> saveEmail(EmailRequestDto emailRequestDto) {
 
 		//		NewsletterEntity newsletterEntity = newsletterMapper.map(emailDto);
-		String email = emailDto.getEmail();
+		String email = emailRequestDto.getEmail();
 		// TODO Default theme if not exist:
-		Long themaId = (emailDto.getNewstheme() == null) ? 1L : emailDto.getNewstheme();
+		Long themaId = (emailRequestDto.getNewstheme() == null) ? 1L : emailRequestDto.getNewstheme();
 
 		return newsletterRepository
 				.findByEmail(email)

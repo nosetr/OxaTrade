@@ -33,5 +33,10 @@
     "name": "oxa.jwt.issuer",
     "type": "java.lang.String",
     "description": "JWT organisation"
+  },
+  {
+  	"name": "oxa.mail.templates.path",
+  	"type": "java.lang.String",
+  	"description": "Mail templates directory inside main/resources or absolute filesystem path"
   }
 ]}
