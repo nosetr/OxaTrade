@@ -8,8 +8,6 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 
 import com.nosetr.library.factories.YamlPropertySourceFactory;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * Enabling Cross Origin Requests for a RESTful Web Service
  * 
@@ -18,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @PropertySource(value = "classpath:config/oxa.yml", factory = YamlPropertySourceFactory.class)
 @Configuration
-@Slf4j
 public class CorsGlobalConfig implements WebFluxConfigurer {
 
 	private final long MAX_AGE_SECS = 3600;
@@ -26,9 +23,16 @@ public class CorsGlobalConfig implements WebFluxConfigurer {
 	@Value("${oxatrade.cors.allowedOrigins}")
 	private String[] allowedOrigins;
 
+	/**
+	 * Add url's from config file
+	 * 
+	 * @autor              Nikolay Osetrov
+	 * @since              0.1.2
+	 * @param corsRegistry
+	 */
 	@Override
 	public void addCorsMappings(CorsRegistry corsRegistry) {
-		log.info("+++++++++++++++++++++ oxatrade.cors.allowedOrigins: ",allowedOrigins.toString());
+
 		corsRegistry.addMapping("/**")
 				.allowedOrigins(allowedOrigins)
 				.allowedMethods("GET", "POST", "PUT", "DELETE")

@@ -19,6 +19,7 @@
 	<properties>
 		<google.findbugs.version>3.0.2</google.findbugs.version>
 		<springdoc.swagger.version>2.3.0</springdoc.swagger.version>
+		<jacoco.version>0.8.11</jacoco.version>
 	</properties>
 
 	<dependencies>
@@ -236,6 +237,76 @@
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.jacoco</groupId>
+						<artifactId>org.jacoco.agent</artifactId>
+						<version>${jacoco.version}</version>
+						<scope>compile</scope>
+					</dependency>
+				</dependencies>
+
+				<configuration>
+					<outputDirectory>
+						${project.basedir}/target/site
+					</outputDirectory>
+
+					<excludes>
+						<exclude>com/nosetr/auth/OxaAuthApplication.class</exclude>
+						<exclude>com/nosetr/auth/aspect/*</exclude>
+						<exclude>com/nosetr/auth/dto/*</exclude>
+						<exclude>com/nosetr/auth/entity/*</exclude>
+						<exclude>com/nosetr/auth/enums/*</exclude>
+						<exclude>com/nosetr/auth/mapper/*</exclude>
+						<exclude>com/nosetr/library/exception/*</exclude>
+						<exclude>com/nosetr/library/exception/errorhandling/*</exclude>
+					</excludes>
+
+				</configuration>
+
+				<executions>
+					<execution>
+						<id>jacoco-initialize</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+
+					<execution>
+						<id>jacoco-site</id>
+						<phase>package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+
+					<execution>
+						<id>jacoco-check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule>
+									<element>PACKAGE</element>
+									<limits>
+										<limit>
+											<counter>LINE</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.50</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

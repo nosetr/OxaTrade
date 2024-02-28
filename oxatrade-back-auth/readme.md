@@ -23,6 +23,7 @@ ___
 - Logback
 - Testcontainers
 - Thymeleaf
+- Jacoco
 
 ___
 
