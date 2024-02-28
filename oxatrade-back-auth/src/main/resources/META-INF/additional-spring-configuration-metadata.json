@@ -1,42 +1,47 @@
 {"properties": [
   {
-    "name": "oxa.cors.allowed-origins",
-    "type": "java.lang.String",
+    "name": "oxatrade.cors.allowed-origins",
+    "type": "java.lang.Iterable",
     "description": "List of allowed addresses for cors"
   },
   {
-    "name": "oxa.jwt.password.encoder.secret",
+    "name": "oxatrade.jwt.password.encoder.secret",
     "type": "java.lang.String",
     "description": "JWT secret"
   },
   {
-    "name": "oxa.jwt.password.encoder.iteration",
+    "name": "oxatrade.jwt.password.encoder.iteration",
     "type": "java.lang.Integer",
     "description": "JWT iteration"
   },
   {
-    "name": "oxa.jwt.password.encoder.keylength",
+    "name": "oxatrade.jwt.password.encoder.keylength",
     "type": "java.lang.Integer",
     "description": "JWT keylength"
   },
   {
-    "name": "oxa.jwt.secret",
+    "name": "oxatrade.jwt.secret",
     "type": "java.lang.String",
     "description": "JWT secret"
   },
   {
-    "name": "oxa.jwt.expiration",
+    "name": "oxatrade.jwt.expiration",
     "type": "java.lang.Integer",
     "description": "JWT expiration in seconds"
   },
   {
-    "name": "oxa.jwt.issuer",
+    "name": "oxatrade.jwt.issuer",
     "type": "java.lang.String",
     "description": "JWT organisation"
   },
   {
-  	"name": "oxa.mail.templates.path",
-  	"type": "java.lang.String",
-  	"description": "Mail templates directory inside main/resources or absolute filesystem path"
+    "name": "oxatrade.mail.templates.path",
+    "type": "java.lang.String",
+    "description": "Mail templates directory inside main/resources or absolute filesystem path"
+  },
+  {
+    "name": "oxatrade.jwt.password.encoder.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'oxatrade.jwt.password.encoder.secret'"
   }
 ]}

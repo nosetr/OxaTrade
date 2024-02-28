@@ -16,7 +16,7 @@ import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 @Configuration
 public class ThymeleafConfig {
 
-	@Value("${oxa.mail.templates.path}")
+	@Value("${oxatrade.mail.templates.path}")
 	private String mailTemplatesPath;
 
 	/**

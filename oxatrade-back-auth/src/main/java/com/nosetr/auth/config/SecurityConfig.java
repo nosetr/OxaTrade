@@ -35,7 +35,7 @@ import reactor.core.publisher.Mono;
 public class SecurityConfig {
 
 	//Value from config-file:
-	@Value("${oxa.jwt.secret}")
+	@Value("${oxatrade.jwt.secret}")
 	private String secret;
 
 	@Autowired

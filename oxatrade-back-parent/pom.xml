@@ -13,7 +13,7 @@
 
 	<groupId>com.nosetr</groupId>
 	<artifactId>oxatrade-back-parent</artifactId>
-	<version>0.1.3</version>
+	<version>0.1.4</version>
 	<packaging>pom</packaging>
 
 	<!--

@@ -20,6 +20,6 @@ springdoc:
     enabled: false
 
 # custom:
-oxa:
+oxatrade:
   cors:
     allowedOrigins: ""

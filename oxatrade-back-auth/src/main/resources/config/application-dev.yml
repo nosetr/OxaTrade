@@ -3,8 +3,6 @@ spring:
   #config:
     #activate:
       #on-profile: dev
-    #import:
-      #- classpath:config/oxa.yml
   servlet:
     multipart:
      #For file upload:
@@ -51,8 +49,4 @@ springdoc:
     # In order to disable the swagger-ui:
     enabled: true
     
-# custom:
-oxa:
-  cors:
-    allowedOrigins: http://localhost:5173,http://localhost:8080
 

@@ -37,11 +37,11 @@ public class SecurityServiceImpl implements SecurityService{
 	private final PBFDK2Encoder passwordEncoder;
 
 	// Values from config-file:
-	@Value("${oxa.jwt.secret}")
+	@Value("${oxatrade.jwt.secret}")
 	private String secret;
-	@Value("${oxa.jwt.expiration}")
+	@Value("${oxatrade.jwt.expiration}")
 	private Integer expirationInSeconds;
-	@Value("${oxa.jwt.issuer}")
+	@Value("${oxatrade.jwt.issuer}")
 	private String issuer;
 
 	/**

@@ -12,6 +12,9 @@ spring:
     #exclude: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
   thymeleaf:
     check-template-location: false # Disable Location Checking at classpath:/templates/
+  config:
+    import:
+      - classpath:config/oxa.yml
     
   mail:
     host: ${MAIL_HOST}
@@ -57,23 +60,6 @@ server:
     include-message: never
     include-binding-errors: never
     include-exception: false
-    
-# custom:
-oxa:
-  # see: https://randomkeygen.com/
-  jwt:
-    password:
-      encoder:
-        secret: ${JWT_PASS_SECRET} # Run -> Run Config. -> Environment
-        iteration: 64
-        keylength: 256
-    secret: ${JWT_SECRET}
-    expiration: 3600 # in seconds 1 hour
-    issuer: nosetr # organisation
-  # Mail templates directory inside main/resources or absolute filesystem path 
-  mail:
-    templates:
-      path: mail-templates
   
 # see: https://springdoc.org/#properties
 springdoc:
