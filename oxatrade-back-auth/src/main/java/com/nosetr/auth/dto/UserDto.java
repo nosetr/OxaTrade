@@ -6,7 +6,6 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nosetr.auth.entity.UserEntity;
 import com.nosetr.auth.enums.UserRoleEnum;
-import com.nosetr.library.annotation.FieldsValueMatch;
 import com.nosetr.library.annotation.ValidEmail;
 import com.nosetr.library.annotation.ValidPassword;
 
@@ -19,20 +18,13 @@ import lombok.NoArgsConstructor;
 
 /**
  * DTO for users registration.
- * <p> All field, but not confirmPassword and newsletter are equals to
+ * <p> All field, but not a newsletter are equals to
  * {@link UserEntity}
  * 
  * @autor Nikolay Osetrov
  * @since 0.1.0
  * @see   UserEntity
  */
-@FieldsValueMatch.List(
-	{
-			@FieldsValueMatch(
-					field = "password", fieldMatch = "confirmPassword", message = "{validation.password.confirm}"
-			)
-	}
-)
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
@@ -49,10 +41,6 @@ public class UserDto {
 	@ValidPassword
 	@NotBlank(message = "{validation.field.NotBlank}")
 	private String password;
-
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // not for output
-	@NotBlank(message = "{validation.field.NotBlank}")
-	private String confirmPassword;
 
 	private UserRoleEnum userRole;
 

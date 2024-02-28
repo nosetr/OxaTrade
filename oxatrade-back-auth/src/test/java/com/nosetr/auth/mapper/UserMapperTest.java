@@ -100,7 +100,7 @@ class UserMapperTest {
 	 */
 	private UserRegisterDto createUserRegisterDto() {
 		return new UserRegisterDto(
-				"m", "Bob", "Strange", "12345§aA", "12345§aA", "proba@proba.com", false
+				"m", "Bob", "Strange", "12345§aA", "proba@proba.com", false
 		);
 	}
 
@@ -113,7 +113,7 @@ class UserMapperTest {
 	 */
 	private UserDto createUserDto() {
 		return new UserDto(
-				uuid, "proba@proba.com", "12345§aA", null, UserRoleEnum.USER, "m", "Bob", "Strange", false, false, time, time
+				uuid, "proba@proba.com", "12345§aA", UserRoleEnum.USER, "m", "Bob", "Strange", false, false, time, time
 		);
 	}
 

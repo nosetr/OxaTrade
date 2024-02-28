@@ -65,13 +65,12 @@ class AuthRestV1ControllerImplTest {
 		userRegisterDto.setLastName("test_last_name");
 		userRegisterDto.setEmail("test@test.com");
 		userRegisterDto.setPassword("12345$aA");
-		userRegisterDto.setConfirmPassword("12345$aA");
 		userRegisterDto.setNewsletter(false);
 		userRegisterDto.setTitle("Mr.");
 		String valueAsString = objectMapper.writeValueAsString(userRegisterDto);
 
 		System.out.println("UserRegisterDtoAsString: " + valueAsString);
-		//		Return with error("password" and "confirmPassword" mists
+		//		Return with error("password" mist
 		//		because of "@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)" in UserRegisterDto): 
 		//		
 		//		UserRegisterDtoAsString: {
@@ -92,8 +91,7 @@ class AuthRestV1ControllerImplTest {
 										+ "\"last_name\":\"" + user.get("last_name") + "\","
 										+ "\"title\":\"" + user.get("title") + "\","
 										+ "\"email\":\"" + user.get("email") + "\","
-										+ "\"password\":\"" + user.get("password") + "\","
-										+ "\"confirm_password\":\"" + user.get("password") + "\"}"
+										+ "\"password\":\"" + user.get("password") + "\"}"
 						)
 				)
 				.exchange()

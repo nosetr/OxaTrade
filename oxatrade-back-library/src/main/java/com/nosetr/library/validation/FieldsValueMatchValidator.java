@@ -10,6 +10,10 @@ import jakarta.validation.ConstraintValidatorContext;
 /**
  * Check if for example the password and confirmation password match or other
  * fields.
+ * <p><b>Example for DTO:</b>
+ * <p>{@code
+ * @FieldsValueMatch.List({@FieldsValueMatch(field = "password", fieldMatch = "confirmPassword", message = "{validation.password.confirm}")})
+ * }
  * 
  * @autor Nikolay Osetrov
  * @since 0.1.0
