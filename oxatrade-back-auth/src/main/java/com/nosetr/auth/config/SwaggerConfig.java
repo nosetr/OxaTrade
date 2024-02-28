@@ -28,6 +28,7 @@ public class SwaggerConfig {
 	 * @since               0.1.4
 	 * @param  objectMapper
 	 * @return
+	 * @see                 https://stackoverflow.com/questions/67192746/how-to-change-namingstrategy-in-springdoc/72901646#72901646?newreg=937caf9da11745cb8d4a2730f9b24b0c
 	 */
 	@Bean
 	public ModelResolver modelResolver(ObjectMapper objectMapper) {
