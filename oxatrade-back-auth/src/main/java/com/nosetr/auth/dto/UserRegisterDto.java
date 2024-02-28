@@ -30,12 +30,11 @@ public class UserRegisterDto {
 
 	@NotBlank(message = "{validation.field.NotBlank}")
 	@Size(message = "{validation.firstname.size}", min = 2, max = 64)
-	@JsonProperty("first_name")
+//	@JsonProperty("first_name")
 	private String firstName;
 
 	@NotBlank(message = "{validation.field.NotBlank}")
 	@Size(message = "{validation.lastname.size}", min = 2, max = 64)
-//	@JsonProperty("last_name")
 	private String lastName;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // not for output

@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"first_name\": \"Ivan\",\n    \"last_name\": \"Hahn\",\n    \"email\": \"proba8@proba.com\",\n    \"password\": \"12345$aA\",\n    \"confirm_password\": \"12345$aA\"\n}",
+					"raw": "{\n    \"first_name\": \"Ivan\",\n    \"last_name\": \"Hahn\",\n    \"email\": \"proba8@proba.com\",\n    \"password\": \"12345$aA\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
