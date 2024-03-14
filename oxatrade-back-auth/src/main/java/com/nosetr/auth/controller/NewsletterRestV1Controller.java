@@ -1,5 +1,6 @@
 package com.nosetr.auth.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,9 @@ import reactor.core.publisher.Mono;
 @Tag(name = "Newsletter_V1", description = "APIs for newsletters")
 @RequestMapping("/v1/newsletter")
 public interface NewsletterRestV1Controller {
-
+	
+	@GetMapping("/test")
+	public Mono<Void> sendTestEmail();
 	/**
 	 * Save new email for newsletter.
 	 * 

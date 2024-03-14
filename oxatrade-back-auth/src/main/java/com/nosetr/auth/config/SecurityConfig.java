@@ -48,7 +48,8 @@ public class SecurityConfig {
 			"/v1/auth/register",
 			"/v1/auth/login",
 			"/login/**",
-			"/v1/newsletter"
+			"/v1/newsletter",
+			"/v1/newsletter/test"
 	};
 	
 	/*

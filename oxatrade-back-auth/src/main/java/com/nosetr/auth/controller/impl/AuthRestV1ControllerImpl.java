@@ -12,7 +12,6 @@ import com.nosetr.auth.service.UserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 /**
@@ -21,7 +20,6 @@ import reactor.core.publisher.Mono;
  * @autor Nikolay Osetrov
  * @since 0.1.0
  */
-@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class AuthRestV1ControllerImpl implements AuthRestV1Controller {

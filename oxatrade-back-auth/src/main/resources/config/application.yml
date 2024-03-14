@@ -1,4 +1,7 @@
 spring:
+  main:
+    # The banner is the text that is displayed in the console when the application starts up:
+    banner-mode: OFF
   webflux:
     base-path: /api
   application:

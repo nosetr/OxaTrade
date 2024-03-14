@@ -63,6 +63,11 @@ public class EMailConfig {
 		props.put("mail.smtp.starttls.enable", starttls);
 		props.put("mail.debug", debug);
 
+    // Enable SSL/TLS
+    props.put("mail.smtp.ssl.enable", "true"); // Enable SSL
+    props.put("mail.smtp.ssl.trust", host); // Trust server
+    props.put("mail.smtp.ssl.protocols", "TLSv1.2"); // Set TLS protocol version
+
 		return mailSender;
 	}
 }

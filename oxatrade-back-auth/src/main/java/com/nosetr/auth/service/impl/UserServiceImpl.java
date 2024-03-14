@@ -14,6 +14,7 @@ import com.nosetr.auth.enums.UserRoleEnum;
 import com.nosetr.auth.mapper.UserMapper;
 import com.nosetr.auth.repository.UserRepository;
 import com.nosetr.auth.security.PBFDK2Encoder;
+import com.nosetr.auth.service.EmailService;
 import com.nosetr.auth.service.UserService;
 import com.nosetr.library.enums.ErrorEnum;
 import com.nosetr.library.exception.EntityAlreadyExistsException;
@@ -40,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 	private final PBFDK2Encoder passwordEncoder;
 	private final UserMapper userMapper;
-
+	private final EmailService emailService;
 	/**
 	 * Create new user with UserRepository.
 	 * 
@@ -66,6 +67,8 @@ public class UserServiceImpl implements UserService {
 								new EntityAlreadyExistsException(ErrorEnum.USER_WITH_EMAIL_ALREADY_EXISTS, email)
 						);
 					}
+					emailService.sendSimpleMessage(
+							"osetrov.n@gmail.com", "osetrov.n@oxaata.de", "proba", "proba-text");
 					// Create new user:
 					return userRepository.save(
 							// Build special fields of user with default values.

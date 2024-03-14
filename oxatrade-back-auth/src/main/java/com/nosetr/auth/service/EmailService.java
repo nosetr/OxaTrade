@@ -3,6 +3,7 @@ package com.nosetr.auth.service;
 import java.util.Map;
 
 import jakarta.mail.MessagingException;
+import reactor.core.publisher.Mono;
 
 /**
  * Service interface for send email's.
@@ -20,8 +21,9 @@ public interface EmailService {
 	 * @param to
 	 * @param subject
 	 * @param text
+	 * @return 
 	 */
-	void sendSimpleMessage(String from, String to, String subject, String text);
+	Mono<Void> sendSimpleMessage(String from, String to, String subject, String text);
 
 	/**
 	 * Sending email's with attachments.
@@ -33,8 +35,9 @@ public interface EmailService {
 	 * @param subject
 	 * @param text
 	 * @param pathToAttachment
+	 * @return 
 	 */
-	void sendMessageWithAttachment(String from, String to, String subject, String text, String pathToAttachment);
+	Mono<Void> sendMessageWithAttachment(String from, String to, String subject, String text, String pathToAttachment);
 
 	/**
 	 * @autor                     Nikolay Osetrov
@@ -43,9 +46,10 @@ public interface EmailService {
 	 * @param  to
 	 * @param  subject
 	 * @param  templateModel
+	 * @return 
 	 * @throws MessagingException
 	 */
-	void sendMessageUsingHtmlTemplate(String from, String to, String subject, Map<String, Object> templateModel)
+	Mono<Void> sendMessageUsingHtmlTemplate(String from, String to, String subject, Map<String, Object> templateModel)
 			throws MessagingException;
 
 }

@@ -60,6 +60,7 @@ public class RequestLoggingAspect {
               System.out.println("+++++++++++++++++++++Alternative logic+++++++++++++++++++++");
           }
       } catch (Throwable e) {
+      	e.printStackTrace();
           System.out.println("+++++++++++++++++++++Special logic for exceptions+++++++++++++++++++++");
           System.out.println("+++++++++++++++++++++Special Transaction rollback+++++++++++++++++++++");
       } finally {

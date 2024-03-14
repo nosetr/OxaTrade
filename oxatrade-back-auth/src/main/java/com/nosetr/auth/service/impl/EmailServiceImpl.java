@@ -18,6 +18,8 @@ import com.nosetr.auth.service.EmailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
 
 /**
  * Service implementation for send email's.
@@ -26,6 +28,7 @@ import lombok.RequiredArgsConstructor;
  * @since 0.1.4
  * @see   https://www.baeldung.com/spring-email
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
@@ -48,15 +51,16 @@ public class EmailServiceImpl implements EmailService {
 	 * @param text
 	 */
 	@Override
-	public void sendSimpleMessage(String from, String to, String subject, String text) {
+	public Mono<Void> sendSimpleMessage(String from, String to, String subject, String text) {
 
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom(from);
-		message.setTo(to);
-		message.setSubject(subject);
-		message.setText(text);
-
-		emailSender.send(message);
+		return Mono.fromRunnable(() -> {
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setFrom(from);
+			message.setTo(to);
+			message.setSubject(subject);
+			message.setText(text);
+			emailSender.send(message);
+		});
 	}
 
 	/**
@@ -71,27 +75,32 @@ public class EmailServiceImpl implements EmailService {
 	 * @param pathToAttachment
 	 */
 	@Override
-	public void sendMessageWithAttachment(String from, String to, String subject, String text, String pathToAttachment) {
+	public Mono<Void> sendMessageWithAttachment(
+			String from, String to, String subject, String text, String pathToAttachment
+	) {
 
-		try {
-			MimeMessage message = emailSender.createMimeMessage();
-			// pass 'true' to the constructor to create a multipart message
-			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+		return Mono.fromRunnable(() -> {
+			try {
+				MimeMessage message = emailSender.createMimeMessage();
+				// pass 'true' to the constructor to create a multipart message
+				MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-			helper.setFrom(from);
-			helper.setTo(to);
-			helper.setSubject(subject);
-			helper.setText(text);
+				helper.setFrom(from);
+				helper.setTo(to);
+				helper.setSubject(subject);
+				helper.setText(text);
 
-			File file = new File(pathToAttachment);
+				File file = new File(pathToAttachment);
 
-			FileSystemResource resource = new FileSystemResource(file);
-			helper.addAttachment(file.getName(), resource);
+				FileSystemResource resource = new FileSystemResource(file);
+				helper.addAttachment(file.getName(), resource);
 
-			emailSender.send(message);
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
+				emailSender.send(message);
+			} catch (MessagingException e) {
+				log.warn("Failed to send email with subject {}, due to {}", subject, e.getMessage());
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -103,29 +112,36 @@ public class EmailServiceImpl implements EmailService {
 	 * @param  to
 	 * @param  subject
 	 * @param  templateModel
+	 * @return
 	 * @throws MessagingException
 	 */
 	@Override
-	public void sendMessageUsingHtmlTemplate(
+	public Mono<Void> sendMessageUsingHtmlTemplate(
 			String from, String to, String subject, Map<String, Object> templateModel
-	)
-			throws MessagingException {
+	) {
 
-		Context thymeleafContext = new Context();
-		thymeleafContext.setVariables(templateModel);
+		return Mono.fromRunnable(() -> {
+			Context thymeleafContext = new Context();
+			thymeleafContext.setVariables(templateModel);
 
-		String htmlBody = thymeleafTemplateEngine.process("template-thymeleaf.html", thymeleafContext);
+			String htmlBody = thymeleafTemplateEngine.process("template-thymeleaf.html", thymeleafContext);
 
-		// send Html message:
-		MimeMessage message = emailSender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-		helper.setFrom(from);
-		helper.setTo(to);
-		helper.setSubject(subject);
-		helper.setText(htmlBody, true);
-		// Image has to be referenced from Thymeleaf email's using CID notation:
-		helper.addInline("attachment.png", resourceFile);
-		emailSender.send(message);
+			// send Html message:
+			try {
+				MimeMessage message = emailSender.createMimeMessage();
+				MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+				helper.setFrom(from);
+				helper.setTo(to);
+				helper.setSubject(subject);
+				helper.setText(htmlBody, true);
+				// Image has to be referenced from Thymeleaf email's using CID notation:
+				helper.addInline("attachment.png", resourceFile);
+				emailSender.send(message);
+			} catch (MessagingException e) {
+				log.warn("Failed to send email with subject {}, due to {}", subject, e.getMessage());
+				e.printStackTrace();
+			}
+		});
 	}
 
 }
