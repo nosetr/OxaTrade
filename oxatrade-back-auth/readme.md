@@ -6,31 +6,32 @@ ___
 ## This API includes features like:
 
 - WebFlux
-- oAuth2
-- Spring Security
-- Flyway-Migration
 - r2dbc
+- Flyway-Migration
 - MySql
 - Postgres
+- Testcontainers
+- Spring Security
+- JsonWebToken
+- Passay-Library for password validation
+- Commons Validator for email-send, fileupload, crypto and so on...
 - Messages for translation
 - Lombok
 - Mapstruct
-- JsonWebToken
-- JavaMail
-- Passay-Library for password validation
-- Commons Validator for email-send, fileupload, crypto and so on...
 - Swagger 3
 - Logback
-- Testcontainers
-- Thymeleaf
+- Mockito
 - Jacoco
+- JavaMail
+- Thymeleaf
+- oAuth2
 
 ___
 
 ## Swagger 3 API description:
 
-- swagger-ui custom path: [/swagger](http://localhost:8083/swagger)
-- api-docs endpoint custom path: [/api-docs](http://localhost:8083/api-docs)
+- swagger-ui custom path: [/swagger](http://localhost:8083/api/swagger)
+- api-docs endpoint custom path: [/api-docs](http://localhost:8083/api/api-docs)
 
 ___
 
@@ -60,7 +61,7 @@ look at [Postman Collection](webfluxsecurity.postman_collection.json)
 
 ```
 {
-    "email": "proba8@proba.com",
+    "email": "proba@proba.com",
     "password": "12345$aA"
 }
 ```

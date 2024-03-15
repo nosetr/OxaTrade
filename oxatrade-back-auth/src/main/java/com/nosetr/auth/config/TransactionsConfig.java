@@ -1,7 +1,12 @@
 package com.nosetr.auth.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.r2dbc.connection.R2dbcTransactionManager;
+import org.springframework.transaction.ReactiveTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import io.r2dbc.spi.ConnectionFactory;
 
 /**
  * Transaction management with R2DBC
@@ -16,4 +21,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement	// R2dbcTransactionManager
 public class TransactionsConfig {
 
+	private final ConnectionFactory connectionFactory; // Stellen Sie sicher, dass dies Ihre R2DBC ConnectionFactory ist
+
+	public TransactionsConfig(ConnectionFactory connectionFactory) {
+		this.connectionFactory = connectionFactory;
+	}
+
+	@Bean
+	public ReactiveTransactionManager transactionManager() {
+		return new R2dbcTransactionManager(connectionFactory);
+	}
 }

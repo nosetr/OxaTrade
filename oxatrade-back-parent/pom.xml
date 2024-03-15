@@ -20,7 +20,6 @@
 	https://maven.apache.org/guides/introduction/introduction-to-the-pom.html -->
 	<modules>
 		<module>../oxatrade-back-auth</module>
-		<module>../oxatrade-back-trade</module>
 		<module>../oxatrade-back-library</module>
 	</modules>
 

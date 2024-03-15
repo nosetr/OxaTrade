@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nosetr.auth.dto.UserDto;
 import com.nosetr.auth.dto.UserRegisterDto;
@@ -20,7 +21,6 @@ import com.nosetr.library.enums.ErrorEnum;
 import com.nosetr.library.exception.EntityAlreadyExistsException;
 import com.nosetr.library.exception.UnauthorizedException;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
@@ -166,6 +166,7 @@ public class UserServiceImpl implements UserService {
 	 * @return    Mono<UserEntity>
 	 */
 	@Override
+	@Transactional
 	public Mono<UserEntity> getUserById(UUID id) {
 		return userRepository.findById(id);
 	}
@@ -179,6 +180,7 @@ public class UserServiceImpl implements UserService {
 	 * @return       Mono<UserEntity>
 	 */
 	@Override
+	@Transactional
 	public Mono<UserEntity> getUserByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
@@ -192,6 +194,7 @@ public class UserServiceImpl implements UserService {
 	 * @return Flux<UserEntity>
 	 */
 	@Override
+	@Transactional
 	public Flux<UserEntity> getAll() { return userRepository.findAll(); }
 
 	/**
@@ -203,7 +206,7 @@ public class UserServiceImpl implements UserService {
 	 * @return    Mono<Void>
 	 */
 	@Override
-	@Transactional()
+	@Transactional
 	public Mono<Void> deleteById(UUID id) {
 		return userRepository.deleteById(id);
 	}

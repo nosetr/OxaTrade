@@ -20,7 +20,6 @@ import io.r2dbc.spi.ConnectionFactory;
  * @autor         Nikolay Osetrov
  * @since         0.1.4
  * @see           https://medium.com/@susantamon/r2dbc-with-testcontainers-for-spring-boot-webflux-integration-test-3822b7819039
- * @Configuration
  */
 @Configuration
 public class TestDatabaseConfiguration {

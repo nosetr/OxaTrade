@@ -9,12 +9,6 @@ is an API microservice based on Spring Boot and is used to log in and authentica
 
 ___
 
-## OxaTrade Microservice API [Backend]:
-
-is an API microservice based on Spring Boot and is used to process data about products for sale.
-
-___
-
 ## oxatrade-front-client [Frontend]:
 
 frontend application based on React.
